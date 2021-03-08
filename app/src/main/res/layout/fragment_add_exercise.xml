@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="exerciseModel"
+            type="cz.lpatak.mycoachesdiary.ui.exercises.viewmodel.ExerciseUIModel" />
+
+        <variable
+            name="imageUri"
+            type="android.net.Uri" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.exercises.AddExerciseFragment">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={exerciseModel.name}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Spinner
+                android:id="@+id/category"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:entries="@array/exercise_category"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintEnd_toEndOf="@+id/title"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/description"
+                app:layout_constraintEnd_toEndOf="@+id/category"
+                app:layout_constraintStart_toStartOf="@+id/category"
+                app:layout_constraintTop_toBottomOf="@id/category">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textImeMultiLine"
+                    android:text="@={exerciseModel.description}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/add_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@{exerciseModel.imageReady ? @string/prompt_change_image : @string/prompt_add_image}"
+                app:icon="@drawable/ic_exercise_library"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.02"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                imageUri="@{exerciseModel.fileUri}"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_image_button"
+                tools:ignore="ContentDescription" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnSaveExercise"
+                style="@style/AppTheme.FloatingActionButton"
+                invisibleUnless="@{exerciseModel.areInputsReady}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_file_app" translatable="false">cz.lpatak.mycoachesdiary</string>
+    <string name="pref_key_logout" translatable="false">logout</string>
+    <string name="pref_key_is_user_login" translatable="false">user_login</string>
+</resources>

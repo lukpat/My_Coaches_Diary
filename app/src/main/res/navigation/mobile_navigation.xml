@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_login">
+
+    <action
+        android:id="@+id/action_global_navigation_login"
+        app:destination="@id/navigation_login" />
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="cz.lpatak.mycoachesdiary.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_navigation_login_to_registerFragment"
+            app:destination="@id/navigation_register" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_register"
+        android:name="cz.lpatak.mycoachesdiary.ui.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_navigation_login"
+            app:destination="@id/navigation_login" />
+        <action
+            android:id="@+id/action_navigation_register_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_team"
+        android:name="cz.lpatak.mycoachesdiary.ui.myteams.AddTeamFragment"
+        android:label="@string/add_team"
+        tools:layout="@layout/fragment_add_team" />
+
+    <fragment
+        android:id="@+id/navigation_trainings"
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingsFragment"
+        android:label="@string/trainings">
+        <action
+            android:id="@+id/action_navigation_trainings_self"
+            app:destination="@id/navigation_trainings" />
+        <action
+            android:id="@+id/action_navigation_trainings_to_navigation_add_training"
+            app:destination="@id/navigation_add_training" />
+        <action
+            android:id="@+id/action_navigation_trainings_to_navigation_trainig_detail"
+            app:destination="@id/navigation_training_detail" />
+        <action
+            android:id="@+id/action_navigation_trainings_to_navigation_trainig_detail_info"
+            app:destination="@id/navigation_training_detail_info" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_stats"
+        android:name="cz.lpatak.mycoachesdiary.ui.stats.StatsFragment"
+        android:label="@string/stats" />
+
+    <fragment
+        android:id="@+id/navigation_exercise_library"
+        android:name="cz.lpatak.mycoachesdiary.ui.exercises.ExerciseLibraryFragment"
+        android:label="@string/exercise_library">
+        <action
+            android:id="@+id/action_navigation_exercise_library_to_navigation_exercise_detail"
+            app:destination="@id/navigation_exercise_detail" />
+        <action
+            android:id="@+id/action_navigation_exercise_library_to_addExerciseFragment"
+            app:destination="@id/navigation_add_exercise" />
+        <action
+            android:id="@+id/action_navigation_exercise_library_self"
+            app:destination="@id/navigation_exercise_library" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_matches"
+        android:name="cz.lpatak.mycoachesdiary.ui.matches.MatchesFragment"
+        android:label="@string/matches" >
+        <action
+            android:id="@+id/action_navigation_matches_to_navigation_add_match"
+            app:destination="@id/navigation_add_match" />
+        <action
+            android:id="@+id/action_navigation_matches_to_navigation_match_detail_info"
+            app:destination="@id/navigation_match_detail_info" />
+        <action
+            android:id="@+id/action_navigation_matches_to_navigation_match_detail"
+            app:destination="@id/navigation_match_detail" />
+        <action
+            android:id="@+id/action_navigation_matches_self"
+            app:destination="@id/navigation_matches" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_exercise_detail"
+        android:name="cz.lpatak.mycoachesdiary.ui.exercises.ExerciseDetailFragment"
+        android:label="@string/exercise_detail"
+        tools:layout="@layout/fragment_exercise_detail">
+        <argument
+            android:name="exercise"
+            app:argType="cz.lpatak.mycoachesdiary.data.model.Exercise" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_exercise"
+        android:name="cz.lpatak.mycoachesdiary.ui.exercises.AddExerciseFragment"
+        android:label="@string/add_exercise" />
+
+    <fragment
+        android:id="@+id/navigation_team_detail"
+        android:name="cz.lpatak.mycoachesdiary.ui.myteams.TeamDetailFragment"
+        android:label="@string/team_detail"
+        tools:layout="@layout/fragment_team_detail">
+        <argument
+            android:name="team"
+            app:argType="cz.lpatak.mycoachesdiary.data.model.Team" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_training"
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.AddTrainingFragment"
+        android:label="@string/add_training" />
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="cz.lpatak.mycoachesdiary.ui.myteams.HomeFragment"
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/action_navigation_home_self"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_add_team"
+            app:destination="@id/navigation_add_team" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_team_detail"
+            app:destination="@id/navigation_team_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_training_detail"
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragment"
+        android:label="TrainingDetailFragment">
+        <argument
+            android:name="training"
+            app:argType="cz.lpatak.mycoachesdiary.data.model.Training"/>
+        <action
+            android:id="@+id/action_navigation_training_detail_to_navigation_exercise_detail"
+            app:destination="@id/navigation_exercise_detail" />
+        <action
+            android:id="@+id/action_navigation_training_detail_to_navigation_add_exercise_to_training"
+            app:destination="@id/navigation_add_exercise_to_training" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_training_detail_info"
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentInfo"
+        android:label="TrainingDetailFragmentInfo" />
+
+    <fragment
+        android:id="@+id/navigation_training_detail_exercises"
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises"
+        android:label="TrainingDetailFragmentExercises" >
+        <action
+            android:id="@+id/action_navigation_training_detail_exercises_self"
+            app:destination="@id/navigation_training_detail_exercises" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_exercise_to_training"
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.AddExerciseToTrainingFragment"
+        android:label="AddExerciseToTrainingFragment" />
+
+    <fragment
+        android:id="@+id/navigation_add_match"
+        android:name="cz.lpatak.mycoachesdiary.ui.matches.AddMatchFragment"
+        android:label="AddMatchFragment" />
+
+    <fragment
+        android:id="@+id/navigation_match_detail"
+        android:name="cz.lpatak.mycoachesdiary.ui.matches.MatchDetailFragment"
+        android:label="@string/match_detail">
+    <argument
+        android:name="match"
+        app:argType="cz.lpatak.mycoachesdiary.data.model.Match"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_match_detail_info"
+        android:name="cz.lpatak.mycoachesdiary.ui.matches.MatchDetailFragmentInfo"
+        android:label="fragment_match_detail_info"
+        tools:layout="@layout/fragment_match_detail_info" />
+
+</navigation>

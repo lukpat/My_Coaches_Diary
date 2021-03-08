@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "866664156034",
+    "project_id": "my-coaches-diary",
+    "storage_bucket": "my-coaches-diary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866664156034:android:c8008907e392abf302dd9b",
+        "android_client_info": {
+          "package_name": "cz.lpatak.mycoachesdiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866664156034-3b2ol3ft8sbgru19iouoq66tjufs6k7s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cz.lpatak.mycoachesdiary",
+            "certificate_hash": "fec765e95e3f2e77e21d62660d38e643bc7dbee9"
+          }
+        },
+        {
+          "client_id": "866664156034-7evp1eprc5hfo68b6718dh1ko7fjshvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmmMT3eCp0dleP_iSuKx7NQi3hnRh6cng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866664156034-7evp1eprc5hfo68b6718dh1ko7fjshvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

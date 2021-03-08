@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="cz.lpatak.mycoachesdiary.data.model.Result" />
+
+        <variable
+            name="result"
+            type="Result" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.trainigs.TrainingDetailFragmentExercises">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:layout_editor_absoluteX="0dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercises_list"
+                goneUnless="@{result instanceof Result.Success}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/exercise_in_training_item" />
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_exercise_to_training"
+            style="@style/AppTheme.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

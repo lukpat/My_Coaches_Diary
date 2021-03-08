@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:key="@string/pref_key_logout"
+        app:summary="loggedIn user"
+        app:title="@string/logout_title" />
+
+</PreferenceScreen>

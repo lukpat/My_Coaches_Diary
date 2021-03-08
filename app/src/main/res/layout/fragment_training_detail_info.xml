@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="trainingModel"
+            type="cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.trainings.TrainingDetailFragmentInfo">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/place"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/place"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={trainingModel.place}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/date"
+                app:layout_constraintEnd_toEndOf="@+id/place"
+                app:layout_constraintStart_toStartOf="@+id/place"
+                app:layout_constraintTop_toBottomOf="@id/place">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:text="@={trainingModel.date}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/startTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/startTime"
+                app:layout_constraintEnd_toEndOf="@+id/date"
+                app:layout_constraintStart_toStartOf="@+id/date"
+                app:layout_constraintTop_toBottomOf="@id/date">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:text="@={trainingModel.startTime}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/endTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/endTime"
+                app:layout_constraintEnd_toEndOf="@+id/startTime"
+                app:layout_constraintStart_toStartOf="@+id/startTime"
+                app:layout_constraintTop_toBottomOf="@id/startTime">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:text="@={trainingModel.endTime}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/players"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/players_attendance"
+                app:layout_constraintEnd_toEndOf="@+id/endTime"
+                app:layout_constraintStart_toStartOf="@+id/endTime"
+                app:layout_constraintTop_toBottomOf="@id/endTime">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={`` + trainingModel.players}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/goalkeepers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/goalkeepers_attendance"
+                app:layout_constraintEnd_toEndOf="@+id/players"
+                app:layout_constraintStart_toStartOf="@+id/players"
+                app:layout_constraintTop_toBottomOf="@id/players">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={`` + trainingModel.goalkeepers}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/rating"
+                app:layout_constraintEnd_toEndOf="@+id/goalkeepers"
+                app:layout_constraintStart_toStartOf="@+id/goalkeepers"
+                app:layout_constraintTop_toBottomOf="@id/goalkeepers">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={`` + trainingModel.rating}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/ratingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/rating_helper_text"
+                app:layout_constraintEnd_toEndOf="@+id/rating"
+                app:layout_constraintStart_toStartOf="@+id/rating"
+                app:layout_constraintTop_toBottomOf="@+id/rating" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnSaveTraining"
+                style="@style/AppTheme.FloatingActionButton"
+                invisibleUnless="@{trainingModel.areInputsReady}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="matchModel"
+            type="cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.matches.MatchDetailFragmentInfo">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/opponent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/opponent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@={matchModel.opponent}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:entries="@array/match_category"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/opponent"
+            app:layout_constraintStart_toStartOf="@+id/opponent"
+            app:layout_constraintTop_toBottomOf="@+id/opponent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/date"
+            app:layout_constraintEnd_toEndOf="@+id/type"
+            app:layout_constraintStart_toStartOf="@+id/type"
+            app:layout_constraintTop_toBottomOf="@id/type">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:text="@={matchModel.date}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/playingTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/playingTime"
+            app:layout_constraintEnd_toEndOf="@+id/date"
+            app:layout_constraintStart_toStartOf="@+id/date"
+            app:layout_constraintTop_toBottomOf="@id/date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@={`` + matchModel.playingTime}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/note"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/note"
+            app:layout_constraintEnd_toEndOf="@+id/playingTime"
+            app:layout_constraintStart_toStartOf="@+id/playingTime"
+            app:layout_constraintTop_toBottomOf="@id/playingTime">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:text="@={matchModel.note}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSaveMatch"
+            style="@style/AppTheme.FloatingActionButton"
+            invisibleUnless="@{matchModel.areInputsReady}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
