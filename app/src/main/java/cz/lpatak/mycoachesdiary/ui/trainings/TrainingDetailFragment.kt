@@ -17,12 +17,12 @@ class TrainingDetailFragment : Fragment() {
     private val args: TrainingDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
 
         setupViewPager()
 

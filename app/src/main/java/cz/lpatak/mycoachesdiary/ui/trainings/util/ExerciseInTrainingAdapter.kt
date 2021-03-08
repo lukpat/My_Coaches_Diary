@@ -17,23 +17,23 @@ import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercisesDire
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 
 class ExerciseInTrainingAdapter(
-    private val onClick: ((ExerciseInTraining) -> Unit)? = null
+        private val onClick: ((ExerciseInTraining) -> Unit)? = null
 ) : DataBoundListAdapter<ExerciseInTraining, ExerciseInTrainingItemBinding>(
-    diffCallback = object : DiffUtil.ItemCallback<ExerciseInTraining>() {
-        override fun areItemsTheSame(
-            oldItem: ExerciseInTraining,
-            newItem: ExerciseInTraining
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
+        diffCallback = object : DiffUtil.ItemCallback<ExerciseInTraining>() {
+            override fun areItemsTheSame(
+                    oldItem: ExerciseInTraining,
+                    newItem: ExerciseInTraining
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(
-            oldItem: ExerciseInTraining,
-            newItem: ExerciseInTraining
-        ): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(
+                    oldItem: ExerciseInTraining,
+                    newItem: ExerciseInTraining
+            ): Boolean {
+                return oldItem == newItem
+            }
         }
-    }
 ) {
     private lateinit var viewModel: TrainingsViewModel
 
@@ -43,9 +43,9 @@ class ExerciseInTrainingAdapter(
 
     override fun createBinding(parent: ViewGroup): ExerciseInTrainingItemBinding {
         return DataBindingUtil.inflate<ExerciseInTrainingItemBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.exercise_in_training_item,
-            parent, false
+                LayoutInflater.from(parent.context),
+                R.layout.exercise_in_training_item,
+                parent, false
         ).apply {
             this.root.setOnClickListener {
                 goToExerciseDetail(it, this.exercise!!.id.toString())
@@ -62,26 +62,26 @@ class ExerciseInTrainingAdapter(
 
     private fun deleteExercise(view: View, exercise: ExerciseInTraining) {
         val directions =
-            TrainingDetailFragmentExercisesDirections.actionNavigationTrainingDetailExercisesSelf()
+                TrainingDetailFragmentExercisesDirections.actionNavigationTrainingDetailExercisesSelf()
 
         AlertDialog.Builder(view.context)
-            .setTitle(R.string.delete_exercise_title)
-            .setMessage(R.string.delete_exercise_from_training_alert)
-            .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                viewModel.deleteExercise(exercise.id.toString())
-                view.findNavController().navigate(directions)
-            })
-            .setNegativeButton(R.string.no, null)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .show()
+                .setTitle(R.string.delete_exercise_title)
+                .setMessage(R.string.delete_exercise_from_training_alert)
+                .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                    viewModel.deleteExercise(exercise.id.toString())
+                    view.findNavController().navigate(directions)
+                })
+                .setNegativeButton(R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show()
     }
 
     private fun goToExerciseDetail(view: View, exerciseId: String) {
         val exercise = viewModel.getExercise(exerciseId)
         val directions =
-            TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationExerciseDetail(
-                exercise
-            )
+                TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationExerciseDetail(
+                        exercise
+                )
         view.findNavController().navigate(directions)
     }
 }

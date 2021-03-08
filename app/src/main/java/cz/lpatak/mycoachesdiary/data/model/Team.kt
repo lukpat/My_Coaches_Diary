@@ -5,17 +5,17 @@ import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
 
 data class Team(
-    @DocumentId
-    val id: String?,
-    val owner: String?,
-    val name: String?,
-    val season: String?
+        @DocumentId
+        val id: String?,
+        val owner: String?,
+        val name: String?,
+        val season: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()
     )
 
     @Suppress("unused")

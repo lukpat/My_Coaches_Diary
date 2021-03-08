@@ -21,12 +21,12 @@ class AddTrainingFragment : Fragment() {
     private lateinit var binding: FragmentAddTrainingBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_add_training, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_add_training, container, false)
         with(binding) {
             lifecycleOwner = this@AddTrainingFragment
             trainingModel = TrainingUIModel()
@@ -38,14 +38,14 @@ class AddTrainingFragment : Fragment() {
 
     private fun createTeam() {
         val training = Training(
-            "",
-            binding.trainingModel!!.place.value,
-            0,
-            binding.trainingModel!!.date.value,
-            binding.trainingModel!!.startTime.value,
-            binding.trainingModel!!.endTime.value,
-            0,
-            0
+                "",
+                binding.trainingModel!!.place.value,
+                0,
+                binding.trainingModel!!.date.value,
+                binding.trainingModel!!.startTime.value,
+                binding.trainingModel!!.endTime.value,
+                0,
+                0
         )
         Log.println(Log.ERROR, "AddTraining:", training.toString())
         trainingsViewModel.addTraining(training)

@@ -9,6 +9,10 @@
             name="match"
             type="cz.lpatak.mycoachesdiary.data.model.Match" />
 
+        <variable
+            name="dateAndTypeOfMatch"
+            type="String" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -28,7 +32,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/opponent"
                 style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -43,18 +47,18 @@
 
 
             <TextView
-                android:id="@+id/season"
+                android:id="@+id/date_type_of_game"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
-                android:text="@{match.date + ` (` + match.type.toString() + `)`}"
+                android:text="@{dateAndTypeOfMatch}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/name"
-                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constraintStart_toStartOf="@+id/opponent"
+                app:layout_constraintTop_toBottomOf="@+id/opponent"
                 tools:text="1.1.2021 (Ligový zápas)" />
 
             <Button

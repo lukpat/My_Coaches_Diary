@@ -24,9 +24,9 @@ class TeamDetailFragment : Fragment() {
     private lateinit var teamFromArgs: Team
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_team_detail, container, false)
         with(binding) {
@@ -46,12 +46,12 @@ class TeamDetailFragment : Fragment() {
 
     private fun updateTeam() {
         myTeamsViewModel.updateTeam(
-            Team(
-                teamFromArgs.id,
-                teamFromArgs.owner,
-                binding.teamModel!!.name.value.toString(),
-                binding.teamModel!!.season.value.toString()
-            )
+                Team(
+                        teamFromArgs.id,
+                        teamFromArgs.owner,
+                        binding.teamModel!!.name.value.toString(),
+                        binding.teamModel!!.season.value.toString()
+                )
         )
         findNavController().navigateUp()
     }

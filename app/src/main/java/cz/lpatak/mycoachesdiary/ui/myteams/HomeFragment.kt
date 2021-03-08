@@ -28,9 +28,9 @@ class HomeFragment : Fragment() {
     private val adapter: TeamsAdapter = TeamsAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         preferenceManager = myTeamsViewModel.getPreferenceManager()
 
@@ -41,15 +41,15 @@ class HomeFragment : Fragment() {
             btnLogout.setOnClickListener {
                 val directions = HomeFragmentDirections.actionGlobalNavigationLogin()
                 AlertDialog.Builder(it.context)
-                    .setTitle(R.string.logout_title)
-                    .setMessage(R.string.logout_message)
-                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                        authViewModel.logOut()
-                        it.findNavController().navigate(directions)
-                    })
-                    .setNegativeButton(R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show()
+                        .setTitle(R.string.logout_title)
+                        .setMessage(R.string.logout_message)
+                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                            authViewModel.logOut()
+                            it.findNavController().navigate(directions)
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show()
             }
             txtUser.text = authViewModel.getCurrentUserEmail()
             binding.txtTeam.text = setCurrentTeam()

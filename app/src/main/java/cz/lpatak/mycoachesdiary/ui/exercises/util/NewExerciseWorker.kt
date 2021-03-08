@@ -8,8 +8,8 @@ import cz.lpatak.mycoachesdiary.data.repositories.ExerciseRepositoryImpl
 import cz.lpatak.mycoachesdiary.data.source.FirestoreSource
 
 class NewExerciseWorker(
-    context: Context,
-    workerParams: WorkerParameters
+        context: Context,
+        workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
 
     private val repository = ExerciseRepositoryImpl(FirestoreSource())

@@ -25,9 +25,9 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,16 +43,16 @@ class LoginFragment : Fragment() {
 
         binding.etUsername.afterTextChanged {
             authViewModel.loginDataChanged(
-                binding.etUsername.text.toString(),
-                binding.etPassword.text.toString()
+                    binding.etUsername.text.toString(),
+                    binding.etPassword.text.toString()
             )
         }
 
         binding.etPassword.apply {
             afterTextChanged {
                 authViewModel.loginDataChanged(
-                    binding.etUsername.text.toString(),
-                    binding.etPassword.text.toString()
+                        binding.etUsername.text.toString(),
+                        binding.etPassword.text.toString()
                 )
             }
 
@@ -70,8 +70,8 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             binding.loading.visibility = View.VISIBLE
             authViewModel.login(
-                binding.etUsername.text.toString(),
-                binding.etPassword.text.toString()
+                    binding.etUsername.text.toString(),
+                    binding.etPassword.text.toString()
             )
         }
 

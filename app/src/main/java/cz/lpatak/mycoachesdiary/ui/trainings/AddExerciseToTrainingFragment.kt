@@ -19,15 +19,15 @@ class AddExerciseToTrainingFragment : Fragment() {
     private val adapter: ExerciseAdapter = ExerciseAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_add_exercise_to_training,
-            container,
-            false
+                inflater,
+                R.layout.fragment_add_exercise_to_training,
+                container,
+                false
         )
         binding.trainingsList.adapter = adapter
         adapter.setViewModel(trainingsViewModel)

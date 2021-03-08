@@ -17,12 +17,12 @@ class MatchDetailFragment : Fragment() {
     private val args: MatchDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
 
         setupViewPager()
 
@@ -39,7 +39,6 @@ class MatchDetailFragment : Fragment() {
             tab.text = names[position]
         }.attach()
     }
-
 
 }
 

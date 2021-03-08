@@ -26,12 +26,12 @@ class AddExerciseFragment : Fragment() {
     private val exercisesViewModel: ExercisesViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_add_exercise, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_add_exercise, container, false)
         with(binding) {
             lifecycleOwner = this@AddExerciseFragment
             exerciseModel = ExerciseUIModel()
@@ -44,43 +44,43 @@ class AddExerciseFragment : Fragment() {
     private fun startCreatingNewExercise() {
         if (binding.exerciseModel?.fileUri?.value == null) {
             exercisesViewModel.addExercise(
-                Exercise(
-                    "",
-                    "",
-                    binding.exerciseModel?.name?.value,
-                    binding.category.selectedItem.toString(),
-                    binding.exerciseModel?.description?.value,
-                    ""
-                )
+                    Exercise(
+                            "",
+                            "",
+                            binding.exerciseModel?.name?.value,
+                            binding.category.selectedItem.toString(),
+                            binding.exerciseModel?.description?.value,
+                            ""
+                    )
             )
             findNavController().navigateUp()
         } else {
             val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
 
             val uploadImageWorker: OneTimeWorkRequest =
-                OneTimeWorkRequestBuilder<ImageUploaderWorker>()
-                    .setConstraints(constraints)
-                    .setInputData(
-                        workDataOf(
-                            NewExerciseWorker.NAME to binding.exerciseModel?.name?.value,
-                            NewExerciseWorker.CATEGORY to binding.category.selectedItem.toString(),
-                            NewExerciseWorker.DESCRIPTION to binding.exerciseModel?.description?.value,
-                            ImageUploaderWorker.KEY_IMAGE_URI to binding.exerciseModel?.fileUri?.value.toString()
-                        )
-                    )
-                    .build()
+                    OneTimeWorkRequestBuilder<ImageUploaderWorker>()
+                            .setConstraints(constraints)
+                            .setInputData(
+                                    workDataOf(
+                                            NewExerciseWorker.NAME to binding.exerciseModel?.name?.value,
+                                            NewExerciseWorker.CATEGORY to binding.category.selectedItem.toString(),
+                                            NewExerciseWorker.DESCRIPTION to binding.exerciseModel?.description?.value,
+                                            ImageUploaderWorker.KEY_IMAGE_URI to binding.exerciseModel?.fileUri?.value.toString()
+                                    )
+                            )
+                            .build()
 
             val newExerciseWorker: OneTimeWorkRequest =
-                OneTimeWorkRequestBuilder<NewExerciseWorker>()
-                    .setConstraints(constraints)
-                    .build()
+                    OneTimeWorkRequestBuilder<NewExerciseWorker>()
+                            .setConstraints(constraints)
+                            .build()
 
             WorkManager.getInstance(requireContext())
-                .beginWith(uploadImageWorker)
-                .then(newExerciseWorker)
-                .enqueue()
+                    .beginWith(uploadImageWorker)
+                    .then(newExerciseWorker)
+                    .enqueue()
             findNavController().navigateUp()
         }
     }

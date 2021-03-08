@@ -55,23 +55,35 @@
                 app:layout_constraintStart_toStartOf="@+id/opponent"
                 app:layout_constraintTop_toBottomOf="@+id/opponent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/date"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/date_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/date"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/normal_margin"
                 app:layout_constraintEnd_toEndOf="@+id/type"
-                app:layout_constraintStart_toStartOf="@+id/type"
+                app:layout_constraintHorizontal_bias="0.02"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/type">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:id="@+id/btnSetDate"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:text="@={matchModel.date}" />
+                    android:src="@drawable/ic_calendar" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/date"
+                    android:text="@={matchModel.dateString}"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/playingTime"
@@ -79,9 +91,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/playingTime"
-                app:layout_constraintEnd_toEndOf="@+id/date"
-                app:layout_constraintStart_toStartOf="@+id/date"
-                app:layout_constraintTop_toBottomOf="@id/date">
+                app:layout_constraintEnd_toEndOf="@+id/date_layout"
+                app:layout_constraintStart_toStartOf="@+id/date_layout"
+                app:layout_constraintTop_toBottomOf="@id/date_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

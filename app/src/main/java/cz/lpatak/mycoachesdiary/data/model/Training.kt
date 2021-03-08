@@ -5,25 +5,25 @@ import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
 
 data class Training(
-    @DocumentId
-    val id: String?,
-    val place: String?,
-    val rating: Int,
-    val date: String?,
-    val startTime: String?,
-    val endTime: String?,
-    val players: Int,
-    val goalkeepers: Int
+        @DocumentId
+        val id: String?,
+        val place: String?,
+        val rating: Int,
+        val date: String?,
+        val startTime: String?,
+        val endTime: String?,
+        val players: Int,
+        val goalkeepers: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readInt()
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readInt(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readInt(),
+            parcel.readInt()
     )
 
 

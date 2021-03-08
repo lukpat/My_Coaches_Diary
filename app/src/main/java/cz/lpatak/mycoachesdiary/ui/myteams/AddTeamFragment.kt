@@ -20,9 +20,9 @@ class AddTeamFragment : Fragment() {
     private lateinit var binding: FragmentAddTeamBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_team, container, false)
         with(binding) {
@@ -36,12 +36,12 @@ class AddTeamFragment : Fragment() {
 
     private fun createTeam() {
         myTeamsViewModel.addTeam(
-            Team(
-                "",
-                "",
-                binding.teamModel!!.name.value.toString(),
-                binding.teamModel!!.season.value.toString()
-            )
+                Team(
+                        "",
+                        "",
+                        binding.teamModel!!.name.value.toString(),
+                        binding.teamModel!!.season.value.toString()
+                )
         )
         findNavController().navigateUp()
     }

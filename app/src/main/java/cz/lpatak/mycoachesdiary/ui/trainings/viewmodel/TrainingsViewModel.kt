@@ -20,10 +20,10 @@ import kotlinx.coroutines.Dispatchers
 
 
 class TrainingsViewModel(
-    private val trainingsRepository: TrainingRepositoryImpl,
-    private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl,
-    private val exerciseRepository: ExerciseRepositoryImpl,
-    private val preferenceManager: PreferenceManger
+        private val trainingsRepository: TrainingRepositoryImpl,
+        private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl,
+        private val exerciseRepository: ExerciseRepositoryImpl,
+        private val preferenceManager: PreferenceManger
 ) : ViewModel() {
 
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
@@ -59,19 +59,19 @@ class TrainingsViewModel(
     }
 
     fun loadExercisesInTraining(): LiveData<Result<List<ExerciseInTraining>>> =
-        liveData(coroutineContext) {
-            emit(Result.Loading)
+            liveData(coroutineContext) {
+                emit(Result.Loading)
 
-            val result = exerciseInTrainingRepository.getExercises()
+                val result = exerciseInTrainingRepository.getExercises()
 
-            if (result is Result.Success) {
-                emit(result)
+                if (result is Result.Success) {
+                    emit(result)
+                }
             }
-        }
 
     fun addExerciseToTraining(exercise: Exercise) {
         exerciseInTrainingRepository.updateExercise(
-            ExerciseInTraining(exercise.id, exercise.name, exercise.category, 0)
+                ExerciseInTraining(exercise.id, exercise.name, exercise.category, 0)
         )
     }
 
@@ -98,12 +98,12 @@ class TrainingsViewModel(
 
         exerciseRepository.getExercise(exerciseId).addOnSuccessListener {
             val exercise2 = Exercise(
-                "",
-                it.get(COLUMN_OWNER).toString(),
-                it.get(COLUMN_NAME).toString(),
-                it.get(COLUMN_CATEGORY).toString(),
-                it.get(COLUMN_DESCRIPTION).toString(),
-                it.get(COLUMN_IMAGE_URL).toString()
+                    "",
+                    it.get(COLUMN_OWNER).toString(),
+                    it.get(COLUMN_NAME).toString(),
+                    it.get(COLUMN_CATEGORY).toString(),
+                    it.get(COLUMN_DESCRIPTION).toString(),
+                    it.get(COLUMN_IMAGE_URL).toString()
             )
             exercise = exercise2
             Log.println(Log.ERROR, "TrainingsVM2", exercise.toString())

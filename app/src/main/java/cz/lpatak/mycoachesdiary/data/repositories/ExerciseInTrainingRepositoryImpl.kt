@@ -18,58 +18,58 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class ExerciseInTrainingRepositoryImpl(
-    private val firestoreSource: FirestoreSource,
-    private val preferenceManager: PreferenceManger
+        private val firestoreSource: FirestoreSource,
+        private val preferenceManager: PreferenceManger
 ) : ExerciseInTrainingRepository {
 
     private val exercisesPath: CollectionReference
         get() {
             return firestoreSource.firestore.collection(TeamsCOLLECTION)
-                .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
-                .collection(TrainingsCOLLECTION)
-                .document(preferenceManager.getStringValue(TRAINING_ID_KEY).toString())
-                .collection(ExercisesCOLLECTION)
+                    .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
+                    .collection(TrainingsCOLLECTION)
+                    .document(preferenceManager.getStringValue(TRAINING_ID_KEY).toString())
+                    .collection(ExercisesCOLLECTION)
         }
 
     override suspend fun getExercises(): Result<List<ExerciseInTraining>> =
-        suspendCoroutine { cont ->
-            exercisesPath
-                .get()
-                .addOnSuccessListener {
-                    try {
-                        cont.resume(Result.Success(it.toObjects()))
-                    } catch (e: Exception) {
-                        cont.resume(Result.Error(e))
-                    }
-                }.addOnFailureListener {
-                    cont.resume(Result.Error(it))
-                }
-        }
+            suspendCoroutine { cont ->
+                exercisesPath
+                        .get()
+                        .addOnSuccessListener {
+                            try {
+                                cont.resume(Result.Success(it.toObjects()))
+                            } catch (e: Exception) {
+                                cont.resume(Result.Error(e))
+                            }
+                        }.addOnFailureListener {
+                            cont.resume(Result.Error(it))
+                        }
+            }
 
 
     override fun updateExercise(exercise: ExerciseInTraining) {
         val data = hashMapOf(
-            COLUMN_NAME to exercise.name,
-            COLUMN_CATEGORY to exercise.category,
-            COLUMN_TIME to exercise.time,
+                COLUMN_NAME to exercise.name,
+                COLUMN_CATEGORY to exercise.category,
+                COLUMN_TIME to exercise.time,
         )
 
         exercisesPath.document(exercise.id!!)
-            .set(data)
-            .addOnSuccessListener {
-                Result.Success(true)
-            }.addOnFailureListener {
-                Result.Error(it)
-            }
+                .set(data)
+                .addOnSuccessListener {
+                    Result.Success(true)
+                }.addOnFailureListener {
+                    Result.Error(it)
+                }
     }
 
     override fun deleteExercise(exerciseId: String) {
         exercisesPath.document(exerciseId)
-            .delete()
-            .addOnSuccessListener {
-                Result.Success(true)
-            }.addOnFailureListener {
-                Result.Error(it)
-            }
+                .delete()
+                .addOnSuccessListener {
+                    Result.Success(true)
+                }.addOnFailureListener {
+                    Result.Error(it)
+                }
     }
 }

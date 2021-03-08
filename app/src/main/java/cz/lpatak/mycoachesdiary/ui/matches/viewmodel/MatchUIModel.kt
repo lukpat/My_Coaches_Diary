@@ -9,13 +9,13 @@ class MatchUIModel : ObservableViewModel() {
     val areInputsReady = MediatorLiveData<Boolean>()
 
     val opponent = MutableLiveData("")
-    val date = MutableLiveData("")
+    val dateString = MutableLiveData("")
     val playingTime = MutableLiveData(0)
     val note = MutableLiveData("")
 
     init {
         areInputsReady.addSource(opponent) { areInputsReady.value = checkInputs() }
-        areInputsReady.addSource(date) { areInputsReady.value = checkInputs() }
+        areInputsReady.addSource(dateString) { areInputsReady.value = checkInputs() }
         areInputsReady.addSource(playingTime) { areInputsReady.value = checkInputs() }
     }
 
@@ -23,7 +23,7 @@ class MatchUIModel : ObservableViewModel() {
     private fun checkInputs(): Boolean {
         return !(
                 opponent.value.isNullOrEmpty() ||
-                        date.value.isNullOrEmpty() ||
+                        dateString.value.isNullOrEmpty() ||
                         checkPlayingTime()
                 )
     }

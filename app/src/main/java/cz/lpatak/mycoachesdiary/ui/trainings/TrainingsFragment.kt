@@ -20,9 +20,9 @@ class TrainingsFragment : Fragment() {
     private val adapter: TrainingsAdapter = TrainingsAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trainings, container, false)
         with(binding) {
@@ -30,7 +30,7 @@ class TrainingsFragment : Fragment() {
             trainingsList.adapter = adapter
             fabAddTraining.setOnClickListener {
                 val directions =
-                    TrainingsFragmentDirections.actionNavigationTrainingsToNavigationAddTraining()
+                        TrainingsFragmentDirections.actionNavigationTrainingsToNavigationAddTraining()
                 findNavController().navigate(directions)
             }
             isTeamSelected = trainingsViewModel.isTeamSelected()

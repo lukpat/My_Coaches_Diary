@@ -19,17 +19,17 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 
 
 class TrainingsAdapter(
-    private val onClick: ((Training) -> Unit)? = null
+        private val onClick: ((Training) -> Unit)? = null
 ) : DataBoundListAdapter<Training, TrainingItemBinding>(
-    diffCallback = object : DiffUtil.ItemCallback<Training>() {
-        override fun areItemsTheSame(oldItem: Training, newItem: Training): Boolean {
-            return oldItem.id == newItem.id
-        }
+        diffCallback = object : DiffUtil.ItemCallback<Training>() {
+            override fun areItemsTheSame(oldItem: Training, newItem: Training): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Training, newItem: Training): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Training, newItem: Training): Boolean {
+                return oldItem == newItem
+            }
         }
-    }
 ) {
     private lateinit var viewModel: TrainingsViewModel
     fun setViewModel(viewModel: TrainingsViewModel) {
@@ -43,9 +43,9 @@ class TrainingsAdapter(
 
     override fun createBinding(parent: ViewGroup): TrainingItemBinding {
         return DataBindingUtil.inflate<TrainingItemBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.training_item,
-            parent, false
+                LayoutInflater.from(parent.context),
+                R.layout.training_item,
+                parent, false
         ).apply {
             this.root.setOnClickListener {
                 this.training?.let { goToTrainingDetail(this.root, it) }
@@ -67,7 +67,7 @@ class TrainingsAdapter(
         }
 
         val directions =
-            TrainingsFragmentDirections.actionNavigationTrainingsToNavigationTrainigDetail(training)
+                TrainingsFragmentDirections.actionNavigationTrainingsToNavigationTrainigDetail(training)
         view.findNavController().navigate(directions)
     }
 
@@ -75,14 +75,14 @@ class TrainingsAdapter(
         val directions = TrainingsFragmentDirections.actionNavigationTrainingsSelf()
 
         AlertDialog.Builder(view.context)
-            .setTitle(R.string.delete_trainig_title)
-            .setMessage(R.string.delete_trainig_alert)
-            .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                viewModel.deleteTraining(training.id.toString())
-                view.findNavController().navigate(directions)
-            })
-            .setNegativeButton(R.string.no, null)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .show()
+                .setTitle(R.string.delete_trainig_title)
+                .setMessage(R.string.delete_trainig_alert)
+                .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                    viewModel.deleteTraining(training.id.toString())
+                    view.findNavController().navigate(directions)
+                })
+                .setNegativeButton(R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show()
     }
 }

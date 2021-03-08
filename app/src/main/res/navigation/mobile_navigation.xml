@@ -82,7 +82,7 @@
     <fragment
         android:id="@+id/navigation_matches"
         android:name="cz.lpatak.mycoachesdiary.ui.matches.MatchesFragment"
-        android:label="@string/matches" >
+        android:label="@string/matches">
         <action
             android:id="@+id/action_navigation_matches_to_navigation_add_match"
             app:destination="@id/navigation_add_match" />
@@ -148,7 +148,7 @@
         android:label="TrainingDetailFragment">
         <argument
             android:name="training"
-            app:argType="cz.lpatak.mycoachesdiary.data.model.Training"/>
+            app:argType="cz.lpatak.mycoachesdiary.data.model.Training" />
         <action
             android:id="@+id/action_navigation_training_detail_to_navigation_exercise_detail"
             app:destination="@id/navigation_exercise_detail" />
@@ -165,7 +165,7 @@
     <fragment
         android:id="@+id/navigation_training_detail_exercises"
         android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises"
-        android:label="TrainingDetailFragmentExercises" >
+        android:label="TrainingDetailFragmentExercises">
         <action
             android:id="@+id/action_navigation_training_detail_exercises_self"
             app:destination="@id/navigation_training_detail_exercises" />
@@ -185,9 +185,9 @@
         android:id="@+id/navigation_match_detail"
         android:name="cz.lpatak.mycoachesdiary.ui.matches.MatchDetailFragment"
         android:label="@string/match_detail">
-    <argument
-        android:name="match"
-        app:argType="cz.lpatak.mycoachesdiary.data.model.Match"/>
+        <argument
+            android:name="match"
+            app:argType="cz.lpatak.mycoachesdiary.data.model.Match" />
     </fragment>
 
     <fragment

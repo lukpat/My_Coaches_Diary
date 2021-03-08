@@ -14,8 +14,8 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import kotlinx.coroutines.Dispatchers
 
 class MyTeamsViewModel(
-    private val teamsRepository: TeamRepositoryImpl,
-    private val preferenceManager: PreferenceManger
+        private val teamsRepository: TeamRepositoryImpl,
+        private val preferenceManager: PreferenceManger
 ) : ViewModel() {
 
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
