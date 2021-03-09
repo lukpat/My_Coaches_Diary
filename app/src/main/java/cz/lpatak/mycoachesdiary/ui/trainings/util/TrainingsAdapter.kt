@@ -59,6 +59,7 @@ class TrainingsAdapter(
 
     override fun bind(binding: TrainingItemBinding, item: Training) {
         binding.training = item
+        binding.trainingDateAndTime = viewModel.convertDateToString(item.date!!) + " (" + item.startTime + "-" + item.endTime + ")"
     }
 
     private fun goToTrainingDetail(view: View, training: Training) {

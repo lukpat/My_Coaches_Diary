@@ -62,6 +62,7 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         when (item.itemId) {
             R.id.filter -> {
                 binding.filterOn = binding.filterOn == false
+                binding.dateError.text = ""
             }
         }
         return super.onOptionsItemSelected(item)
@@ -91,8 +92,6 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun applyFilter() {
-        Log.println(Log.ERROR, "dateFrom", dateFrom.toString())
-        Log.println(Log.ERROR, "dateTo", dateTo.toString())
         if (dateFrom.seconds >= dateTo.seconds) {
             val error = "Datum počátku je později než datum konce, takže filtr není možné provést"
             binding.dateError.text = error

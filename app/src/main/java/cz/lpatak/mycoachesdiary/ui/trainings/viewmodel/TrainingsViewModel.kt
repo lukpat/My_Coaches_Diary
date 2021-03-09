@@ -2,6 +2,7 @@ package cz.lpatak.mycoachesdiary.ui.trainings.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_CATEGORY
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_DESCRIPTION
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_IMAGE_URL
@@ -16,6 +17,7 @@ import cz.lpatak.mycoachesdiary.data.repositories.ExerciseInTrainingRepositoryIm
 import cz.lpatak.mycoachesdiary.data.repositories.ExerciseRepositoryImpl
 import cz.lpatak.mycoachesdiary.data.repositories.TrainingRepositoryImpl
 import cz.lpatak.mycoachesdiary.util.PreferenceManger
+import cz.lpatak.mycoachesdiary.util.convertLongToDate
 import kotlinx.coroutines.Dispatchers
 
 
@@ -28,10 +30,20 @@ class TrainingsViewModel(
 
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
 
-    fun loadTeams(): LiveData<Result<List<Training>>> = liveData(coroutineContext) {
+    fun loadTrainings(): LiveData<Result<List<Training>>> = liveData(coroutineContext) {
         emit(Result.Loading)
 
         val result = trainingsRepository.getTrainings()
+
+        if (result is Result.Success) {
+            emit(result)
+        }
+    }
+
+    fun loadTrainingsWithFilter(dateFrom: Timestamp, dateTo: Timestamp): LiveData<Result<List<Training>>> = liveData(coroutineContext) {
+        emit(Result.Loading)
+
+        val result = trainingsRepository.getTrainingsFilter(dateFrom, dateTo)
 
         if (result is Result.Success) {
             emit(result)
@@ -75,10 +87,6 @@ class TrainingsViewModel(
         )
     }
 
-    fun setExerciseTime(exerciseInTraining: ExerciseInTraining) {
-        exerciseInTrainingRepository.updateExercise(exerciseInTraining)
-    }
-
     fun deleteExercise(exerciseId: String) {
         exerciseInTrainingRepository.deleteExercise(exerciseId)
     }
@@ -114,4 +122,7 @@ class TrainingsViewModel(
         return exercise
     }
 
+    fun convertDateToString(date: Timestamp): String {
+        return convertLongToDate(date.seconds)
+    }
 }

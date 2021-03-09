@@ -3,12 +3,10 @@ package cz.lpatak.mycoachesdiary.ui.myteams
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.TEAM_NAME_KEY
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.TEAM_SEASON_KEY
@@ -38,26 +36,42 @@ class HomeFragment : Fragment() {
         with(binding) {
             lifecycleOwner = this@HomeFragment
             teamsList.adapter = adapter
-            btnLogout.setOnClickListener {
-                val directions = HomeFragmentDirections.actionGlobalNavigationLogin()
-                AlertDialog.Builder(it.context)
-                        .setTitle(R.string.logout_title)
-                        .setMessage(R.string.logout_message)
-                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                            authViewModel.logOut()
-                            it.findNavController().navigate(directions)
-                        })
-                        .setNegativeButton(R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show()
+            txtTeam.text = setCurrentTeam()
+            fabAddTeam.setOnClickListener {
+                val directions= HomeFragmentDirections.actionNavigationHomeToNavigationAddTeam()
+                findNavController().navigate(directions)
             }
-            txtUser.text = authViewModel.getCurrentUserEmail()
-            binding.txtTeam.text = setCurrentTeam()
         }
 
         adapter.setViewModel(myTeamsViewModel)
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logout-> {
+                    val directions = HomeFragmentDirections.actionGlobalNavigationLogin()
+                    AlertDialog.Builder(context)
+                            .setMessage(R.string.logout_message)
+                            .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                                authViewModel.logOut()
+                                findNavController().navigate(directions)
+                            })
+                            .setNegativeButton(R.string.no, null)
+                            .show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

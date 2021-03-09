@@ -6,6 +6,6 @@ import cz.lpatak.mycoachesdiary.data.source.LoginResult
 interface AuthRepository {
     suspend fun login(username: String, password: String): LoginResult<LoggedInUser>
     suspend fun register(username: String, password: String): LoginResult<LoggedInUser>
-    suspend fun logout()
-    fun getUserEmail(): String
+    fun resetPassword(username: String)
+    fun logout()
 }

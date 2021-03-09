@@ -41,23 +41,34 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/date"
-                android:layout_width="0dp"
+            <LinearLayout
+            android:id="@+id/date_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            app:layout_constraintEnd_toEndOf="@+id/place"
+            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/place">
+
+            <ImageButton
+                android:id="@+id/btnSetDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_calendar" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:hint="@string/date"
-                app:layout_constraintEnd_toEndOf="@+id/place"
-                app:layout_constraintStart_toStartOf="@+id/place"
-                app:layout_constraintTop_toBottomOf="@id/place">
+                android:text="@={trainingModel.date}"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:text="@={trainingModel.date}" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/startTime"
@@ -65,9 +76,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/startTime"
-                app:layout_constraintEnd_toEndOf="@+id/date"
-                app:layout_constraintStart_toStartOf="@+id/date"
-                app:layout_constraintTop_toBottomOf="@id/date">
+                app:layout_constraintEnd_toEndOf="@+id/date_layout"
+                app:layout_constraintStart_toStartOf="@+id/date_layout"
+                app:layout_constraintTop_toBottomOf="@id/date_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

@@ -2,14 +2,16 @@ package cz.lpatak.mycoachesdiary.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
+import java.util.*
 
 data class Training(
         @DocumentId
         val id: String?,
         val place: String?,
         val rating: Int,
-        val date: String?,
+        val date: Timestamp?,
         val startTime: String?,
         val endTime: String?,
         val players: Int,
@@ -19,7 +21,7 @@ data class Training(
             parcel.readString(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.readString(),
+            Timestamp(Date(parcel.readLong())),
             parcel.readString(),
             parcel.readString(),
             parcel.readInt(),
@@ -28,14 +30,14 @@ data class Training(
 
 
     @Suppress("unused")
-    constructor() : this("", "", 0, "", "", "", 0, 0)
+    constructor() : this("", "", 0, Timestamp(Date(0)), "", "", 0, 0)
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(place)
         parcel.writeInt(rating)
-        parcel.writeString(date)
+        parcel.writeString(date.toString())
         parcel.writeString(startTime)
         parcel.writeString(endTime)
         parcel.writeInt(players)

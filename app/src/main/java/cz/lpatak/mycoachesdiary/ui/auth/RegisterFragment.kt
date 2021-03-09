@@ -144,7 +144,7 @@ class RegisterFragment : Fragment() {
     /**
      * Observes login action result
      */
-    private val registerResultObserver: Observer<RegisterResult> = Observer {
+    private val registerResultObserver: Observer<AuthResult> = Observer {
         val registerResult = it ?: return@Observer
 
         binding.loading.visibility = View.GONE

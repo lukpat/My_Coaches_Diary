@@ -12,7 +12,7 @@
     <fragment
         android:id="@+id/navigation_login"
         android:name="cz.lpatak.mycoachesdiary.ui.auth.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_navigation_login_to_registerFragment"
@@ -20,12 +20,15 @@
         <action
             android:id="@+id/action_navigation_login_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_reset_password"
+            app:destination="@id/navigation_reset_password" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_register"
         android:name="cz.lpatak.mycoachesdiary.ui.auth.RegisterFragment"
-        android:label="fragment_register"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_navigation_login"
@@ -195,5 +198,10 @@
         android:name="cz.lpatak.mycoachesdiary.ui.matches.MatchDetailFragmentInfo"
         android:label="fragment_match_detail_info"
         tools:layout="@layout/fragment_match_detail_info" />
+
+    <fragment
+        android:id="@+id/navigation_reset_password"
+        android:name="cz.lpatak.mycoachesdiary.ui.auth.ResetPasswordFragment"
+        android:label="@string/renew_password" />
 
 </navigation>

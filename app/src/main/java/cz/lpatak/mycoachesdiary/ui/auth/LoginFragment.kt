@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import cz.lpatak.mycoachesdiary.data.model.auth.LoggedInUserView
 import cz.lpatak.mycoachesdiary.data.model.auth.LoginFormState
-import cz.lpatak.mycoachesdiary.data.model.auth.LoginResult
+import cz.lpatak.mycoachesdiary.data.model.auth.AuthResult
 import cz.lpatak.mycoachesdiary.databinding.FragmentLoginBinding
 import cz.lpatak.mycoachesdiary.ui.auth.viewmodel.AuthViewModel
 import cz.lpatak.mycoachesdiary.util.afterTextChanged
@@ -75,13 +75,12 @@ class LoginFragment : Fragment() {
             )
         }
 
-        binding.switchToRegister.setOnClickListener {
-            navigateToRegistration()
-        }
+        binding.switchToRegister.setOnClickListener { navigateToRegistration() }
+        binding.resetPassword.setOnClickListener { navigateToResetPassword() }
 
         authViewModel.getCurrentLoggedInUser()?.observe(viewLifecycleOwner, loggedInUserObserver)
         authViewModel.loginFormState.observe(viewLifecycleOwner, loginFormStateObserver)
-        authViewModel.loginResult.observe(viewLifecycleOwner, loginResultObserver)
+        authViewModel.authResult.observe(viewLifecycleOwner, authResultObserver)
 
     }
 
@@ -95,6 +94,13 @@ class LoginFragment : Fragment() {
     private fun navigateToRegistration() {
         view?.let {
             val directions = LoginFragmentDirections.actionNavigationLoginToRegisterFragment()
+            it.findNavController().navigate(directions)
+        }
+    }
+
+    private fun navigateToResetPassword() {
+        view?.let {
+            val directions = LoginFragmentDirections.actionNavigationLoginToNavigationResetPassword()
             it.findNavController().navigate(directions)
         }
     }
@@ -117,7 +123,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private val loginResultObserver: Observer<LoginResult> = Observer {
+    private val authResultObserver: Observer<AuthResult> = Observer {
         val loginResult = it ?: return@Observer
 
         binding.loading.visibility = View.GONE

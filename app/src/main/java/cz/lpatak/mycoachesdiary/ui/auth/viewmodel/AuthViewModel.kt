@@ -2,6 +2,7 @@ package cz.lpatak.mycoachesdiary.ui.auth.viewmodel
 
 import android.content.Context
 import android.util.Patterns
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,22 +26,21 @@ class AuthViewModel(
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
+    private val _loginResult = MutableLiveData<AuthResult>()
+    val authResult: LiveData<AuthResult> = _loginResult
 
 
     private val _registerForm = MutableLiveData<RegisterFormState>()
     val registerFormState: LiveData<RegisterFormState> = _registerForm
-    private val _registerResult = MutableLiveData<RegisterResult>()
-    val registerResult: LiveData<RegisterResult> = _registerResult
-
+    private val _registerResult = MutableLiveData<AuthResult>()
+    val registerResult: LiveData<AuthResult> = _registerResult
 
     fun login(username: String, password: String) = viewModelScope.launch {
         val result = authRepository.login(username, password)
 
         if (result is Success) {
             _loginResult.value =
-                    LoginResult(
+                    AuthResult(
                             success = LoggedInUserView(
                                     email = result.data.email
                                             ?: context.getString(R.string.unknown),
@@ -51,10 +51,10 @@ class AuthViewModel(
             val exception = (result as Error).exception
             if (exception is NoConnectivityException) {
                 _loginResult.value =
-                        LoginResult(error = R.string.message_internet_unavailable)
+                        AuthResult(error = R.string.message_internet_unavailable)
             } else {
                 _loginResult.value =
-                        LoginResult(error = R.string.login_failed)
+                        AuthResult(error = R.string.login_failed)
             }
         }
     }
@@ -64,7 +64,7 @@ class AuthViewModel(
 
         if (result is Success) {
             _registerResult.value =
-                    RegisterResult(
+                    AuthResult(
                             success = LoggedInUserView(
                                     email = result.data.email
                                             ?: context.getString(R.string.unknown),
@@ -75,10 +75,10 @@ class AuthViewModel(
             val exception = (result as Error).exception
             if (exception is NoConnectivityException) {
                 _registerResult.value =
-                        RegisterResult(error = R.string.message_internet_unavailable)
+                        AuthResult(error = R.string.message_internet_unavailable)
             } else {
                 _registerResult.value =
-                        RegisterResult(error = R.string.login_failed)
+                        AuthResult(error = R.string.login_failed)
             }
         }
     }
@@ -115,7 +115,6 @@ class AuthViewModel(
         }
     }
 
-
     private fun isUserNameValid(username: String): Boolean {
         return if (username.isNotBlank() && username.contains('@')) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
@@ -151,12 +150,17 @@ class AuthViewModel(
     }
 
 
-    fun logOut() {
-        FirebaseAuth.getInstance().signOut()
-        preferenceManager.clearAllPreferences()
+    fun resetPassword(username: String): Boolean {
+        return if (isUserNameValid(username)) {
+            authRepository.resetPassword(username)
+            true
+        } else {
+            false
+        }
     }
 
-    fun getCurrentUserEmail(): String {
-        return authRepository.getUserEmail()
+    fun logOut() {
+        authRepository.logout()
+        preferenceManager.clearAllPreferences()
     }
 }

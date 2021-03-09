@@ -41,22 +41,19 @@ class MainActivity : AppCompatActivity() {
                         R.id.navigation_trainings,
                         R.id.navigation_matches,
                         R.id.navigation_stats,
-                        R.id.navigation_exercise_library
+                        R.id.navigation_exercise_library,
+                        R.id.navigation_login,
+                        R.id.navigation_register
                 )
         )
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    override fun onBackPressed() {
-        if ((getCurrentFragment() is LoginFragment) || (getCurrentFragment() is RegisterFragment)) {
-            finish()
+        if (getCurrentFragment() !is LoginFragment && (getCurrentFragment() !is RegisterFragment)) {
+            onBackPressed()
         }
-        super.onBackPressed()
+        return true
     }
 
     private fun hideBottomNavigation() {

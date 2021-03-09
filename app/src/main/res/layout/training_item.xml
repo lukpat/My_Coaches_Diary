@@ -8,6 +8,11 @@
         <variable
             name="training"
             type="cz.lpatak.mycoachesdiary.data.model.Training" />
+
+        <variable
+            name="trainingDateAndTime"
+            type="String" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -46,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
-                android:text="@{training.date + ` ` + training.startTime + `-` + training.endTime}"
+                android:text="@{trainingDateAndTime}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"

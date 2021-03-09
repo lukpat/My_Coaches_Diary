@@ -20,14 +20,6 @@ class AuthRepositoryImpl(private val dataSource: AuthDataSource) : AuthRepositor
         this.user = loggedInUser
     }
 
-    override fun getUserEmail(): String {
-        return if (dataSource.auth.currentUser == null) {
-            "empty"
-        } else {
-            dataSource.auth.currentUser.email.toString()
-        }
-    }
-
     override suspend fun login(username: String, password: String): LoginResult<LoggedInUser> {
 
         val result = dataSource.login(username, password)
@@ -50,8 +42,11 @@ class AuthRepositoryImpl(private val dataSource: AuthDataSource) : AuthRepositor
         return result
     }
 
+    override fun resetPassword(username: String){
+        dataSource.resetPassword(username)
+    }
 
-    override suspend fun logout() {
+    override fun logout() {
         user = null
         dataSource.logout()
     }

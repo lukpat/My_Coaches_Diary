@@ -83,9 +83,14 @@ class AuthDataSource {
                 return@withContext result
             }
 
-    /**
-     * Logout the user session
-     */
+    fun resetPassword(username: String){
+        auth.sendPasswordResetEmail(username)
+    }
+
+
+
+
+
     fun logout() {
         auth.signOut()
     }

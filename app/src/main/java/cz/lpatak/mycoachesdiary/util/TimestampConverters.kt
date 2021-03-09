@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 fun convertDateToLong(date: String): Long {
     val format = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
     return format.parse(date).time
