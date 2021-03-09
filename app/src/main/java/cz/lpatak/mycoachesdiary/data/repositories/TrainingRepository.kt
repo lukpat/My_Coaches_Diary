@@ -1,7 +1,6 @@
 package cz.lpatak.mycoachesdiary.data.repositories
 
 import com.google.firebase.Timestamp
-import cz.lpatak.mycoachesdiary.data.model.Match
 import cz.lpatak.mycoachesdiary.data.model.Result
 import cz.lpatak.mycoachesdiary.data.model.Training
 

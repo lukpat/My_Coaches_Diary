@@ -9,9 +9,9 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import cz.lpatak.mycoachesdiary.data.model.auth.AuthResult
 import cz.lpatak.mycoachesdiary.data.model.auth.LoggedInUserView
 import cz.lpatak.mycoachesdiary.data.model.auth.LoginFormState
-import cz.lpatak.mycoachesdiary.data.model.auth.AuthResult
 import cz.lpatak.mycoachesdiary.databinding.FragmentLoginBinding
 import cz.lpatak.mycoachesdiary.ui.auth.viewmodel.AuthViewModel
 import cz.lpatak.mycoachesdiary.util.afterTextChanged

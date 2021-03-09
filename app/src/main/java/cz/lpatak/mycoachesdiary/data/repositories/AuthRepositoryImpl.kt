@@ -42,7 +42,7 @@ class AuthRepositoryImpl(private val dataSource: AuthDataSource) : AuthRepositor
         return result
     }
 
-    override fun resetPassword(username: String){
+    override fun resetPassword(username: String) {
         dataSource.resetPassword(username)
     }
 

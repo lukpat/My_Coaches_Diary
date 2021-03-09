@@ -22,3 +22,11 @@ fun stringDateToTimestamp(str: String): Timestamp {
     return Timestamp(date)
 }
 
+fun createTime(hour: Int, minute: Int): String {
+    var minuteStr = minute.toString()
+    if (minute < 9) {
+        minuteStr = "0$minute"
+    }
+    return "$hour:$minuteStr"
+}
+

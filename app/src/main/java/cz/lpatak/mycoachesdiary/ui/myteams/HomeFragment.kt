@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
             teamsList.adapter = adapter
             txtTeam.text = setCurrentTeam()
             fabAddTeam.setOnClickListener {
-                val directions= HomeFragmentDirections.actionNavigationHomeToNavigationAddTeam()
+                val directions = HomeFragmentDirections.actionNavigationHomeToNavigationAddTeam()
                 findNavController().navigate(directions)
             }
         }
@@ -59,16 +59,16 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.logout-> {
-                    val directions = HomeFragmentDirections.actionGlobalNavigationLogin()
-                    AlertDialog.Builder(context)
-                            .setMessage(R.string.logout_message)
-                            .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                                authViewModel.logOut()
-                                findNavController().navigate(directions)
-                            })
-                            .setNegativeButton(R.string.no, null)
-                            .show()
+            R.id.logout -> {
+                val directions = HomeFragmentDirections.actionGlobalNavigationLogin()
+                AlertDialog.Builder(context)
+                        .setMessage(R.string.logout_message)
+                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                            authViewModel.logOut()
+                            findNavController().navigate(directions)
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show()
             }
         }
         return super.onOptionsItemSelected(item)

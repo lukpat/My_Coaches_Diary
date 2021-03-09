@@ -39,9 +39,9 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             }
             isTeamSelected = matchesViewModel.isTeamSelected()
             filterOn = false
-            btnSetFilter.setOnClickListener { applyFilter() }
-            btnSetDateFrom.setOnClickListener { pickDateFrom() }
-            btnSetDateTo.setOnClickListener { pickDateTo() }
+            dateFilterLayoutHelper.btnSetFilter.setOnClickListener { applyFilter() }
+            dateFilterLayoutHelper.btnSetDateFrom.setOnClickListener { pickDateFrom() }
+            dateFilterLayoutHelper.btnSetDateTo.setOnClickListener { pickDateTo() }
         }
 
         adapter.setViewModel(matchesViewModel)
@@ -62,7 +62,7 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         when (item.itemId) {
             R.id.filter -> {
                 binding.filterOn = binding.filterOn == false
-                binding.dateError.text = ""
+                binding.dateFilterLayoutHelper.dateError.text = ""
             }
         }
         return super.onOptionsItemSelected(item)
@@ -94,15 +94,17 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun applyFilter() {
         if (dateFrom.seconds >= dateTo.seconds) {
             val error = "Datum počátku je později než datum konce, takže filtr není možné provést"
-            binding.dateError.text = error
+            binding.dateFilterLayoutHelper.dateError.text = error
             return
         }
 
-        val matchCategory = binding.matchCategory.selectedItem.toString()
+        val matchCategory = binding.dateFilterLayoutHelper.matchCategory.selectedItem.toString()
         var all = false
         if (matchCategory == "Všechny zápasy") {
             all = true
         }
+
+        Log.println(Log.ERROR, "Category: ", matchCategory)
 
         loadMatchesWithFilter(matchCategory, all, dateFrom, dateTo)
         binding.filterOn = false
@@ -118,10 +120,10 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val str = "$dayOfMonth.$realMonth.$year"
 
         if (helper) {
-            binding.dateFrom.text = str
+            binding.dateFilterLayoutHelper.dateFrom.text = str
             dateFrom = stringDateToTimestamp(str)
         } else {
-            binding.dateTo.text = str
+            binding.dateFilterLayoutHelper.dateTo.text = str
             dateTo = stringDateToTimestamp(str)
         }
     }

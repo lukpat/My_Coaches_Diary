@@ -23,7 +23,7 @@ import java.util.*
 class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(), DatePickerDialog.OnDateSetListener {
     private val matchesViewModel: MatchesViewModel by viewModel()
     private lateinit var binding: FragmentMatchDetailInfoBinding
-    private var timestamp = Timestamp(java.util.Date(0))
+    private var timestamp = Timestamp(Date(0))
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -40,9 +40,9 @@ class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(), Da
             lifecycleOwner = this@MatchDetailFragmentInfo
             matchModel = MatchUIModel()
             btnSaveMatch.setOnClickListener {
-                updateTeam(matchModel)
+                updateMatch(matchModel)
             }
-            btnSetDate.setOnClickListener {
+            helperMatchesLayout.btnSetDate.setOnClickListener {
                 pickDate()
             }
         }
@@ -54,7 +54,7 @@ class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(), Da
 
     private fun setMatch(uiModel: MatchUIModel?) {
         uiModel?.opponent?.value = matchFromArgs.opponent
-        binding.type.setSelection(getIndex(matchFromArgs.type.toString()))
+        binding.helperMatchesLayout.type.setSelection(getIndex(matchFromArgs.type.toString()))
         uiModel?.dateString?.value = convertLongToDate(matchFromArgs.date!!.seconds)
         uiModel?.playingTime?.value = matchFromArgs.playingTime
         uiModel?.note?.value = matchFromArgs.note
@@ -69,15 +69,20 @@ class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(), Da
         }
     }
 
-    private fun updateTeam(uiModel: MatchUIModel?) {
+    private fun updateMatch(uiModel: MatchUIModel?) {
+        var date = matchFromArgs.date
+        if (timestamp != Timestamp(Date(0))) {
+            date = timestamp
+        }
+
         if (uiModel != null) {
             matchesViewModel.updateMatch(
                     Match(
                             matchFromArgs.id,
                             matchFromArgs.team,
                             uiModel.opponent.value.toString(),
-                            timestamp,
-                            binding.type.selectedItem.toString(),
+                            date,
+                            binding.helperMatchesLayout.type.selectedItem.toString(),
                             uiModel.playingTime.value!!,
                             uiModel.note.value.toString(),
                             matchFromArgs.scoreTeam,

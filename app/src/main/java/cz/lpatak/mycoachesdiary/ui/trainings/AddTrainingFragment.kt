@@ -1,12 +1,14 @@
 package cz.lpatak.mycoachesdiary.ui.trainings
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.TimePicker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,12 +18,13 @@ import cz.lpatak.mycoachesdiary.data.model.Training
 import cz.lpatak.mycoachesdiary.databinding.FragmentAddTrainingBinding
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
+import cz.lpatak.mycoachesdiary.util.createTime
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
     private lateinit var binding: FragmentAddTrainingBinding
     private var timestamp = Timestamp(Date(0))
@@ -37,11 +40,12 @@ class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             lifecycleOwner = this@AddTrainingFragment
             trainingModel = TrainingUIModel()
             btnSaveTraining.setOnClickListener { createTeam() }
-            btnSetDate.setOnClickListener { pickDate() }
+            trainingHelperLayout.btnSetDate.setOnClickListener { pickDate() }
+            trainingHelperLayout.btnSetTimeFrom.setOnClickListener { pickTimeFrom() }
+            trainingHelperLayout.btnSetTimeTo.setOnClickListener { pickTimeTo() }
         }
         return binding.root
     }
-
 
     private fun createTeam() {
         val training = Training(
@@ -74,6 +78,35 @@ class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val year = cal.get(Calendar.YEAR)
 
         DatePickerDialog(this.requireContext(), this, year, month, dayOfMonth).show()
+    }
+
+
+    private var helper = false
+    private fun pickTimeFrom() {
+        helper = true
+        pickTime()
+    }
+
+    private fun pickTimeTo() {
+        helper = false
+        pickTime()
+    }
+
+    private fun pickTime() {
+        val cal = Calendar.getInstance()
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        val minute = cal.get(Calendar.MINUTE)
+
+        TimePickerDialog(this.requireContext(), this, hour, minute, true).show()
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        val str = createTime(hourOfDay, minute)
+        if (helper) {
+            binding.trainingModel!!.startTime.value = str
+        } else {
+            binding.trainingModel!!.endTime.value = str
+        }
     }
 
 }

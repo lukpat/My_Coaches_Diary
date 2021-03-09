@@ -92,6 +92,8 @@
     <string name="reset_password_text">Zapomněli jste heslo? Obnovte si ho zde.</string>
     <string name="renew_password">Obnovení hesla</string>
     <string name="send_new_password">odeslat nové heslo</string>
+    <string name="time_hint">hh:mm</string>
+    <string name="date_from">datum od</string>
 
     <string-array name="exercise_owner">
         <item>Jen moje cvičení</item>

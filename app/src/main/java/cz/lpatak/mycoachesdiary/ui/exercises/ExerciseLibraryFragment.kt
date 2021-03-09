@@ -34,7 +34,7 @@ class ExerciseLibraryFragment : Fragment(), androidx.appcompat.widget.SearchView
             exercisesList.adapter = adapter
             fabAddExercise.setOnClickListener { goToAddExerciseFragment() }
             filterOn = false
-            btnSetFilter.setOnClickListener { applyFilter() }
+            exerciseLibraryFilter.btnSetFilter.setOnClickListener { applyFilter() }
         }
 
         adapter.setViewModel(exercisesViewModel)
@@ -85,9 +85,9 @@ class ExerciseLibraryFragment : Fragment(), androidx.appcompat.widget.SearchView
     }
 
     private fun applyFilter() {
-        val exerciseOwner = getIndex(binding.exerciseOwner.selectedItem.toString()) == 0
+        val exerciseOwner = getIndex(binding.exerciseLibraryFilter.exerciseOwner.selectedItem.toString()) == 0
 
-        val category = binding.category.selectedItem.toString()
+        val category = binding.exerciseLibraryFilter.exerciseCategory.selectedItem.toString()
         loadExercisesWithFilter(exerciseOwner, category)
         binding.filterOn = false
     }

@@ -2,14 +2,16 @@ package cz.lpatak.mycoachesdiary.ui.auth.viewmodel
 
 import android.content.Context
 import android.util.Patterns
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import cz.lpatak.mycoachesdiary.R
-import cz.lpatak.mycoachesdiary.data.model.auth.*
+import cz.lpatak.mycoachesdiary.data.model.auth.AuthResult
+import cz.lpatak.mycoachesdiary.data.model.auth.LoggedInUserView
+import cz.lpatak.mycoachesdiary.data.model.auth.LoginFormState
+import cz.lpatak.mycoachesdiary.data.model.auth.RegisterFormState
 import cz.lpatak.mycoachesdiary.data.repositories.AuthRepository
 import cz.lpatak.mycoachesdiary.data.source.LoginResult.Error
 import cz.lpatak.mycoachesdiary.data.source.LoginResult.Success

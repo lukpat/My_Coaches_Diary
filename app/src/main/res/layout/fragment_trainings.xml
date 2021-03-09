@@ -25,93 +25,14 @@
         android:layout_height="match_parent"
         tools:context=".ui.trainings.TrainingsFragment">
 
-        <LinearLayout
-            android:id="@+id/date_layout"
+        <include
+            android:id="@+id/filter_layout"
             invisibleUnless="@{filterOn}"
+            layout="@layout/helper_trainings_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:gravity="center_horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints">
+            android:layout_marginTop="@dimen/normal_margin" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@string/from"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/btnSetDateFrom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:src="@drawable/ic_calendar" />
-
-            <TextView
-                android:id="@+id/dateFrom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/normal_margin"
-                android:hint="@string/date"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:text="@string/to"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/btnSetDateTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:src="@drawable/ic_calendar" />
-
-            <TextView
-                android:id="@+id/dateTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:hint="@string/date"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/dateError"
-            invisibleUnless="@{filterOn}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:textColor="@color/colorPrimary"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="@+id/date_layout"
-            app:layout_constraintStart_toStartOf="@+id/date_layout"
-            app:layout_constraintTop_toBottomOf="@+id/date_layout" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSetFilter"
-            style="@style/buttonBoldFilled"
-            invisibleUnless="@{filterOn}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:text="@string/apply_filter"
-            app:layout_constraintEnd_toEndOf="@+id/date_layout"
-            app:layout_constraintStart_toStartOf="@+id/date_layout"
-            app:layout_constraintTop_toBottomOf="@+id/date_layout" />
 
         <ScrollView
             invisibleUnless="@{!filterOn}"
@@ -119,14 +40,14 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trainings_list"
-            goneUnless="@{result instanceof Result.Success}"
-            invisibleUnless="@{isTeamSelected}"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/training_item" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trainings_list"
+                goneUnless="@{result instanceof Result.Success}"
+                invisibleUnless="@{isTeamSelected}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/training_item" />
 
         </ScrollView>
 

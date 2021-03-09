@@ -64,6 +64,7 @@ class TeamDetailFragment : Fragment() {
 
     private fun setCurrentTeam() {
         myTeamsViewModel.setCurrentTeam(teamFromArgs)
+        findNavController().navigateUp()
     }
 
 }

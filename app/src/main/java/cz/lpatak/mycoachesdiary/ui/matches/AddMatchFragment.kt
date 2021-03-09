@@ -33,7 +33,7 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             lifecycleOwner = this@AddMatchFragment
             matchModel = MatchUIModel()
             btnSaveMatch.setOnClickListener { createMatch() }
-            btnSetDate.setOnClickListener { pickDate() }
+            helperMatchesLayout.btnSetDate.setOnClickListener { pickDate() }
         }
 
         return binding.root
@@ -43,7 +43,7 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         matchesViewModel.addMatch(
                 binding.matchModel!!.opponent.value.toString(),
                 timestamp,
-                binding.type.selectedItem.toString(),
+                binding.helperMatchesLayout.type.selectedItem.toString(),
                 binding.matchModel!!.playingTime.value!!
         )
         findNavController().navigateUp()
