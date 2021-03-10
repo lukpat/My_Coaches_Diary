@@ -10,6 +10,10 @@
         <variable
             name="result"
             type="Result" />
+
+        <variable
+            name="filterOn"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,13 +21,33 @@
         android:layout_height="match_parent"
         tools:context=".ui.trainings.AddExerciseToTrainingFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trainings_list"
-            goneUnless="@{result instanceof Result.Success}"
+
+        <include
+            android:id="@+id/exercise_library_filter"
+            invisibleUnless="@{filterOn}"
+            layout="@layout/helper_exercise_filter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/exercise_item" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            invisibleUnless="@{!filterOn}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="5dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercises_list"
+                goneUnless="@{result instanceof Result.Success}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/exercise_item" />
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

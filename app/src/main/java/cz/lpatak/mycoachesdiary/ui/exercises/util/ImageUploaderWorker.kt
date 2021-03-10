@@ -12,8 +12,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class ImageUploaderWorker(
-        context: Context,
-        workerParams: WorkerParameters
+    context: Context,
+    workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
 
     private val repository = ExerciseRepositoryImpl(FirestoreSource())
@@ -29,8 +29,8 @@ class ImageUploaderWorker(
             when (result) {
                 is cz.lpatak.mycoachesdiary.data.model.Result.Success -> {
                     val data = Data.Builder()
-                            .putAll(inputData)
-                            .putString(KEY_UPLOADED_URI, result.data.toString())
+                        .putAll(inputData)
+                        .putString(KEY_UPLOADED_URI, result.data.toString())
                     cont.resume(Result.success(data.build()))
                 }
 

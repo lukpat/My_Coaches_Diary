@@ -5,33 +5,36 @@ import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
 
 data class Exercise(
-        @DocumentId
-        val id: String?,
-        val owner: String?,
-        val name: String?,
-        val category: String?,
-        val description: String?,
-        val imageUrl: String?
+    @DocumentId
+    val id: String?,
+    val owner: String?,
+    val name: String?,
+    val nameUpperCase: String?,
+    val category: String?,
+    val description: String?,
+    val imageUrl: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
     )
 
     @Suppress("unused")
-    constructor() : this("", "", "", "", "", "")
+    constructor() : this("", "", "", "", "", "", "")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(name)
+        parcel.writeString(nameUpperCase)
         parcel.writeString(category)
         parcel.writeString(description)
         parcel.writeString(owner)
-        // parcel.writeString(imageUrl)
+        parcel.writeString(imageUrl)
     }
 
     override fun describeContents(): Int {

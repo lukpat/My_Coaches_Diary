@@ -39,9 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/players_attendance"
-                app:layout_constraintEnd_toEndOf="@+id/time_layout_helper"
-                app:layout_constraintStart_toStartOf="@+id/time_layout_helper"
-                app:layout_constraintTop_toBottomOf="@id/time_layout_helper">
+                app:layout_constraintEnd_toEndOf="@+id/training_helper_layout"
+                app:layout_constraintStart_toStartOf="@+id/training_helper_layout"
+                app:layout_constraintTop_toBottomOf="@id/training_helper_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

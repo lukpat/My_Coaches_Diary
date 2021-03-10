@@ -29,8 +29,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class MatchRepositoryImpl(
-        private val firestoreSource: FirestoreSource,
-        private val preferenceManager: PreferenceManger
+    private val firestoreSource: FirestoreSource,
+    private val preferenceManager: PreferenceManger
 ) : MatchRepository {
 
     private val matchesPath: CollectionReference
@@ -39,107 +39,113 @@ class MatchRepositoryImpl(
         }
 
     override suspend fun getMatches(): Result<List<Match>> =
-            suspendCoroutine { cont ->
-                matchesPath.whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY)).orderBy(COLUMN_DATE)
-                        .get()
-                        .addOnSuccessListener {
-                            try {
-                                cont.resume(Result.Success(it.toObjects()))
-                            } catch (e: Exception) {
-                                cont.resume(Result.Error(e))
-                            }
-                        }.addOnFailureListener {
-                            cont.resume(Result.Error(it))
-                        }
-            }
-
-
-    override suspend fun getMatchesFilter(matchCategory: String, all: Boolean, dateFrom: Timestamp, dateTo: Timestamp): Result<List<Match>> =
-            suspendCoroutine { cont ->
-                var query = matchesPath
-                        .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
-                        .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
-                        .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
-                        .orderBy(COLUMN_DATE)
-                if (!all) {
-                    query = matchesPath
-                            .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
-                            .whereEqualTo(COLUMN_TYPE, matchCategory)
-                            .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
-                            .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
-                            .orderBy(COLUMN_DATE)
+        suspendCoroutine { cont ->
+            matchesPath.whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
+                .orderBy(COLUMN_DATE)
+                .get()
+                .addOnSuccessListener {
+                    try {
+                        cont.resume(Result.Success(it.toObjects()))
+                    } catch (e: Exception) {
+                        cont.resume(Result.Error(e))
+                    }
+                }.addOnFailureListener {
+                    cont.resume(Result.Error(it))
                 }
+        }
 
-                query.get()
-                        .addOnSuccessListener {
-                            try {
-                                cont.resume(Result.Success(it.toObjects()))
-                            } catch (e: Exception) {
-                                cont.resume(Result.Error(e))
-                            }
-                        }.addOnFailureListener {
-                            cont.resume(Result.Error(it))
-                        }
+
+    override suspend fun getMatchesFilter(
+        matchCategory: String,
+        all: Boolean,
+        dateFrom: Timestamp,
+        dateTo: Timestamp
+    ): Result<List<Match>> =
+        suspendCoroutine { cont ->
+            var query = matchesPath
+                .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
+                .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
+                .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
+                .orderBy(COLUMN_DATE)
+            if (!all) {
+                query = matchesPath
+                    .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
+                    .whereEqualTo(COLUMN_TYPE, matchCategory)
+                    .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
+                    .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
+                    .orderBy(COLUMN_DATE)
             }
+
+            query.get()
+                .addOnSuccessListener {
+                    try {
+                        cont.resume(Result.Success(it.toObjects()))
+                    } catch (e: Exception) {
+                        cont.resume(Result.Error(e))
+                    }
+                }.addOnFailureListener {
+                    cont.resume(Result.Error(it))
+                }
+        }
 
     override fun addMatch(match: Match) {
 
         val data = hashMapOf(
-                COLUMN_TEAM to preferenceManager.getStringValue(TEAM_ID_KEY),
-                COLUMN_OPPONENT to match.opponent,
-                COLUMN_DATE to match.date,
-                COLUMN_TYPE to match.type,
-                COLUMN_PLAYING_TIME to match.playingTime,
-                COLUMN_NOTE to match.note
+            COLUMN_TEAM to preferenceManager.getStringValue(TEAM_ID_KEY),
+            COLUMN_OPPONENT to match.opponent,
+            COLUMN_DATE to match.date,
+            COLUMN_TYPE to match.type,
+            COLUMN_PLAYING_TIME to match.playingTime,
+            COLUMN_NOTE to match.note
         )
 
         matchesPath
-                .add(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+            .add(data)
+            .addOnSuccessListener {
+                Result.Success(true)
+            }.addOnFailureListener {
+                Result.Error(it)
+            }
 
     }
 
     override fun updateMatch(match: Match) {
         val data = hashMapOf(
-                COLUMN_TEAM to match.team,
-                COLUMN_OPPONENT to match.opponent,
-                COLUMN_DATE to match.date,
-                COLUMN_TYPE to match.type,
-                COLUMN_PLAYING_TIME to match.playingTime,
-                COLUMN_NOTE to match.note,
-                COLUMN_SCORE_TEAM to match.scoreTeam,
-                COLUMN_SCORE_OPPONENT to match.scoreOpponent,
-                COLUMN_POWER_PLAYS_TEAM to match.powerPlaysTeam,
-                COLUMN_POWER_PLAYS_OPPONENT to match.powerPlaysOpponent,
-                COLUMN_POWER_PLAYS_TEAM_SUCESS to match.powerPlaysTeamSuccess,
-                COLUMN_POWER_PLAYS_OPPONENT_SUCESS to match.powerPlaysOpponentSuccess,
-                COLUMN_SHOTS_TEAM to match.shotsTeam,
-                COLUMN_SHOTS_OPPONENT to match.shotsOpponent,
-                COLUMN_SHOTS_TO_BLOCK to match.shotsToBlock,
-                COLUMN_SHOTS_OUTSIDE to match.shotsOutside
+            COLUMN_TEAM to match.team,
+            COLUMN_OPPONENT to match.opponent,
+            COLUMN_DATE to match.date,
+            COLUMN_TYPE to match.type,
+            COLUMN_PLAYING_TIME to match.playingTime,
+            COLUMN_NOTE to match.note,
+            COLUMN_SCORE_TEAM to match.scoreTeam,
+            COLUMN_SCORE_OPPONENT to match.scoreOpponent,
+            COLUMN_POWER_PLAYS_TEAM to match.powerPlaysTeam,
+            COLUMN_POWER_PLAYS_OPPONENT to match.powerPlaysOpponent,
+            COLUMN_POWER_PLAYS_TEAM_SUCESS to match.powerPlaysTeamSuccess,
+            COLUMN_POWER_PLAYS_OPPONENT_SUCESS to match.powerPlaysOpponentSuccess,
+            COLUMN_SHOTS_TEAM to match.shotsTeam,
+            COLUMN_SHOTS_OPPONENT to match.shotsOpponent,
+            COLUMN_SHOTS_TO_BLOCK to match.shotsToBlock,
+            COLUMN_SHOTS_OUTSIDE to match.shotsOutside
         )
 
         matchesPath.document(match.id!!)
-                .set(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+            .set(data)
+            .addOnSuccessListener {
+                Result.Success(true)
+            }.addOnFailureListener {
+                Result.Error(it)
+            }
     }
 
     override fun deleteMatch(matchId: String) {
         matchesPath.document(matchId)
-                .delete()
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+            .delete()
+            .addOnSuccessListener {
+                Result.Success(true)
+            }.addOnFailureListener {
+                Result.Error(it)
+            }
     }
 
 }

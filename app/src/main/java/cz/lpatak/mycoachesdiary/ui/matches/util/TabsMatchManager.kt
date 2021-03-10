@@ -9,15 +9,15 @@ import cz.lpatak.mycoachesdiary.ui.matches.MatchDetailFragmentInfo
 import cz.lpatak.mycoachesdiary.ui.matches.MatchDetailFragmentStats
 
 class TabsMatchManager(
-        fragmentManager: FragmentManager,
-        lifecycle: Lifecycle,
-        args: MatchDetailFragmentArgs
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle,
+    args: MatchDetailFragmentArgs
 ) :
-        FragmentStateAdapter(fragmentManager, lifecycle) {
+    FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragments: ArrayList<Fragment> = arrayListOf(
-            MatchDetailFragmentInfo(args.match),
-            MatchDetailFragmentStats(args.match)
+        MatchDetailFragmentInfo(args.match),
+        MatchDetailFragmentStats(args.match)
     )
 
     override fun getItemCount(): Int {

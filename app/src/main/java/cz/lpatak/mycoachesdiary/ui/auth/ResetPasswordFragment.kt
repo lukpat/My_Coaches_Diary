@@ -18,11 +18,12 @@ class ResetPasswordFragment : Fragment() {
     private lateinit var binding: FragmentResetPasswordBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_reset_password, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_reset_password, container, false)
         with(binding) {
             btnReset.setOnClickListener { resetPassword() }
         }

@@ -23,9 +23,9 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
@@ -42,27 +42,27 @@ class RegisterFragment : Fragment() {
 
         binding.etUsername.afterTextChanged {
             authViewModel.registerDataChanged(
-                    binding.etUsername.text.toString(),
-                    binding.etPassword.text.toString(),
-                    binding.etPassword2.text.toString()
+                binding.etUsername.text.toString(),
+                binding.etPassword.text.toString(),
+                binding.etPassword2.text.toString()
             )
         }
 
         binding.etPassword.apply {
             afterTextChanged {
                 authViewModel.registerDataChanged(
-                        binding.etUsername.text.toString(),
-                        binding.etPassword.text.toString(),
-                        binding.etPassword2.text.toString()
+                    binding.etUsername.text.toString(),
+                    binding.etPassword.text.toString(),
+                    binding.etPassword2.text.toString()
                 )
             }
 
             binding.etPassword2.apply {
                 afterTextChanged {
                     authViewModel.registerDataChanged(
-                            binding.etUsername.text.toString(),
-                            binding.etPassword.text.toString(),
-                            binding.etPassword2.text.toString()
+                        binding.etUsername.text.toString(),
+                        binding.etPassword.text.toString(),
+                        binding.etPassword2.text.toString()
                     )
                 }
 
@@ -80,8 +80,8 @@ class RegisterFragment : Fragment() {
             binding.btnRegister.setOnClickListener {
                 binding.loading.visibility = View.VISIBLE
                 authViewModel.register(
-                        binding.etUsername.text.toString(),
-                        binding.etPassword.text.toString()
+                    binding.etUsername.text.toString(),
+                    binding.etPassword.text.toString()
                 )
             }
 
@@ -90,7 +90,7 @@ class RegisterFragment : Fragment() {
             }
 
             authViewModel.getCurrentLoggedInUser()
-                    ?.observe(viewLifecycleOwner, loggedInUserObserver)
+                ?.observe(viewLifecycleOwner, loggedInUserObserver)
             authViewModel.registerFormState.observe(viewLifecycleOwner, registerFormStateObserver)
             authViewModel.registerResult.observe(viewLifecycleOwner, registerResultObserver)
 
@@ -100,7 +100,7 @@ class RegisterFragment : Fragment() {
     private fun navigateToHomeScreen() {
         view?.let {
             val directions =
-                    RegisterFragmentDirections.actionNavigationRegisterToNavigationHome()
+                RegisterFragmentDirections.actionNavigationRegisterToNavigationHome()
             it.findNavController().navigate(directions)
         }
     }

@@ -20,17 +20,17 @@ class ExerciseDetailFragment : Fragment() {
     private lateinit var binding: FragmentExerciseDetailBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding =
-                DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.fragment_exercise_detail,
-                        container,
-                        false
-                )
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_exercise_detail,
+                container,
+                false
+            )
         with(binding) {
             lifecycleOwner = this@ExerciseDetailFragment
             exerciseModel = ExerciseUIModel()

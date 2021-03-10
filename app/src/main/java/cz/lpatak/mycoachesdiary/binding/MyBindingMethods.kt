@@ -5,10 +5,10 @@ import androidx.databinding.BindingMethods
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 @BindingMethods(
-        BindingMethod(
-                type = SwipeRefreshLayout::class,
-                attribute = "isRefreshing",
-                method = "setRefreshing"
-        )
+    BindingMethod(
+        type = SwipeRefreshLayout::class,
+        attribute = "isRefreshing",
+        method = "setRefreshing"
+    )
 )
 class MyBindingMethods

@@ -8,7 +8,6 @@
         <variable
             name="exercise"
             type="cz.lpatak.mycoachesdiary.data.model.ExerciseInTraining" />
-
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -43,31 +42,59 @@
                 tools:ignore="MissingConstraints"
                 tools:text="@string/name" />
 
+            <TextView
+                android:id="@+id/season"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:text="@{exercise.category}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="@string/category" />
+
             <EditText
                 android:id="@+id/time"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:inputType="number"
-                android:text="@{exercise.time + `min`}"
+                android:text="@{exercise.time + ` min`}"
                 android:textColor="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonSave"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="15 min" />
-            <!--
-                        <Button
-                            android:id="@+id/buttonDelete"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/ic_delete"
-                            app:layout_constraintDimensionRatio="1:1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintWidth_percent=".08" />
-            -->
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_save"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".08" />
+
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_delete"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".08" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

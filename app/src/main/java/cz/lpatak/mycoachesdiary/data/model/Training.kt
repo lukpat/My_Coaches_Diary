@@ -7,25 +7,25 @@ import com.google.firebase.firestore.DocumentId
 import java.util.*
 
 data class Training(
-        @DocumentId
-        val id: String?,
-        val place: String?,
-        val rating: Int,
-        val date: Timestamp?,
-        val startTime: String?,
-        val endTime: String?,
-        val players: Int,
-        val goalkeepers: Int
+    @DocumentId
+    val id: String?,
+    val place: String?,
+    val rating: Int,
+    val date: Timestamp?,
+    val startTime: String?,
+    val endTime: String?,
+    val players: Int,
+    val goalkeepers: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readInt(),
-            Timestamp(Date(parcel.readLong())),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readInt(),
-            parcel.readInt()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        Timestamp(Date(parcel.readLong())),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readInt()
     )
 
 

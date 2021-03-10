@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">My Coaches Diary</string>
     <string name="message_internet_unavailable">Internet not available</string>
-    <string name="title_activity_login">Sign In</string>
     <string name="prompt_email">Email</string>
     <string name="switch_to_register">Nemáte účet? Zaregistrujte se zde.</string>
     <string name="switch_to_login">Již máte účet? Přihlašte se zde.</string>
@@ -13,7 +12,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="user">User</string>
     <string name="unknown">Unknown</string>
-    <string name="logout_title">Logout</string>
     <string name="message_logout_success">Logged out successfully</string>
     <string name="label_authenticate">Authenticate</string>
     <string name="label_cancel">Cancel</string>
@@ -44,10 +42,8 @@
     <string name="delete_team_alert">Doopravdy chcete odstranit tento tým? Při jeho odstranění dojde i k odstranění jeho tréninků, zápasů a statistik.</string>
     <string name="yes">ANO</string>
     <string name="no">NE</string>
-    <string name="delete_team_title">Odstranit tým</string>
     <string name="add_team">Vytvořit tým</string>
     <string name="set_as_current_team">Nastavit jako aktuální tým</string>
-    <string name="delete_trainig_title">Odstranění tréninku</string>
     <string name="delete_trainig_alert">Doopravdy chcete odstranit tento trénink? Společně s ním budou odstraněny i všechny jemu podřízené záznamy.</string>
     <string name="add_training">Nový trénink</string>
     <string name="place">místo</string>
@@ -60,7 +56,6 @@
     <string name="players_attendance">počet hráčů</string>
     <string name="goalkeepers_attendance">počet brankářů</string>
     <string name="delete_exercise_alert">Určitě chcete odstranit toto cvičení? Jeho záznamy v rámci tréninků zůstanou uložené, ale nebude možné zobrazit detaily tohoto cvičení.</string>
-    <string name="delete_exercise_title">odstranit cvičení</string>
     <string name="impossible_delete_exercise_alert">Nejste autorem tohoto cvičení, takže jej nemůžete odstranit.</string>
     <string name="close">zavřít</string>
     <string name="current_team">aktuální tým</string>
@@ -68,7 +63,6 @@
     <string name="exercises">cvičení</string>
     <string name="delete_exercise_from_training_alert">Doopravdy chcete odstranit toto cvičení z tréninku?</string>
     <string name="no_team_selected">Nemáte zvolen tým</string>
-    <string name="delete_match_title">odstranit zápas</string>
     <string name="delete_match_alert">Doopravdy chcete odstranit tento zápas? Společně s ním zaniknout i jeho statistiky.</string>
     <string name="opponent">soupeř</string>
     <string name="match_type">typ zápasu</string>
@@ -94,6 +88,7 @@
     <string name="send_new_password">odeslat nové heslo</string>
     <string name="time_hint">hh:mm</string>
     <string name="date_from">datum od</string>
+    <string name="logout_title">logout</string>
 
     <string-array name="exercise_owner">
         <item>Jen moje cvičení</item>

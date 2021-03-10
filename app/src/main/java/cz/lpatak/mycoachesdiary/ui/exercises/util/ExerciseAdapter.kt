@@ -14,17 +14,17 @@ import cz.lpatak.mycoachesdiary.ui.exercises.ExerciseLibraryFragmentDirections
 import cz.lpatak.mycoachesdiary.ui.exercises.viewmodel.ExercisesViewModel
 
 class ExerciseAdapter(
-        private val onClick: ((Exercise) -> Unit)? = null
+    private val onClick: ((Exercise) -> Unit)? = null
 ) : DataBoundListAdapter<Exercise, ExerciseItemBinding>(
-        diffCallback = object : DiffUtil.ItemCallback<Exercise>() {
-            override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
-                return oldItem == newItem
-            }
+    diffCallback = object : DiffUtil.ItemCallback<Exercise>() {
+        override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
+            return oldItem.id == newItem.id
         }
+
+        override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
+            return oldItem == newItem
+        }
+    }
 ) {
     private lateinit var viewModel: ExercisesViewModel
 
@@ -34,9 +34,9 @@ class ExerciseAdapter(
 
     override fun createBinding(parent: ViewGroup): ExerciseItemBinding {
         return DataBindingUtil.inflate<ExerciseItemBinding>(
-                LayoutInflater.from(parent.context),
-                R.layout.exercise_item,
-                parent, false
+            LayoutInflater.from(parent.context),
+            R.layout.exercise_item,
+            parent, false
         ).apply {
             this.root.setOnClickListener {
                 this.exercise?.let { goToExerciseDetail(this.root, it) }
@@ -50,9 +50,9 @@ class ExerciseAdapter(
 
     private fun goToExerciseDetail(view: View, exercise: Exercise) {
         val directions =
-                ExerciseLibraryFragmentDirections.actionNavigationExerciseLibraryToNavigationExerciseDetail(
-                        exercise
-                )
+            ExerciseLibraryFragmentDirections.actionNavigationExerciseLibraryToNavigationExerciseDetail(
+                exercise
+            )
         view.findNavController().navigate(directions)
     }
 }

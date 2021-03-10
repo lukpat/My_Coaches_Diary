@@ -17,71 +17,71 @@ class AuthDataSource {
     val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     suspend fun login(username: String, password: String): LoginResult<LoggedInUser> =
-            withContext(Dispatchers.IO) {
-                var result: LoginResult<LoggedInUser> =
-                        LoginResult.Error(IOException("Error logging in"))
+        withContext(Dispatchers.IO) {
+            var result: LoginResult<LoggedInUser> =
+                LoginResult.Error(IOException("Error logging in"))
 
-                try {
-                    val task = auth.signInWithEmailAndPassword(username, password).await()
-                    task?.let {
-                        if (it.user != null) {
-                            Log.d("TAG", "signInWithEmail:success")
-                            val user = auth.currentUser
-                            user?.let {
-                                result =
-                                        LoginResult.Success(
-                                                LoggedInUser(
-                                                        user.email,
-                                                        user.uid
-                                                )
-                                        )
-                            }
+            try {
+                val task = auth.signInWithEmailAndPassword(username, password).await()
+                task?.let {
+                    if (it.user != null) {
+                        Log.d("TAG", "signInWithEmail:success")
+                        val user = auth.currentUser
+                        user?.let {
+                            result =
+                                LoginResult.Success(
+                                    LoggedInUser(
+                                        user.email,
+                                        user.uid
+                                    )
+                                )
                         }
                     }
-                } catch (e: FirebaseException) {
-                    Log.w("TAG", "signInWithEmail:failure", e)
-                    result = if (e is FirebaseNetworkException) {
-                        LoginResult.Error(NoConnectivityException())
-                    } else {
-                        LoginResult.Error(IOException("Error logging in", e))
-                    }
                 }
-                return@withContext result
+            } catch (e: FirebaseException) {
+                Log.w("TAG", "signInWithEmail:failure", e)
+                result = if (e is FirebaseNetworkException) {
+                    LoginResult.Error(NoConnectivityException())
+                } else {
+                    LoginResult.Error(IOException("Error logging in", e))
+                }
             }
+            return@withContext result
+        }
 
 
     suspend fun register(username: String, password: String): LoginResult<LoggedInUser> =
-            withContext(Dispatchers.IO) {
-                var result: LoginResult<LoggedInUser> =
-                        LoginResult.Error(IOException("Error logging in"))
+        withContext(Dispatchers.IO) {
+            var result: LoginResult<LoggedInUser> =
+                LoginResult.Error(IOException("Error logging in"))
 
-                try {
-                    val task = auth.createUserWithEmailAndPassword(username, password).await()
-                    task?.let {
-                        if (it.user != null) {
-                            Log.d("TAG", "register:success")
-                            val user = auth.currentUser
-                            user?.let {
-                                result =
-                                        LoginResult.Success(
-                                                LoggedInUser(
-                                                        user.email,
-                                                        user.uid
-                                                )
-                                        )
-                            }
+            try {
+                val task = auth.createUserWithEmailAndPassword(username, password).await()
+                task?.let {
+                    if (it.user != null) {
+                        Log.d("TAG", "register:success")
+                        val user = auth.currentUser
+                        user?.let {
+                            result =
+                                LoginResult.Success(
+                                    LoggedInUser(
+                                        user.email,
+                                        user.uid
+                                    )
+                                )
                         }
                     }
-                } catch (e: FirebaseException) {
-                    Log.w("TAG", "register:failure", e)
-                    result = if (e is FirebaseNetworkException) {
-                        LoginResult.Error(NoConnectivityException())
-                    } else {
-                        LoginResult.Error(IOException("Error registration in", e))
-                    }
                 }
-                return@withContext result
+            } catch (e: FirebaseException) {
+                Log.w("TAG", "register:failure", e)
+                result = if (e is FirebaseNetworkException) {
+                    LoginResult.Error(NoConnectivityException())
+                } else {
+                    LoginResult.Error(IOException("Error registration in", e))
+                }
             }
+            return@withContext result
+        }
 
     fun resetPassword(username: String) {
         auth.sendPasswordResetEmail(username)

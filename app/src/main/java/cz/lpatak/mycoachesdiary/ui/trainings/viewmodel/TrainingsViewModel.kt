@@ -1,13 +1,11 @@
 package cz.lpatak.mycoachesdiary.ui.trainings.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
-import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_CATEGORY
-import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_DESCRIPTION
-import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_IMAGE_URL
-import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_NAME
-import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_OWNER
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.TEAM_ID_KEY
 import cz.lpatak.mycoachesdiary.data.model.Exercise
 import cz.lpatak.mycoachesdiary.data.model.ExerciseInTraining
@@ -22,10 +20,10 @@ import kotlinx.coroutines.Dispatchers
 
 
 class TrainingsViewModel(
-        private val trainingsRepository: TrainingRepositoryImpl,
-        private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl,
-        private val exerciseRepository: ExerciseRepositoryImpl,
-        private val preferenceManager: PreferenceManger
+    private val trainingsRepository: TrainingRepositoryImpl,
+    private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl,
+    private val exerciseRepository: ExerciseRepositoryImpl,
+    private val preferenceManager: PreferenceManger
 ) : ViewModel() {
 
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
@@ -40,7 +38,10 @@ class TrainingsViewModel(
         }
     }
 
-    fun loadTrainingsWithFilter(dateFrom: Timestamp, dateTo: Timestamp): LiveData<Result<List<Training>>> = liveData(coroutineContext) {
+    fun loadTrainingsWithFilter(
+        dateFrom: Timestamp,
+        dateTo: Timestamp
+    ): LiveData<Result<List<Training>>> = liveData(coroutineContext) {
         emit(Result.Loading)
 
         val result = trainingsRepository.getTrainingsFilter(dateFrom, dateTo)
@@ -71,55 +72,36 @@ class TrainingsViewModel(
     }
 
     fun loadExercisesInTraining(): LiveData<Result<List<ExerciseInTraining>>> =
-            liveData(coroutineContext) {
-                emit(Result.Loading)
+        liveData(coroutineContext) {
+            emit(Result.Loading)
 
-                val result = exerciseInTrainingRepository.getExercises()
+            val result = exerciseInTrainingRepository.getExercises()
 
-                if (result is Result.Success) {
-                    emit(result)
-                }
+            if (result is Result.Success) {
+                emit(result)
             }
+        }
 
     fun addExerciseToTraining(exercise: Exercise) {
-        exerciseInTrainingRepository.updateExercise(
-                ExerciseInTraining(exercise.id, exercise.name, exercise.category, 0)
+        exerciseInTrainingRepository.updateExerciseInTraining(
+            ExerciseInTraining(
+                exercise.id,
+                exercise.name,
+                exercise.category,
+                exercise.description,
+                exercise.imageUrl,
+                0
+            )
         )
+    }
+
+    fun updateExerciseInTraining(exercise: ExerciseInTraining) {
+        Log.println(Log.ERROR, "TrainingsVM", exercise.toString())
+        exerciseInTrainingRepository.updateExerciseInTraining(exercise)
     }
 
     fun deleteExercise(exerciseId: String) {
         exerciseInTrainingRepository.deleteExercise(exerciseId)
-    }
-
-    fun loadExercises(): LiveData<Result<List<Exercise>>> = liveData(coroutineContext) {
-        emit(Result.Loading)
-
-        val result = exerciseRepository.getExercises()
-
-        if (result is Result.Success) {
-            emit(result)
-        }
-    }
-
-    fun getExercise(exerciseId: String): Exercise {
-        var exercise = Exercise()
-
-        exerciseRepository.getExercise(exerciseId).addOnSuccessListener {
-            val exercise2 = Exercise(
-                    "",
-                    it.get(COLUMN_OWNER).toString(),
-                    it.get(COLUMN_NAME).toString(),
-                    it.get(COLUMN_CATEGORY).toString(),
-                    it.get(COLUMN_DESCRIPTION).toString(),
-                    it.get(COLUMN_IMAGE_URL).toString()
-            )
-            exercise = exercise2
-            Log.println(Log.ERROR, "TrainingsVM2", exercise.toString())
-        }.addOnCompleteListener {
-            return@addOnCompleteListener
-        }
-        Log.println(Log.ERROR, "TrainingsVM3", exercise.toString())
-        return exercise
     }
 
     fun convertDateToString(date: Timestamp): String {

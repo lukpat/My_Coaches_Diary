@@ -24,9 +24,9 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private var timestamp = Timestamp(Date(0))
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_match, container, false)
         with(binding) {
@@ -41,10 +41,10 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun createMatch() {
         matchesViewModel.addMatch(
-                binding.matchModel!!.opponent.value.toString(),
-                timestamp,
-                binding.helperMatchesLayout.type.selectedItem.toString(),
-                binding.matchModel!!.playingTime.value!!
+            binding.matchModel!!.opponent.value.toString(),
+            timestamp,
+            binding.helperMatchesLayout.type.selectedItem.toString(),
+            binding.matchModel!!.playingTime.value!!
         )
         findNavController().navigateUp()
     }

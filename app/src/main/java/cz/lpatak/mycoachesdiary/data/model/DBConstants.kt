@@ -10,6 +10,7 @@ class DBConstants {
 
         //COLUMNS
         const val COLUMN_NAME = "name"
+        const val COLUMN_NAME_UPPERCASE = "nameUpperCase"
         const val COLUMN_CATEGORY = "category"
         const val COLUMN_TIME = "time"
         const val COLUMN_OWNER = "owner"

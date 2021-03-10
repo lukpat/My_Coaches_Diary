@@ -31,8 +31,8 @@ object BindingAdapters {
     fun imageUrl(imageView: ImageView, url: String) {
         if (url.isNotEmpty()) {
             Picasso.Builder(imageView.context).build()
-                    .load(url)
-                    .into(imageView)
+                .load(url)
+                .into(imageView)
         }
     }
 
@@ -41,8 +41,8 @@ object BindingAdapters {
     fun imageUri(imageView: ImageView, uri: Uri?) {
         uri?.let {
             Picasso.Builder(imageView.context).build()
-                    .load(uri)
-                    .into(imageView)
+                .load(uri)
+                .into(imageView)
         }
     }
 

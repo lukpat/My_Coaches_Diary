@@ -77,9 +77,6 @@
         <action
             android:id="@+id/action_navigation_exercise_library_to_addExerciseFragment"
             app:destination="@id/navigation_add_exercise" />
-        <action
-            android:id="@+id/action_navigation_exercise_library_self"
-            app:destination="@id/navigation_exercise_library" />
     </fragment>
 
     <fragment
@@ -95,9 +92,6 @@
         <action
             android:id="@+id/action_navigation_matches_to_navigation_match_detail"
             app:destination="@id/navigation_match_detail" />
-        <action
-            android:id="@+id/action_navigation_matches_self"
-            app:destination="@id/navigation_matches" />
     </fragment>
 
     <fragment
@@ -135,9 +129,6 @@
         android:name="cz.lpatak.mycoachesdiary.ui.myteams.HomeFragment"
         android:label="@string/app_name">
         <action
-            android:id="@+id/action_navigation_home_self"
-            app:destination="@id/navigation_home" />
-        <action
             android:id="@+id/action_navigation_home_to_navigation_add_team"
             app:destination="@id/navigation_add_team" />
         <action
@@ -172,6 +163,9 @@
         <action
             android:id="@+id/action_navigation_training_detail_exercises_self"
             app:destination="@id/navigation_training_detail_exercises" />
+        <action
+            android:id="@+id/action_navigation_training_detail_exercises_to_navigation_exercise_detail"
+            app:destination="@id/navigation_exercise_detail" />
     </fragment>
 
     <fragment
