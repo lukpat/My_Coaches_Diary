@@ -19,15 +19,15 @@ class MatchDetailFragmentStats(private val matchFromArgs: Match) : Fragment() {
     private lateinit var binding: FragmentMatchDetailStatsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_match_detail_stats,
-            container,
-            false
+                inflater,
+                R.layout.fragment_match_detail_stats,
+                container,
+                false
         )
         with(binding) {
             lifecycleOwner = this@MatchDetailFragmentStats
@@ -60,25 +60,25 @@ class MatchDetailFragmentStats(private val matchFromArgs: Match) : Fragment() {
     private fun updateTeam(uiModel: StatsUIModel?) {
         if (uiModel != null) {
             matchesViewModel.updateMatch(
-                Match(
-                    matchFromArgs.id,
-                    matchFromArgs.team,
-                    matchFromArgs.opponent,
-                    matchFromArgs.date,
-                    matchFromArgs.type,
-                    matchFromArgs.playingTime,
-                    matchFromArgs.note,
-                    uiModel.scoreTeam.value!!,
-                    uiModel.scoreOpponent.value!!,
-                    uiModel.powerPlaysTeam.value!!,
-                    uiModel.powerPlaysOpponent.value!!,
-                    uiModel.powerPlaysTeamSuccess.value!!,
-                    uiModel.powerPlaysOpponentSuccess.value!!,
-                    uiModel.shotsTeam.value!!,
-                    uiModel.shotsOpponent.value!!,
-                    uiModel.shotsToBlock.value!!,
-                    uiModel.shotsOutside.value!!
-                )
+                    Match(
+                            matchFromArgs.id,
+                            matchFromArgs.team,
+                            matchFromArgs.opponent,
+                            matchFromArgs.date,
+                            matchFromArgs.type,
+                            matchFromArgs.playingTime,
+                            matchFromArgs.note,
+                            uiModel.scoreTeam.value!!,
+                            uiModel.scoreOpponent.value!!,
+                            uiModel.powerPlaysTeam.value!!,
+                            uiModel.powerPlaysOpponent.value!!,
+                            uiModel.powerPlaysTeamSuccess.value!!,
+                            uiModel.powerPlaysOpponentSuccess.value!!,
+                            uiModel.shotsTeam.value!!,
+                            uiModel.shotsOpponent.value!!,
+                            uiModel.shotsToBlock.value!!,
+                            uiModel.shotsOutside.value!!
+                    )
             )
         }
     }

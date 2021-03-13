@@ -21,15 +21,15 @@ class TrainingDetailFragmentExercises : Fragment() {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_training_detail_exercises,
-            container,
-            false
+                inflater,
+                R.layout.fragment_training_detail_exercises,
+                container,
+                false
         )
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentExercises
@@ -38,7 +38,7 @@ class TrainingDetailFragmentExercises : Fragment() {
         binding.exercisesList.adapter = adapter
         binding.fabAddExerciseToTraining.setOnClickListener {
             val directions =
-                TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationAddExerciseToTraining()
+                    TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationAddExerciseToTraining()
             findNavController().navigate(directions)
         }
 

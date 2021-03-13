@@ -21,21 +21,21 @@ import java.util.*
 
 
 class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(),
-    DatePickerDialog.OnDateSetListener {
+        DatePickerDialog.OnDateSetListener {
     private val matchesViewModel: MatchesViewModel by viewModel()
     private lateinit var binding: FragmentMatchDetailInfoBinding
     private var timestamp = Timestamp(Date(0))
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_match_detail_info,
-            container,
-            false
+                inflater,
+                R.layout.fragment_match_detail_info,
+                container,
+                false
         )
         with(binding) {
             lifecycleOwner = this@MatchDetailFragmentInfo
@@ -78,25 +78,25 @@ class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(),
 
         if (uiModel != null) {
             matchesViewModel.updateMatch(
-                Match(
-                    matchFromArgs.id,
-                    matchFromArgs.team,
-                    uiModel.opponent.value.toString(),
-                    date,
-                    binding.helperMatchesLayout.type.selectedItem.toString(),
-                    uiModel.playingTime.value!!,
-                    uiModel.note.value.toString(),
-                    matchFromArgs.scoreTeam,
-                    matchFromArgs.scoreOpponent,
-                    matchFromArgs.powerPlaysTeam,
-                    matchFromArgs.powerPlaysOpponent,
-                    matchFromArgs.powerPlaysTeamSuccess,
-                    matchFromArgs.powerPlaysOpponentSuccess,
-                    matchFromArgs.shotsTeam,
-                    matchFromArgs.shotsOpponent,
-                    matchFromArgs.shotsToBlock,
-                    matchFromArgs.shotsOutside
-                )
+                    Match(
+                            matchFromArgs.id,
+                            matchFromArgs.team,
+                            uiModel.opponent.value.toString(),
+                            date,
+                            binding.helperMatchesLayout.type.selectedItem.toString(),
+                            uiModel.playingTime.value!!,
+                            uiModel.note.value.toString(),
+                            matchFromArgs.scoreTeam,
+                            matchFromArgs.scoreOpponent,
+                            matchFromArgs.powerPlaysTeam,
+                            matchFromArgs.powerPlaysOpponent,
+                            matchFromArgs.powerPlaysTeamSuccess,
+                            matchFromArgs.powerPlaysOpponentSuccess,
+                            matchFromArgs.shotsTeam,
+                            matchFromArgs.shotsOpponent,
+                            matchFromArgs.shotsToBlock,
+                            matchFromArgs.shotsOutside
+                    )
             )
         }
     }

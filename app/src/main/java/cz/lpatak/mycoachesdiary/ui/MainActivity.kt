@@ -30,21 +30,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViews() {
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
+                supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
         navController = navHostFragment.navController
 
         NavigationUI.setupWithNavController(binding.bottomNavView, navController)
 
         val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.navigation_trainings,
-                R.id.navigation_matches,
-                R.id.navigation_stats,
-                R.id.navigation_exercise_library,
-                R.id.navigation_login,
-                R.id.navigation_register
-            )
+                setOf(
+                        R.id.navigation_home,
+                        R.id.navigation_trainings,
+                        R.id.navigation_matches,
+                        R.id.navigation_stats,
+                        R.id.navigation_exercise_library,
+                        R.id.navigation_login,
+                        R.id.navigation_register
+                )
         )
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getCurrentFragment(): Fragment? {
         return supportFragmentManager.primaryNavigationFragment?.childFragmentManager?.fragments?.get(
-            0
+                0
         )
     }
 

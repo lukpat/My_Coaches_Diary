@@ -23,9 +23,9 @@ class TeamDetailFragment : Fragment() {
     private lateinit var teamFromArgs: Team
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_team_detail, container, false)
         with(binding) {
@@ -55,13 +55,13 @@ class TeamDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                    .setMessage(R.string.delete_team_alert)
-                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                        myTeamsViewModel.deleteTeam(teamFromArgs.id.toString())
-                        findNavController().navigateUp()
-                    })
-                    .setNegativeButton(R.string.no, null)
-                    .show()
+                        .setMessage(R.string.delete_team_alert)
+                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                            myTeamsViewModel.deleteTeam(teamFromArgs.id.toString())
+                            findNavController().navigateUp()
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show()
             }
         }
 
@@ -71,12 +71,12 @@ class TeamDetailFragment : Fragment() {
 
     private fun updateTeam() {
         myTeamsViewModel.updateTeam(
-            Team(
-                teamFromArgs.id,
-                teamFromArgs.owner,
-                binding.teamModel!!.name.value.toString(),
-                binding.teamModel!!.season.value.toString()
-            )
+                Team(
+                        teamFromArgs.id,
+                        teamFromArgs.owner,
+                        binding.teamModel!!.name.value.toString(),
+                        binding.teamModel!!.season.value.toString()
+                )
         )
         findNavController().navigateUp()
     }

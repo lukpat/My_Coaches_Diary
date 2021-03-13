@@ -24,21 +24,21 @@ import java.util.*
 
 
 class TrainingDetailFragmentInfo(private val trainingFromArgs: Training) : Fragment(),
-    DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
     private lateinit var binding: FragmentTrainingDetailInfoBinding
     private var timestamp = Timestamp(Date(0))
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_training_detail_info,
-            container,
-            false
+                inflater,
+                R.layout.fragment_training_detail_info,
+                container,
+                false
         )
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentInfo
@@ -73,16 +73,16 @@ class TrainingDetailFragmentInfo(private val trainingFromArgs: Training) : Fragm
 
         if (uiModel != null) {
             trainingsViewModel.updateTraining(
-                Training(
-                    trainingFromArgs.id,
-                    uiModel.place.value,
-                    uiModel.rating.value!!,
-                    date,
-                    uiModel.startTime.value,
-                    uiModel.endTime.value,
-                    uiModel.players.value!!,
-                    uiModel.goalkeepers.value!!
-                )
+                    Training(
+                            trainingFromArgs.id,
+                            uiModel.place.value,
+                            uiModel.rating.value!!,
+                            date,
+                            uiModel.startTime.value,
+                            uiModel.endTime.value,
+                            uiModel.players.value!!,
+                            uiModel.goalkeepers.value!!
+                    )
             )
         }
     }

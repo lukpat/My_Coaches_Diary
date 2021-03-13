@@ -13,7 +13,7 @@ import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddExerciseToTrainingFragment : Fragment(),
-    androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        androidx.appcompat.widget.SearchView.OnQueryTextListener {
     private val exercisesViewModel: ExercisesViewModel by viewModel()
     private val trainingsViewModel: TrainingsViewModel by viewModel()
     private lateinit var binding: FragmentAddExerciseToTrainingBinding
@@ -25,17 +25,17 @@ class AddExerciseToTrainingFragment : Fragment(),
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_add_exercise_to_training,
-                container,
-                false
-            )
+                DataBindingUtil.inflate(
+                        inflater,
+                        R.layout.fragment_add_exercise_to_training,
+                        container,
+                        false
+                )
         with(binding) {
             lifecycleOwner = this@AddExerciseToTrainingFragment
             exercisesList.adapter = adapter
@@ -82,17 +82,17 @@ class AddExerciseToTrainingFragment : Fragment(),
 
     private fun loadExercisesWithFilter(exerciseOwner: Boolean, category: String) {
         exercisesViewModel.loadExercisesFilter(exerciseOwner, category)
-            .observe(viewLifecycleOwner, { result ->
-                binding.result = result
-                if (result is Result.Success) {
-                    adapter.submitList(result.data)
-                }
-            })
+                .observe(viewLifecycleOwner, { result ->
+                    binding.result = result
+                    if (result is Result.Success) {
+                        adapter.submitList(result.data)
+                    }
+                })
     }
 
     private fun applyFilter() {
         val exerciseOwner =
-            getIndex(binding.exerciseLibraryFilter.exerciseOwner.selectedItem.toString()) == 0
+                getIndex(binding.exerciseLibraryFilter.exerciseOwner.selectedItem.toString()) == 0
 
         val category = binding.exerciseLibraryFilter.exerciseCategory.selectedItem.toString()
         loadExercisesWithFilter(exerciseOwner, category)
@@ -114,12 +114,12 @@ class AddExerciseToTrainingFragment : Fragment(),
 
     private fun searchDB(query: String) {
         exercisesViewModel.searchData(query)
-            .observe(viewLifecycleOwner, { result ->
-                binding.result = result
-                if (result is Result.Success) {
-                    adapter.submitList(result.data)
-                }
-            })
+                .observe(viewLifecycleOwner, { result ->
+                    binding.result = result
+                    if (result is Result.Success) {
+                        adapter.submitList(result.data)
+                    }
+                })
     }
 
     override fun onQueryTextChange(query: String?): Boolean {

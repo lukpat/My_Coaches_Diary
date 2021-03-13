@@ -1,4 +1,4 @@
-package cz.lpatak.mycoachesdiary.binding
+package cz.lpatak.mycoachesdiary.util
 
 import android.net.Uri
 import android.view.View
@@ -27,22 +27,12 @@ object BindingAdapters {
 
 
     @JvmStatic
-    @BindingAdapter("imageUrl")
-    fun imageUrl(imageView: ImageView, url: String) {
-        if (url.isNotEmpty()) {
-            Picasso.Builder(imageView.context).build()
-                .load(url)
-                .into(imageView)
-        }
-    }
-
-    @JvmStatic
     @BindingAdapter("imageUri")
     fun imageUri(imageView: ImageView, uri: Uri?) {
         uri?.let {
             Picasso.Builder(imageView.context).build()
-                .load(uri)
-                .into(imageView)
+                    .load(uri)
+                    .into(imageView)
         }
     }
 

@@ -7,7 +7,7 @@ import cz.lpatak.mycoachesdiary.ui.auth.viewmodel.AuthViewModel
 import cz.lpatak.mycoachesdiary.ui.exercises.viewmodel.ExercisesViewModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.MyTeamsViewModel
-import cz.lpatak.mycoachesdiary.ui.stats.StatsViewModel
+import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.StatsViewModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -27,11 +27,12 @@ val appModule = module {
     single { TrainingRepositoryImpl(get(), get()) }
     single { ExerciseRepositoryImpl(get()) }
     single { ExerciseInTrainingRepositoryImpl(get(), get()) }
+    single { StatsRepositoryImpl(get(), get()) }
 
     viewModel { AuthViewModel(get(), get(), get()) }
     viewModel { MyTeamsViewModel(get(), get()) }
     viewModel { TrainingsViewModel(get(), get(), get(), get()) }
-    viewModel { StatsViewModel(get()) }
+    viewModel { StatsViewModel(get(), get()) }
     viewModel { MatchesViewModel(get(), get()) }
     viewModel { ExercisesViewModel(get()) }
 }

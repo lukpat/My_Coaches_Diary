@@ -21,12 +21,12 @@ class MatchDetailFragment : Fragment() {
     private val matchViewModel: MatchesViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
 
         setupViewPager()
 
@@ -46,13 +46,13 @@ class MatchDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                    .setMessage(R.string.delete_match_alert)
-                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                        matchViewModel.deleteMatch(args.match.id.toString())
-                        findNavController().navigateUp()
-                    })
-                    .setNegativeButton(R.string.no, null)
-                    .show()
+                        .setMessage(R.string.delete_match_alert)
+                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                            matchViewModel.deleteMatch(args.match.id.toString())
+                            findNavController().navigateUp()
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show()
             }
         }
 

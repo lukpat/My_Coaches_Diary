@@ -24,9 +24,9 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val adapter: MatchesAdapter = MatchesAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_matches, container, false)
         with(binding) {
@@ -34,7 +34,7 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             matchesList.adapter = adapter
             fabAddMatch.setOnClickListener {
                 val directions =
-                    MatchesFragmentDirections.actionNavigationMatchesToNavigationAddMatch()
+                        MatchesFragmentDirections.actionNavigationMatchesToNavigationAddMatch()
                 findNavController().navigate(directions)
             }
             isTeamSelected = matchesViewModel.isTeamSelected()
@@ -83,18 +83,18 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun loadMatchesWithFilter(
-        matchCategory: String,
-        all: Boolean,
-        dateFrom: Timestamp,
-        dateTo: Timestamp
+            matchCategory: String,
+            all: Boolean,
+            dateFrom: Timestamp,
+            dateTo: Timestamp
     ) {
         matchesViewModel.loadMatchesFilter(matchCategory, all, dateFrom, dateTo)
-            .observe(viewLifecycleOwner, { result ->
-                binding.result = result
-                if (result is Result.Success) {
-                    adapter.submitList(result.data)
-                }
-            })
+                .observe(viewLifecycleOwner, { result ->
+                    binding.result = result
+                    if (result is Result.Success) {
+                        adapter.submitList(result.data)
+                    }
+                })
     }
 
     private fun applyFilter() {
