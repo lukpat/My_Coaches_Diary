@@ -2,7 +2,6 @@ package cz.lpatak.mycoachesdiary.ui.matches
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
@@ -109,8 +108,6 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         if (matchCategory == "Všechny zápasy") {
             all = true
         }
-
-        Log.println(Log.ERROR, "Category: ", matchCategory)
 
         loadMatchesWithFilter(matchCategory, all, dateFrom, dateTo)
         binding.filterOn = false

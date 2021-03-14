@@ -89,6 +89,17 @@
     <string name="time_hint">hh:mm</string>
     <string name="date_from">datum od</string>
     <string name="logout_title">logout</string>
+    <string name="loadingStats">Načítám statistiky...</string>
+    <string name="wins">výhry</string>
+    <string name="draws">remízy</string>
+    <string name="losses">prohry</string>
+    <string name="winPercentage">% výher</string>
+    <string name="goalkeeprPercentage">% zákroků gólmanů</string>
+    <string name="shots_opponent">střely soupeř</string>
+    <string name="goals">góly</string>
+    <string name="shots_on_goal">na bránu</string>
+    <string name="ToBlock">do bloku</string>
+    <string name="outside">mimo</string>
 
     <string-array name="exercise_owner">
         <item>Jen moje cvičení</item>

@@ -7,4 +7,8 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#BDBDBD</color>
     <color name="colorBlue">#3D5AFE</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="tableHead">#A9A9A9</color>
+    <color name="table">#D9D9D9</color>
 </resources>

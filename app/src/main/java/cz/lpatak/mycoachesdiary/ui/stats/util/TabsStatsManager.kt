@@ -14,8 +14,8 @@ class TabsStatsManager(
         FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragments: ArrayList<Fragment> = arrayListOf(
-            MatchStatsFragment(),
-            TrainingStatsFragment()
+            TrainingStatsFragment(),
+            MatchStatsFragment()
     )
 
     override fun getItemCount(): Int {

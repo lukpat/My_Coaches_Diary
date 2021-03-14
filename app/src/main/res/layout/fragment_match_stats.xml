@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="isTeamSelected"
+            name="filterOn"
             type="Boolean" />
     </data>
 
@@ -13,6 +14,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.stats.FragmentMatchStatsFragment">
+
+        <include
+            android:id="@+id/filter_layout"
+            invisibleUnless="@{filterOn}"
+            layout="@layout/helper_matches_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollVieweMatchStats"
+            invisibleUnless="@{!filterOn}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
+
+            <include
+                android:id="@+id/matchStatsLayout"
+                layout="@layout/helper_match_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:filterOn="@{filterOn}"
+                app:layout_constraintTop_toBottomOf="@+id/changeData" />
+
+
+        </androidx.core.widget.NestedScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

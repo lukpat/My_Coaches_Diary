@@ -1,17 +1,26 @@
 package cz.lpatak.mycoachesdiary.ui.stats
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.databinding.FragmentMatchStatsBinding
+import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.StatsViewModel
+import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
+import kotlinx.coroutines.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
-class MatchStatsFragment : Fragment() {
-
+class MatchStatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: FragmentMatchStatsBinding
+    private val statsViewModel: StatsViewModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -19,9 +28,123 @@ class MatchStatsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_match_stats, container, false)
+        with(binding) {
+            lifecycleOwner = this@MatchStatsFragment
+            filterOn = true
+            filterLayout.btnSetFilter.text = "načíst statistiky"
+            filterLayout.btnSetFilter.setOnClickListener {
+                GlobalScope.launch(Dispatchers.Main) {
+                    applyFilter()
+                    setUI()
+                }
+            }
+            filterLayout.btnSetDateFrom.setOnClickListener { pickDateFrom() }
+            filterLayout.btnSetDateTo.setOnClickListener { pickDateTo() }
+            matchStatsLayout.btnChangeData.setOnClickListener { filterOn = true }
 
+        }
         return binding.root
     }
 
+
+    private suspend fun applyFilter() {
+        val bool = dateFrom.seconds >= dateTo.seconds
+        val matchCategory = binding.filterLayout.matchCategory.selectedItem.toString()
+        var all = false
+
+        val request = GlobalScope.launch(Dispatchers.Main) {
+            if (bool) {
+                val error = "Datum počátku je později než datum konce, takže filtr není možné provést"
+                binding.filterLayout.dateError.text = error
+            } else {
+                if (matchCategory == "Všechny zápasy") {
+                    all = true
+                }
+                with(binding) {
+                    filterLayout.dateError.visibility = View.GONE
+                    filterOn = false
+                }
+                statsViewModel.loadMatchStats(matchCategory, all, dateFrom, dateTo)
+            }
+        }
+        request.join()
+    }
+
+
+    private var dateFrom = Timestamp(Date(0))
+    private var dateTo = Timestamp(Date(0))
+    private var helper = false
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val realMonth = month + 1
+        val str = "$dayOfMonth.$realMonth.$year"
+
+        if (helper) {
+            binding.filterLayout.dateFrom.text = str
+            dateFrom = stringDateToTimestamp(str)
+        } else {
+            binding.filterLayout.dateTo.text = str
+            dateTo = stringDateToTimestamp(str)
+        }
+    }
+
+    private fun pickDateFrom() {
+        helper = true
+        pickDate()
+    }
+
+    private fun pickDateTo() {
+        helper = false
+        pickDate()
+    }
+
+    private fun pickDate() {
+        val cal = Calendar.getInstance()
+        val dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
+        val month = cal.get(Calendar.MONTH)
+        val year = cal.get(Calendar.YEAR)
+
+        DatePickerDialog(this.requireContext(), this, year, month, dayOfMonth).show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private suspend fun setUI() {
+        val request = GlobalScope.launch(Dispatchers.Main) {
+            delay(500)
+            with(binding.matchStatsLayout) {
+                matchCount.text = "Celkový počet zápasů: " + statsViewModel.matches
+                wins.text = statsViewModel.win.toString()
+                draws.text = statsViewModel.draw.toString()
+                lost.text = statsViewModel.lost.toString()
+                winPerc.text = statsViewModel.winPercentage.toString() + " %"
+
+                powerPlaysTeam.text = statsViewModel.powerPlaysTeam.toString()
+                powerPlaysTeamSuccess.text = statsViewModel.powerPlaysSuccessRate.toString() + " %"
+                powerPlaysOpponent.text = statsViewModel.powerPlaysOpponent.toString()
+                penaltyKillPercentage.text = statsViewModel.penaltyKillPercentage.toString() + " %"
+
+                scoreTeam.text = statsViewModel.goalsScored.toString()
+                scoreOpponent.text = statsViewModel.goalsConceded.toString()
+
+                shotsTeam.text = statsViewModel.shotsTeam.toString()
+                shotsToBlock.text = statsViewModel.shotsToBlock.toString()
+                shotsOutside.text = statsViewModel.shotsOutside.toString()
+
+                shotsOpponent.text = statsViewModel.shotsOpponent.toString()
+                goalskeeperPercentage.text = statsViewModel.goalkeeperSavesPercentage.toString() + " %"
+
+                goalPercentage.text = statsViewModel.goalShotPercentage.toString() + " %"
+                shotsOutsidePercentage.text = statsViewModel.shotsOutsidePercentage.toString() + " %"
+                shotsToBlockPercentage.text = statsViewModel.shotsToBlockPercentage.toString() + " %"
+                shotsOnGoalPercentage.text = statsViewModel.shotsOnGoalPercentage.toString() + " %"
+
+                shotsPerGame.text = statsViewModel.shotsPerGame.toString()
+                shotsPerMinute.text = statsViewModel.shotsPerMinute.toString()
+                shotsBalance.text = statsViewModel.shotsBalance.toString()
+            }
+
+        }
+        request.join()
+    }
 
 }

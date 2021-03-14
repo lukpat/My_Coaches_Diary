@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="isTeamSelected"
             type="Boolean" />
@@ -15,6 +16,7 @@
         tools:context=".ui.stats.FragmentStats">
 
         <RelativeLayout
+            invisibleUnless="@{isTeamSelected}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="filterOn"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangeData"
+            style="@style/buttonBoldFilled"
+            invisibleUnless="@{!filterOn}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="změnit data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/matchCountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/btnChangeData">
+
+            <TextView
+                android:id="@+id/matchCount"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loadingStats"
+                android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/tableMatchStats"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/normal_margin"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/matchCountLayout">
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/wins"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/draws"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/losses"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/winPercentage"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/wins"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/draws"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/lost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/winPerc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/powerPlaysLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/tableMatchStats">
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/powerPlays"
+                android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/powerPlaysTable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/normal_margin"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/powerPlaysLayout">
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/team_detail"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/opponent"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="% přesilovek"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="% oslabení"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/powerPlaysTeam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+
+                <TextView
+                    android:id="@+id/powerPlaysOpponent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+
+                <TextView
+                    android:id="@+id/powerPlaysTeamSuccess"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/penaltyKillPercentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/goalsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/powerPlaysTable">
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goals"
+                android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/goalsTableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/normal_margin"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/goalsLayout">
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/team_detail"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/opponent"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/scoreTeam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/scoreOpponent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/shotsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/goalsTableLayout">
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shots"
+                android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/tableShotsStats"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/normal_margin"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/shotsLayout">
+
+            <TableRow
+                android:id="@+id/tableRow7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/shots_on_goal"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/ToBlock"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/outside"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/shotsTeam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/shotsToBlock"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/shotsOutside"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/tableShotsStats2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/normal_margin"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/tableShotsStats">
+
+            <TableRow
+                android:id="@+id/tableRow11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="% gól"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="% na bránu"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="% mimo"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="% blok"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/goalPercentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/shotsOnGoalPercentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/shotsOutsidePercentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/shotsToBlockPercentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/tableShotsStats3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/normal_margin"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/tableShotsStats2">
+
+            <TableRow
+                android:id="@+id/tableRow9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="střely / zápas"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="střely / minuta"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="bilance střel"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/shotsPerGame"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/shotsPerMinute"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/shotsBalance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/tableShotsStats4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/normal_margin"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/tableShotsStats3">
+
+            <TableRow
+                android:id="@+id/tableRow13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/shots_opponent"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/tableHead"
+                    android:text="@string/goalkeeprPercentage"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/shotsOpponent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/goalskeeperPercentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/table"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack" />
+            </TableRow>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
