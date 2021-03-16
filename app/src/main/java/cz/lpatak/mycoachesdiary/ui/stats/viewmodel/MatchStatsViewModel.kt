@@ -9,7 +9,7 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class StatsViewModel(private val preferenceManager: PreferenceManger, private val statsRepository: StatsRepositoryImpl) : ViewModel() {
+class MatchStatsViewModel(private val preferenceManager: PreferenceManger, private val statsRepository: StatsRepositoryImpl) : ViewModel() {
     private val matchList: MutableList<Match?> = mutableListOf()
 
     var matches = 0

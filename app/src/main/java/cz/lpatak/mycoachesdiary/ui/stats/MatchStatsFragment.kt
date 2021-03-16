@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.databinding.FragmentMatchStatsBinding
-import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.StatsViewModel
+import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.MatchStatsViewModel
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,7 +20,7 @@ import java.util.*
 
 class MatchStatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: FragmentMatchStatsBinding
-    private val statsViewModel: StatsViewModel by viewModel()
+    private val matchStatsViewModel: MatchStatsViewModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -64,7 +64,7 @@ class MatchStatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     filterLayout.dateError.visibility = View.GONE
                     filterOn = false
                 }
-                statsViewModel.loadMatchStats(matchCategory, all, dateFrom, dateTo)
+                matchStatsViewModel.loadMatchStats(matchCategory, all, dateFrom, dateTo)
             }
         }
         request.join()
@@ -112,35 +112,35 @@ class MatchStatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val request = GlobalScope.launch(Dispatchers.Main) {
             delay(500)
             with(binding.matchStatsLayout) {
-                matchCount.text = "Celkový počet zápasů: " + statsViewModel.matches
-                wins.text = statsViewModel.win.toString()
-                draws.text = statsViewModel.draw.toString()
-                lost.text = statsViewModel.lost.toString()
-                winPerc.text = statsViewModel.winPercentage.toString() + " %"
+                matchCount.text = "Celkový počet zápasů: " + matchStatsViewModel.matches
+                wins.text = matchStatsViewModel.win.toString()
+                draws.text = matchStatsViewModel.draw.toString()
+                lost.text = matchStatsViewModel.lost.toString()
+                winPerc.text = matchStatsViewModel.winPercentage.toString() + " %"
 
-                powerPlaysTeam.text = statsViewModel.powerPlaysTeam.toString()
-                powerPlaysTeamSuccess.text = statsViewModel.powerPlaysSuccessRate.toString() + " %"
-                powerPlaysOpponent.text = statsViewModel.powerPlaysOpponent.toString()
-                penaltyKillPercentage.text = statsViewModel.penaltyKillPercentage.toString() + " %"
+                powerPlaysTeam.text = matchStatsViewModel.powerPlaysTeam.toString()
+                powerPlaysTeamSuccess.text = matchStatsViewModel.powerPlaysSuccessRate.toString() + " %"
+                powerPlaysOpponent.text = matchStatsViewModel.powerPlaysOpponent.toString()
+                penaltyKillPercentage.text = matchStatsViewModel.penaltyKillPercentage.toString() + " %"
 
-                scoreTeam.text = statsViewModel.goalsScored.toString()
-                scoreOpponent.text = statsViewModel.goalsConceded.toString()
+                scoreTeam.text = matchStatsViewModel.goalsScored.toString()
+                scoreOpponent.text = matchStatsViewModel.goalsConceded.toString()
 
-                shotsTeam.text = statsViewModel.shotsTeam.toString()
-                shotsToBlock.text = statsViewModel.shotsToBlock.toString()
-                shotsOutside.text = statsViewModel.shotsOutside.toString()
+                shotsTeam.text = matchStatsViewModel.shotsTeam.toString()
+                shotsToBlock.text = matchStatsViewModel.shotsToBlock.toString()
+                shotsOutside.text = matchStatsViewModel.shotsOutside.toString()
 
-                shotsOpponent.text = statsViewModel.shotsOpponent.toString()
-                goalskeeperPercentage.text = statsViewModel.goalkeeperSavesPercentage.toString() + " %"
+                shotsOpponent.text = matchStatsViewModel.shotsOpponent.toString()
+                goalskeeperPercentage.text = matchStatsViewModel.goalkeeperSavesPercentage.toString() + " %"
 
-                goalPercentage.text = statsViewModel.goalShotPercentage.toString() + " %"
-                shotsOutsidePercentage.text = statsViewModel.shotsOutsidePercentage.toString() + " %"
-                shotsToBlockPercentage.text = statsViewModel.shotsToBlockPercentage.toString() + " %"
-                shotsOnGoalPercentage.text = statsViewModel.shotsOnGoalPercentage.toString() + " %"
+                goalPercentage.text = matchStatsViewModel.goalShotPercentage.toString() + " %"
+                shotsOutsidePercentage.text = matchStatsViewModel.shotsOutsidePercentage.toString() + " %"
+                shotsToBlockPercentage.text = matchStatsViewModel.shotsToBlockPercentage.toString() + " %"
+                shotsOnGoalPercentage.text = matchStatsViewModel.shotsOnGoalPercentage.toString() + " %"
 
-                shotsPerGame.text = statsViewModel.shotsPerGame.toString()
-                shotsPerMinute.text = statsViewModel.shotsPerMinute.toString()
-                shotsBalance.text = statsViewModel.shotsBalance.toString()
+                shotsPerGame.text = matchStatsViewModel.shotsPerGame.toString()
+                shotsPerMinute.text = matchStatsViewModel.shotsPerMinute.toString()
+                shotsBalance.text = matchStatsViewModel.shotsBalance.toString()
             }
 
         }

@@ -62,7 +62,7 @@ class ExerciseInTrainingAdapter(
             }
 
             this.buttonSave.setOnClickListener {
-                var time = this.time.text.toString().replace(" min", "")
+                var time = this.time.text.toString()
                 if (time == "") {
                     time = "0"
                 }

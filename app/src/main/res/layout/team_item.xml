@@ -20,12 +20,12 @@
         app:cardCornerRadius="@dimen/round_corner"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:strokeColor="#B8B8B8"
         app:strokeWidth="1px">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#e0e0e0">
 
             <TextView
                 android:id="@+id/name"

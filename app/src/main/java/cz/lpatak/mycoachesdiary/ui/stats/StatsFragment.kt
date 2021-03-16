@@ -10,11 +10,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.databinding.FragmentStatsBinding
 import cz.lpatak.mycoachesdiary.ui.stats.util.TabsStatsManager
-import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.StatsViewModel
+import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.MatchStatsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StatsFragment : Fragment() {
-    private val statsViewModel: StatsViewModel by viewModel()
+    private val matchStatsViewModel: MatchStatsViewModel by viewModel()
     private lateinit var binding: FragmentStatsBinding
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class StatsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false)
-        binding.isTeamSelected = statsViewModel.isTeamSelected()
+        binding.isTeamSelected = matchStatsViewModel.isTeamSelected()
         setupViewPager()
 
         return binding.root

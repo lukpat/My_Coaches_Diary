@@ -11,7 +11,7 @@ data class ExerciseInTraining(
         val category: String?,
         val description: String?,
         val imageUrl: String?,
-        val time: Int
+        var time: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
