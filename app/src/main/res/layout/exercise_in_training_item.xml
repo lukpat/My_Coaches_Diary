@@ -11,51 +11,40 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="@dimen/half_normal_margin"
+        android:layout_marginRight="@dimen/half_normal_margin"
         android:elevation="0dp"
         app:cardCornerRadius="@dimen/round_corner"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:strokeColor="#B8B8B8"
-        app:strokeWidth="1px">
+        app:strokeColor="@color/colorPrimary"
+        app:strokeWidth="1.5dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#e0e0e0">
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/name"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="0dp"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:ellipsize="end"
-                android:maxLines="2"
                 android:text="@{exercise.name}"
-                app:flow_horizontalAlign="center"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
+                android:textColor="@color/colorPrimary"
                 tools:text="@string/name" />
-
-            <TextView
-                android:id="@+id/season"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:ellipsize="end"
-                android:text="@{exercise.category}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/name"
-                app:layout_constraintTop_toBottomOf="@+id/name"
-                tools:text="@string/category" />
-
 
             <EditText
                 android:id="@+id/time"
@@ -65,9 +54,6 @@
                 android:inputType="number"
                 android:text="@{`` + exercise.time}"
                 android:textColor="@android:color/darker_gray"
-                app:layout_constraintBottom_toBottomOf="@+id/min"
-                app:layout_constraintEnd_toStartOf="@+id/min"
-                app:layout_constraintTop_toTopOf="@+id/min"
                 tools:text="15" />
 
             <TextView
@@ -77,9 +63,6 @@
                 android:layout_height="wrap_content"
                 android:text=" min"
                 android:textColor="@android:color/darker_gray"
-                app:layout_constraintBottom_toBottomOf="@+id/buttonSave"
-                app:layout_constraintEnd_toStartOf="@+id/buttonSave"
-                app:layout_constraintTop_toTopOf="@+id/buttonSave"
                 tools:text="min" />
 
             <Button
@@ -106,9 +89,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".08" />
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:text="@{exercise.category}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textColor="@android:color/darker_gray"
+                tools:text="@string/season" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

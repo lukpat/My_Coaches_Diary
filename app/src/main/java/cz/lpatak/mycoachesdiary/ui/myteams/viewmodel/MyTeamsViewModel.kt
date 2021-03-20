@@ -1,5 +1,6 @@
 package cz.lpatak.mycoachesdiary.ui.myteams.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -40,7 +41,9 @@ class MyTeamsViewModel(
 
     fun deleteTeam(teamId: String) {
         teamsRepository.deleteTeam(teamId)
-        preferenceManager.clearAllPreferences()
+        if (isTeamCurrentTeam(teamId)) {
+            preferenceManager.clearAllPreferences()
+        }
     }
 
     fun setCurrentTeam(team: Team) {
@@ -57,5 +60,11 @@ class MyTeamsViewModel(
 
     fun isTeamSelected(): Boolean {
         return !preferenceManager.getStringValue(TEAM_ID_KEY).isNullOrEmpty()
+    }
+
+    fun isTeamCurrentTeam(teamId: String): Boolean {
+        Log.println(Log.ERROR, "teamId", teamId)
+        Log.println(Log.ERROR, "prefMan", preferenceManager.getStringValue(TEAM_ID_KEY).toString())
+        return (teamId == preferenceManager.getStringValue(TEAM_ID_KEY))
     }
 }

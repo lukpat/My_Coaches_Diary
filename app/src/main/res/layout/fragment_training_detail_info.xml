@@ -19,6 +19,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_normal_margin"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
             tools:context=".ui.trainings.TrainingDetailFragmentInfo">
 
             <include
@@ -26,15 +30,13 @@
                 layout="@layout/helper_training_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:trainingModel="@{trainingModel}" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/players"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -50,15 +52,29 @@
                     android:text="@={`` + trainingModel.players}" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/playersText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="@dimen/half_normal_margin"
+                android:selectAllOnFocus="true"
+                android:text="@string/playersHint"
+                app:layout_constraintEnd_toEndOf="@+id/players"
+                app:layout_constraintStart_toStartOf="@+id/players"
+                app:layout_constraintTop_toBottomOf="@+id/players" />
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/goalkeepers"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/goalkeepers_attendance"
                 app:layout_constraintEnd_toEndOf="@+id/players"
                 app:layout_constraintStart_toStartOf="@+id/players"
-                app:layout_constraintTop_toBottomOf="@id/players">
+                app:layout_constraintTop_toBottomOf="@id/playersText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -67,16 +83,28 @@
                     android:text="@={`` + trainingModel.goalkeepers}" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/goalkeepers_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="@dimen/half_normal_margin"
+                android:selectAllOnFocus="true"
+                android:text="@string/goalkeeprsHint"
+                app:layout_constraintEnd_toEndOf="@+id/goalkeepers"
+                app:layout_constraintStart_toStartOf="@+id/goalkeepers"
+                app:layout_constraintTop_toBottomOf="@+id/goalkeepers" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/rating"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/rating"
                 app:layout_constraintEnd_toEndOf="@+id/goalkeepers"
                 app:layout_constraintStart_toStartOf="@+id/goalkeepers"
-                app:layout_constraintTop_toBottomOf="@id/goalkeepers">
+                app:layout_constraintTop_toBottomOf="@id/goalkeepers_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -89,28 +117,23 @@
                 android:id="@+id/ratingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="@dimen/half_normal_margin"
                 android:selectAllOnFocus="true"
                 android:text="@string/rating_helper_text"
                 app:layout_constraintEnd_toEndOf="@+id/rating"
                 app:layout_constraintStart_toStartOf="@+id/rating"
-                app:layout_constraintTop_toBottomOf="@+id/rating" />
+                app:layout_constraintTop_toBottomOf="@+id/rating"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnSaveTraining"
-                style="@style/AppTheme.FloatingActionButton"
-                invisibleUnless="@{trainingModel.areInputsReady}"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/plank"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_save"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginTop="@dimen/half_normal_margin"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="@+id/ratingText"
+                app:layout_constraintStart_toStartOf="@+id/ratingText"
+                app:layout_constraintTop_toBottomOf="@+id/ratingText"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

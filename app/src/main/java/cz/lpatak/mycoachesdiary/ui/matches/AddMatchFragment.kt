@@ -32,7 +32,7 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         with(binding) {
             lifecycleOwner = this@AddMatchFragment
             matchModel = MatchUIModel()
-            btnSaveMatch.setOnClickListener { createMatch() }
+            btnAddMatch.setOnClickListener { createMatch() }
             helperMatchesLayout.btnSetDate.setOnClickListener { pickDate() }
         }
 

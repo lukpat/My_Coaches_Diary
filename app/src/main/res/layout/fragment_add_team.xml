@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="teamModel"
             type="cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.TeamUIModel" />
@@ -32,19 +31,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:teamModel="@{teamModel}" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnSaveTeam"
-                style="@style/AppTheme.FloatingActionButton"
-                invisibleUnless="@{teamModel.areInputsReady}"
-                android:layout_width="wrap_content"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddTeam"
+                style="@style/buttonBoldFilled"
+                android:enabled="@{teamModel.areInputsReady}"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_save"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_gravity="start"
+                android:text="@string/add_team"
+                android:layout_marginTop="@dimen/normal_margin"
+                app:layout_constraintEnd_toEndOf="@+id/team_layout_helper"
+                app:layout_constraintStart_toStartOf="@+id/team_layout_helper"
+                app:layout_constraintTop_toBottomOf="@+id/team_layout_helper"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

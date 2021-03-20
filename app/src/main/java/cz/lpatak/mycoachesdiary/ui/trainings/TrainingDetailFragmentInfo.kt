@@ -3,31 +3,24 @@ package cz.lpatak.mycoachesdiary.ui.trainings
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Training
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailInfoBinding
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
-import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import cz.lpatak.mycoachesdiary.util.convertLongToDate
 import cz.lpatak.mycoachesdiary.util.createTime
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class TrainingDetailFragmentInfo(private val trainingFromArgs: Training) : Fragment(),
+class TrainingDetailFragmentInfo(private val trainingFromArgs: Training, private val UIModel: TrainingUIModel) : Fragment(),
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private val trainingsViewModel: TrainingsViewModel by viewModel()
     private lateinit var binding: FragmentTrainingDetailInfoBinding
-    private var timestamp = Timestamp(Date(0))
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -42,11 +35,10 @@ class TrainingDetailFragmentInfo(private val trainingFromArgs: Training) : Fragm
         )
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentInfo
-            trainingModel = TrainingUIModel()
-            btnSaveTraining.setOnClickListener { updateTraining(trainingModel) }
-            trainingHelperLayout.btnSetDate.setOnClickListener { pickDate() }
-            trainingHelperLayout.btnSetTimeFrom.setOnClickListener { pickTimeFrom() }
-            trainingHelperLayout.btnSetTimeTo.setOnClickListener { pickTimeTo() }
+            trainingModel = UIModel
+            trainingHelperLayout.date.setOnClickListener { pickDate() }
+            trainingHelperLayout.startTime.setOnClickListener { pickTimeFrom() }
+            trainingHelperLayout.endTime.setOnClickListener { pickTimeTo() }
         }
 
         setTraining(binding.trainingModel)
@@ -64,35 +56,12 @@ class TrainingDetailFragmentInfo(private val trainingFromArgs: Training) : Fragm
         uiModel?.rating?.value = trainingFromArgs.rating
     }
 
-
-    private fun updateTraining(uiModel: TrainingUIModel?) {
-        var date = trainingFromArgs.date
-        if (timestamp != Timestamp(Date(0))) {
-            date = timestamp
-        }
-
-        if (uiModel != null) {
-            trainingsViewModel.updateTraining(
-                    Training(
-                            trainingFromArgs.id,
-                            uiModel.place.value,
-                            uiModel.rating.value!!,
-                            date,
-                            uiModel.startTime.value,
-                            uiModel.endTime.value,
-                            uiModel.players.value!!,
-                            uiModel.goalkeepers.value!!
-                    )
-            )
-        }
-    }
-
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val realMonth = month + 1
 
         val str = "$dayOfMonth.$realMonth.$year"
         binding.trainingModel!!.date.value = str
-        timestamp = stringDateToTimestamp(str)
+        binding.trainingModel!!.timestamp = stringDateToTimestamp(str)
     }
 
     private fun pickDate() {

@@ -103,7 +103,9 @@ class ExerciseLibraryFragment : Fragment(),
 
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        // nedělá nic - hledám live v onQueryTextChange
+        if (!query.isNullOrEmpty()) {
+            searchDB(query)
+        }
         return true
     }
 
@@ -118,9 +120,7 @@ class ExerciseLibraryFragment : Fragment(),
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        if (!query.isNullOrEmpty()) {
-            searchDB(query)
-        }
+        //nothing až po vyhledání
         return true
     }
 

@@ -2,7 +2,9 @@ package cz.lpatak.mycoachesdiary.ui.trainings.viewmodel
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.ui.base.ObservableViewModel
+import java.util.*
 
 class TrainingUIModel : ObservableViewModel() {
     val areInputsReady = MediatorLiveData<Boolean>()
@@ -14,6 +16,7 @@ class TrainingUIModel : ObservableViewModel() {
     val endTime = MutableLiveData("")
     val players = MutableLiveData(0)
     val goalkeepers = MutableLiveData(0)
+    var timestamp = Timestamp(Date(0))
 
     init {
         areInputsReady.addSource(place) { areInputsReady.value = checkInputs() }

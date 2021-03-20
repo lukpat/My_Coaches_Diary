@@ -39,8 +39,8 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             isTeamSelected = trainingsViewModel.isTeamSelected()
             filterOn = false
             filterLayout.btnSetFilter.setOnClickListener { applyFilter() }
-            filterLayout.btnSetDateFrom.setOnClickListener { pickDateFrom() }
-            filterLayout.btnSetDateTo.setOnClickListener { pickDateTo() }
+            filterLayout.dateFrom.setOnClickListener { pickDateFrom() }
+            filterLayout.dateTo.setOnClickListener { pickDateTo() }
         }
 
         adapter.setViewModel(trainingsViewModel)
@@ -95,7 +95,7 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun applyFilter() {
-        if (dateFrom.seconds >= dateTo.seconds) {
+        if (dateFrom.seconds > dateTo.seconds) {
             val error = "Datum počátku je později než datum konce, takže filtr není možné provést"
             binding.filterLayout.dateError.text = error
             return
@@ -115,10 +115,10 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val str = "$dayOfMonth.$realMonth.$year"
 
         if (helper) {
-            binding.filterLayout.dateFrom.text = str
+            binding.filterLayout.dateFromVal = str
             dateFrom = stringDateToTimestamp(str)
         } else {
-            binding.filterLayout.dateTo.text = str
+            binding.filterLayout.dateToVal = str
             dateTo = stringDateToTimestamp(str)
         }
     }

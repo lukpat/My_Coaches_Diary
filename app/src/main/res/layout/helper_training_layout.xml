@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="trainingModel"
             type="cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,10 +14,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/place"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin"
-            android:hint="@string/place"
+            android:hint="@string/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -27,89 +26,69 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:text="@={trainingModel.place}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/date_layout"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dateLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin"
+            android:hint="@string/date"
             app:layout_constraintEnd_toEndOf="@+id/place"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/place">
+            app:layout_constraintStart_toStartOf="@+id/place"
+            app:layout_constraintTop_toBottomOf="@+id/place">
 
-            <ImageButton
-                android:id="@+id/btnSetDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calendar" />
-
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:hint="@string/date"
-                android:text="@={trainingModel.date}"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:inputType="text"
+                android:focusable="false"
+                android:text="@{trainingModel.date}" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/time_layout"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/startTimeLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_layout">
+            android:hint="@string/time_from"
+            app:layout_constraintEnd_toEndOf="@+id/dateLayout"
+            app:layout_constraintStart_toStartOf="@+id/dateLayout"
+            app:layout_constraintTop_toBottomOf="@+id/dateLayout">
 
-            <ImageButton
-                android:id="@+id/btnSetTimeFrom"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/startTime"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_time" />
+                android:inputType="text"
+                android:focusable="false"
+                android:text="@{trainingModel.startTime}" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/timeFrom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:hint="@string/time_hint"
-                android:text="@={trainingModel.startTime}"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/endTimeLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:hint="@string/time_to"
+            app:layout_constraintEnd_toEndOf="@+id/startTimeLayout"
+            app:layout_constraintStart_toStartOf="@+id/startTimeLayout"
+            app:layout_constraintTop_toBottomOf="@+id/startTimeLayout">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/endTime"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:text=":"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/timeTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:hint="@string/time_hint"
-                android:text="@={trainingModel.endTime}"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/btnSetTimeTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_time" />
-        </LinearLayout>
+                android:inputType="text"
+                android:focusable="false"
+                android:text="@{trainingModel.endTime}" />
+        </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,7 +4,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.QuerySnapshot
-import cz.lpatak.mycoachesdiary.data.model.*
+import cz.lpatak.mycoachesdiary.data.model.DBConstants
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_DATE
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_TEAM
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_TYPE
@@ -56,10 +56,10 @@ class StatsRepositoryImpl(
     }
 
     override fun getTrainings(dateFrom: Timestamp, dateTo: Timestamp): Task<QuerySnapshot> {
-       return trainingsPath
-               .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
-               .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
-               .get()
+        return trainingsPath
+                .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
+                .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
+                .get()
     }
 
 

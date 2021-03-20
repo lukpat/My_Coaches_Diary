@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
@@ -26,7 +26,7 @@
 
 
     <style name="AppTheme.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="rippleColor">@color/colorAccent</item>
         <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="tint">@color/colorWhite</item>
     </style>
 </resources>

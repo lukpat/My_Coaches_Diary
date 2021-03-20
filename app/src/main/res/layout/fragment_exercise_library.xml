@@ -31,13 +31,12 @@
             android:layout_marginTop="@dimen/normal_margin" />
 
         <ScrollView
-            android:id="@+id/scrollView2"
             invisibleUnless="@{!filterOn}"
+            android:layout_marginTop="@dimen/half_normal_margin"
+            android:layout_marginBottom="@dimen/half_normal_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="5dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exercises_list"
@@ -46,7 +45,6 @@
                 android:layout_height="wrap_content"
                 app:layoutManager="LinearLayoutManager"
                 tools:listitem="@layout/exercise_item" />
-
         </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

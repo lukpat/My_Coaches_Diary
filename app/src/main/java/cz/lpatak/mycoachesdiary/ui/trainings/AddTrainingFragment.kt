@@ -40,10 +40,10 @@ class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         with(binding) {
             lifecycleOwner = this@AddTrainingFragment
             trainingModel = TrainingUIModel()
-            btnSaveTraining.setOnClickListener { createTeam() }
-            trainingHelperLayout.btnSetDate.setOnClickListener { pickDate() }
-            trainingHelperLayout.btnSetTimeFrom.setOnClickListener { pickTimeFrom() }
-            trainingHelperLayout.btnSetTimeTo.setOnClickListener { pickTimeTo() }
+            btnAddTrainings.setOnClickListener { createTeam() }
+            trainingHelperLayout.date.setOnClickListener { pickDate() }
+            trainingHelperLayout.startTime.setOnClickListener { pickTimeFrom() }
+            trainingHelperLayout.endTime.setOnClickListener { pickTimeTo() }
         }
         return binding.root
     }

@@ -13,6 +13,7 @@ import cz.lpatak.mycoachesdiary.data.model.Team
 import cz.lpatak.mycoachesdiary.databinding.FragmentTeamDetailBinding
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.MyTeamsViewModel
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.TeamUIModel
+import cz.lpatak.mycoachesdiary.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -27,15 +28,15 @@ class TeamDetailFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        teamFromArgs = args.team
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_team_detail, container, false)
         with(binding) {
             lifecycleOwner = this@TeamDetailFragment
             teamModel = TeamUIModel()
-            btnSaveTeam.setOnClickListener { updateTeam() }
+            isCurrentTeam = !myTeamsViewModel.isTeamCurrentTeam(teamFromArgs.id.toString())
             btnSetAsCurrent.setOnClickListener { setCurrentTeam() }
         }
-
-        teamFromArgs = args.team
 
         setTeam(binding.teamModel)
 
@@ -48,7 +49,7 @@ class TeamDetailFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_menu, menu)
+        inflater.inflate(R.menu.save_delete_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -63,22 +64,28 @@ class TeamDetailFragment : Fragment() {
                         .setNegativeButton(R.string.no, null)
                         .show()
             }
+            R.id.save -> {
+                updateTeam()
+            }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-
     private fun updateTeam() {
-        myTeamsViewModel.updateTeam(
-                Team(
-                        teamFromArgs.id,
-                        teamFromArgs.owner,
-                        binding.teamModel!!.name.value.toString(),
-                        binding.teamModel!!.season.value.toString()
-                )
-        )
-        findNavController().navigateUp()
+        if (binding.teamModel!!.checkInputs()) {
+            myTeamsViewModel.updateTeam(
+                    Team(
+                            teamFromArgs.id,
+                            teamFromArgs.owner,
+                            binding.teamModel!!.name.value.toString(),
+                            binding.teamModel!!.season.value.toString()
+                    )
+            )
+            findNavController().navigateUp()
+        } else {
+            showToast("Nemáte správně vyplněny hodnoty, uložení neproběhlo!")
+        }
     }
 
 

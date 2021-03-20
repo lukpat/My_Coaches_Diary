@@ -1,6 +1,5 @@
 package cz.lpatak.mycoachesdiary.ui.stats.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.data.model.DBConstants
@@ -13,7 +12,6 @@ class TrainingStatsViewModel(private val preferenceManager: PreferenceManger, pr
     private val exerciseList: MutableList<ExerciseInTraining?> = mutableListOf()
     private val trainingsList: MutableList<Training?> = mutableListOf()
     var category = HashMap<String, Int>()
-
 
 
     var trainingsCount = 0
@@ -31,26 +29,26 @@ class TrainingStatsViewModel(private val preferenceManager: PreferenceManger, pr
                 }
             }
         }.continueWith {
-                for (training in trainingsList) {
-                    if (training != null) {
-                        calculateTrainingStats(training)
-                        statsRepository.getExercises(training.id.toString()).addOnSuccessListener {
-                            if (!it.isEmpty) {
-                                val list = it.documents
-                                for (doc in list) {
-                                    val exercise = doc.toObject(ExerciseInTraining::class.java)
-                                    exerciseList.add(exercise)
-                                }
+            for (training in trainingsList) {
+                if (training != null) {
+                    calculateTrainingStats(training)
+                    statsRepository.getExercises(training.id.toString()).addOnSuccessListener {
+                        if (!it.isEmpty) {
+                            val list = it.documents
+                            for (doc in list) {
+                                val exercise = doc.toObject(ExerciseInTraining::class.java)
+                                exerciseList.add(exercise)
                             }
                         }
                     }
+                }
             }
         }.continueWith {
-                for (exercise in exerciseList) {
-                    if (exercise != null) {
-                        calculateExerciseCategoryTime(exercise)
-                    }
+            for (exercise in exerciseList) {
+                if (exercise != null) {
+                    calculateExerciseCategoryTime(exercise)
                 }
+            }
 
         }.continueWith {
             printMap()
@@ -64,9 +62,9 @@ class TrainingStatsViewModel(private val preferenceManager: PreferenceManger, pr
     }
 
     private fun calculateTrainingStats(training: Training) {
-        ratingSum+= training.rating
-        playersSum+= training.players
-        goalkeepersSum+= training.goalkeepers
+        ratingSum += training.rating
+        playersSum += training.players
+        goalkeepersSum += training.goalkeepers
     }
 
     private fun calculateExerciseCategoryTime(exercise: ExerciseInTraining) {

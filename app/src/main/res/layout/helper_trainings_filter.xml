@@ -2,74 +2,78 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<data>
+    <variable
+        name="dateFromVal"
+        type="String"/>
+
+    <variable
+        name="dateToVal"
+        type="String" />
+</data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/date_layout"
+            android:id="@+id/linLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_margin="@dimen/normal_margin"
+            android:orientation="horizontal"
             android:gravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" >
 
-            <ImageButton
-                android:id="@+id/btnSetDateFrom"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_calendar" />
+                android:hint="@string/date_from">
 
-            <TextView
-                android:id="@+id/dateFrom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/normal_margin"
-                android:hint="@string/date_from"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dateFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:focusable="false"
+                    android:text="@{dateFromVal}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="100dp"
+                android:layout_marginStart="32dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="-"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:hint="@string/date_to">
 
-            <TextView
-                android:id="@+id/dateTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:hint="@string/date"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dateTo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:focusable="false"
+                    android:text="@{dateToVal}" />
 
-            <ImageButton
-                android:id="@+id/btnSetDateTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calendar" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/dateError"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="@+id/date_layout"
-            app:layout_constraintStart_toStartOf="@+id/date_layout"
-            app:layout_constraintTop_toBottomOf="@+id/date_layout" />
+            app:layout_constraintEnd_toEndOf="@+id/linLayout"
+            app:layout_constraintStart_toStartOf="@+id/linLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linLayout" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSetFilter"
@@ -77,11 +81,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/half_normal_margin"
             android:text="@string/apply_filter"
-            app:layout_constraintEnd_toEndOf="@+id/date_layout"
-            app:layout_constraintStart_toStartOf="@+id/date_layout"
-            app:layout_constraintTop_toBottomOf="@+id/date_layout" />
+            app:layout_constraintEnd_toEndOf="@+id/dateError"
+            app:layout_constraintStart_toStartOf="@+id/dateError"
+            app:layout_constraintTop_toBottomOf="@+id/dateError" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

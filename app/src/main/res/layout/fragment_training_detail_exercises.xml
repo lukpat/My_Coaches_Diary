@@ -18,11 +18,13 @@
         android:layout_height="match_parent"
         tools:context=".ui.trainigs.TrainingDetailFragmentExercises">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_marginTop="@dimen/half_normal_margin"
+            android:layout_marginBottom="@dimen/half_normal_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            tools:layout_editor_absoluteX="0dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exercises_list"
@@ -32,7 +34,7 @@
                 app:layoutManager="LinearLayoutManager"
                 tools:listitem="@layout/exercise_in_training_item" />
 
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_exercise_to_training"

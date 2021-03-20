@@ -139,7 +139,7 @@
     <fragment
         android:id="@+id/navigation_training_detail"
         android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragment"
-        android:label="TrainingDetailFragment">
+        android:label="@string/training_detail">
         <argument
             android:name="training"
             app:argType="cz.lpatak.mycoachesdiary.data.model.Training" />
@@ -153,13 +153,11 @@
 
     <fragment
         android:id="@+id/navigation_training_detail_info"
-        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentInfo"
-        android:label="TrainingDetailFragmentInfo" />
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentInfo"/>
 
     <fragment
         android:id="@+id/navigation_training_detail_exercises"
-        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises"
-        android:label="TrainingDetailFragmentExercises">
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises">
         <action
             android:id="@+id/action_navigation_training_detail_exercises_self"
             app:destination="@id/navigation_training_detail_exercises" />
@@ -171,12 +169,12 @@
     <fragment
         android:id="@+id/navigation_add_exercise_to_training"
         android:name="cz.lpatak.mycoachesdiary.ui.trainings.AddExerciseToTrainingFragment"
-        android:label="AddExerciseToTrainingFragment" />
+        android:label="@string/add_exercise" />
 
     <fragment
         android:id="@+id/navigation_add_match"
         android:name="cz.lpatak.mycoachesdiary.ui.matches.AddMatchFragment"
-        android:label="AddMatchFragment" />
+        android:label="@string/add_match" />
 
     <fragment
         android:id="@+id/navigation_match_detail"

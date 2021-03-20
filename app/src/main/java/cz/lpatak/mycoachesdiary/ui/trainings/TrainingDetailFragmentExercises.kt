@@ -1,21 +1,20 @@
 package cz.lpatak.mycoachesdiary.ui.trainings
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Result
+import cz.lpatak.mycoachesdiary.data.model.Training
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailExercisesBinding
 import cz.lpatak.mycoachesdiary.ui.trainings.util.ExerciseInTrainingAdapter
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class TrainingDetailFragmentExercises : Fragment() {
+class TrainingDetailFragmentExercises(private val trainingFromArgs: Training) : Fragment() {
     private lateinit var binding: FragmentTrainingDetailExercisesBinding
     private val adapter: ExerciseInTrainingAdapter = ExerciseInTrainingAdapter()
     private val trainingsViewModel: TrainingsViewModel by viewModel()
@@ -46,7 +45,6 @@ class TrainingDetailFragmentExercises : Fragment() {
 
         return binding.root
     }
-
 
     override fun onStart() {
         super.onStart()

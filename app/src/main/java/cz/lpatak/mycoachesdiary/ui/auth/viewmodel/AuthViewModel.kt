@@ -85,48 +85,52 @@ class AuthViewModel(
         }
     }
 
-    fun loginDataChanged(username: String, password: String) {
-        if (!isUserNameValid(username)) {
+    fun loginDataCheck(username: String, password: String): Boolean {
+        return if (!isUserNameValid(username)) {
             _loginForm.value =
                     LoginFormState(usernameError = R.string.invalid_username)
+            false
         } else if (!isPasswordValid(password)) {
             _loginForm.value =
                     LoginFormState(passwordError = R.string.invalid_password)
+            false
         } else {
             _loginForm.value =
                     LoginFormState(isDataValid = true)
+            true
         }
     }
 
-    fun registerDataChanged(username: String, password: String, password2: String) {
+    fun registerDataCheck(username: String, password: String, password2: String): Boolean {
         if (!isUserNameValid(username)) {
             _registerForm.value =
                     RegisterFormState(usernameError = R.string.invalid_username)
+            return false
         } else if (!isPasswordValid(password)) {
             _registerForm.value =
                     RegisterFormState(passwordError = R.string.invalid_password)
+            return false
         } else if (!isPasswordValid(password2)) {
             _registerForm.value =
                     RegisterFormState(passwordError2 = R.string.invalid_password)
+            return false
         } else if (passwordMatch(password, password2)) {
             _registerForm.value =
                     RegisterFormState(passwordError = R.string.password_match_error)
+            return false
         } else {
             _registerForm.value =
                     RegisterFormState(isDataValid = true)
+            return true
         }
     }
 
     private fun isUserNameValid(username: String): Boolean {
-        return if (username.isNotBlank() && username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            false
-        }
+        return username.isNotBlank() && username.contains('@') && Patterns.EMAIL_ADDRESS.matcher(username).matches()
     }
 
     private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
+        return password.length > 7
     }
 
     private fun passwordMatch(password: String, password2: String): Boolean {

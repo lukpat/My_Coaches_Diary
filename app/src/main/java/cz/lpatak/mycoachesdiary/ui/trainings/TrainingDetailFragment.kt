@@ -1,7 +1,6 @@
 package cz.lpatak.mycoachesdiary.ui.trainings
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -9,16 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
+import cz.lpatak.mycoachesdiary.data.model.Training
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailBinding
 import cz.lpatak.mycoachesdiary.ui.trainings.util.TabsTrainingManager
+import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
+import cz.lpatak.mycoachesdiary.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class TrainingDetailFragment : Fragment() {
     private lateinit var binding: FragmentTrainingDetailBinding
     private val args: TrainingDetailFragmentArgs by navArgs()
     private val trainingsViewModel: TrainingsViewModel by viewModel()
+    private lateinit var trainingUIModel: TrainingUIModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -28,6 +33,7 @@ class TrainingDetailFragment : Fragment() {
         binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
 
+        trainingUIModel = TrainingUIModel()
         setupViewPager()
 
         return binding.root
@@ -39,7 +45,7 @@ class TrainingDetailFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_menu, menu)
+        inflater.inflate(R.menu.save_delete_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -47,20 +53,27 @@ class TrainingDetailFragment : Fragment() {
             R.id.delete -> {
                 AlertDialog.Builder(context)
                         .setMessage(R.string.delete_trainig_alert)
-                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                        .setPositiveButton(R.string.yes) { _, _ ->
                             trainingsViewModel.deleteTraining(args.training.id.toString())
                             findNavController().navigateUp()
-                        })
+                        }
                         .setNegativeButton(R.string.no, null)
                         .show()
             }
+            R.id.save -> {
+                if (binding.viewPager.currentItem == 0) {
+                    updateTraining()
+                } else {
+                    // TODO:!!!!!!
+                    showToast("niciiiiiiiiiiiiiiiiiiiiiiiiiiiic")
+                }
+            }
         }
-
         return super.onOptionsItemSelected(item)
     }
 
     private fun setupViewPager() {
-        val adapter = TabsTrainingManager(activity?.supportFragmentManager!!, lifecycle, args)
+        val adapter = TabsTrainingManager(activity?.supportFragmentManager!!, lifecycle, args, trainingUIModel)
         binding.viewPager.adapter = adapter
 
         val names: Array<String> = arrayOf("Informace", "Cvičení")
@@ -70,9 +83,26 @@ class TrainingDetailFragment : Fragment() {
         }.attach()
     }
 
+    private fun updateTraining() {
+        var date = args.training.date
+        if (trainingUIModel.timestamp != Timestamp(Date(0))) {
+            date = trainingUIModel.timestamp
+        }
 
+        trainingsViewModel.updateTraining(
+                Training(
+                        args.training.id,
+                        trainingUIModel.place.value,
+                        trainingUIModel.rating.value!!,
+                        date,
+                        trainingUIModel.startTime.value,
+                        trainingUIModel.endTime.value,
+                        trainingUIModel.players.value!!,
+                        trainingUIModel.goalkeepers.value!!
+                )
+        )
+    }
 }
-
 
 
 

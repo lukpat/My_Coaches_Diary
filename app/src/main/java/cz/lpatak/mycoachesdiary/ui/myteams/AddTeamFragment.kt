@@ -28,7 +28,7 @@ class AddTeamFragment : Fragment() {
         with(binding) {
             lifecycleOwner = this@AddTeamFragment
             teamModel = TeamUIModel()
-            btnSaveTeam.setOnClickListener { createTeam() }
+            btnAddTeam.setOnClickListener { createTeam() }
         }
         return binding.root
     }

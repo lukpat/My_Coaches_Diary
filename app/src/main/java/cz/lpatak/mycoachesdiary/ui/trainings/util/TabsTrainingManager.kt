@@ -7,17 +7,19 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentArgs
 import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises
 import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentInfo
+import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 
 class TabsTrainingManager(
         fragmentManager: FragmentManager,
         lifecycle: Lifecycle,
-        args: TrainingDetailFragmentArgs
+        args: TrainingDetailFragmentArgs,
+        UIModel: TrainingUIModel
 ) :
         FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragments: ArrayList<Fragment> = arrayListOf(
-            TrainingDetailFragmentInfo(args.training),
-            TrainingDetailFragmentExercises()
+            TrainingDetailFragmentInfo(args.training, UIModel),
+            TrainingDetailFragmentExercises(args.training)
     )
 
     override fun getItemCount(): Int {

@@ -16,7 +16,7 @@ class TeamUIModel : ObservableViewModel() {
         areInputsReady.addSource(season) { areInputsReady.value = checkInputs() }
     }
 
-    private fun checkInputs(): Boolean {
+    fun checkInputs(): Boolean {
         return !(
                 name.value.isNullOrEmpty() ||
                         season.value.isNullOrEmpty()

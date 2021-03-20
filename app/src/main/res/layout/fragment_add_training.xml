@@ -34,19 +34,19 @@
                 app:trainingModel="@{trainingModel}" />
 
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnSaveTraining"
-                style="@style/AppTheme.FloatingActionButton"
-                invisibleUnless="@{trainingModel.areInputsReady}"
-                android:layout_width="wrap_content"
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddTrainings"
+                style="@style/buttonBoldFilled"
+                android:enabled="@{trainingModel.areInputsReady}"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_save"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_gravity="start"
+                android:text="@string/add_training"
+                android:layout_marginTop="@dimen/normal_margin"
+                app:layout_constraintEnd_toEndOf="@+id/training_helper_layout"
+                app:layout_constraintStart_toStartOf="@+id/training_helper_layout"
+                app:layout_constraintTop_toBottomOf="@+id/training_helper_layout"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

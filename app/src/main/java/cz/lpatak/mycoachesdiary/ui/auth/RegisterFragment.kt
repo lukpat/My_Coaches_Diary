@@ -4,103 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.auth.*
 import cz.lpatak.mycoachesdiary.databinding.FragmentRegisterBinding
 import cz.lpatak.mycoachesdiary.ui.auth.viewmodel.AuthViewModel
-import cz.lpatak.mycoachesdiary.util.afterTextChanged
 import cz.lpatak.mycoachesdiary.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : Fragment() {
-
+    private lateinit var binding: FragmentRegisterBinding
     private val authViewModel: AuthViewModel by viewModel()
-    private var _binding: FragmentRegisterBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
+        with(binding) {
+            lifecycleOwner = this@RegisterFragment
+            btnRegister.setOnClickListener { register() }
+            switchToLogin.setOnClickListener { navigateToLogin() }
+        }
+
+        authViewModel.getCurrentLoggedInUser()?.observe(viewLifecycleOwner, loggedInUserObserver)
+        authViewModel.registerFormState.observe(viewLifecycleOwner, registerFormStateObserver)
+        authViewModel.registerResult.observe(viewLifecycleOwner, registerResultObserver)
+
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        binding.etUsername.afterTextChanged {
-            authViewModel.registerDataChanged(
-                    binding.etUsername.text.toString(),
-                    binding.etPassword.text.toString(),
-                    binding.etPassword2.text.toString()
-            )
-        }
-
-        binding.etPassword.apply {
-            afterTextChanged {
-                authViewModel.registerDataChanged(
-                        binding.etUsername.text.toString(),
-                        binding.etPassword.text.toString(),
-                        binding.etPassword2.text.toString()
-                )
-            }
-
-            binding.etPassword2.apply {
-                afterTextChanged {
-                    authViewModel.registerDataChanged(
-                            binding.etUsername.text.toString(),
-                            binding.etPassword.text.toString(),
-                            binding.etPassword2.text.toString()
-                    )
-                }
-
-                setOnEditorActionListener { _, actionId, _ ->
-                    when (actionId) {
-                        EditorInfo.IME_ACTION_DONE ->
-                            if (binding.btnRegister.isEnabled) {
-                                binding.btnRegister.callOnClick()
-                            }
-                    }
-                    false
-                }
-            }
-
-            binding.btnRegister.setOnClickListener {
-                binding.loading.visibility = View.VISIBLE
-                authViewModel.register(
-                        binding.etUsername.text.toString(),
-                        binding.etPassword.text.toString()
-                )
-            }
-
-            binding.switchToRegister.setOnClickListener {
-                navigateToLogin()
-            }
-
-            authViewModel.getCurrentLoggedInUser()
-                    ?.observe(viewLifecycleOwner, loggedInUserObserver)
-            authViewModel.registerFormState.observe(viewLifecycleOwner, registerFormStateObserver)
-            authViewModel.registerResult.observe(viewLifecycleOwner, registerResultObserver)
-
-        }
-    }
 
     private fun navigateToHomeScreen() {
         view?.let {
-            val directions =
-                    RegisterFragmentDirections.actionNavigationRegisterToNavigationHome()
+            val directions = RegisterFragmentDirections.actionNavigationRegisterToNavigationHome()
             it.findNavController().navigate(directions)
         }
     }
@@ -117,14 +59,8 @@ class RegisterFragment : Fragment() {
         showToast(errorString)
     }
 
-
-    /**
-     * Observes login form validations
-     */
     private val registerFormStateObserver: Observer<RegisterFormState> = Observer {
         val registerState = it ?: return@Observer
-
-        binding.btnRegister.isEnabled = registerState.isDataValid
 
         if (registerState.usernameError != null) {
             binding.etUsername.error = getString(registerState.usernameError)
@@ -141,13 +77,9 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    /**
-     * Observes login action result
-     */
     private val registerResultObserver: Observer<AuthResult> = Observer {
         val registerResult = it ?: return@Observer
 
-        binding.loading.visibility = View.GONE
         if (registerResult.error != null) {
             showRegisterFailed(registerResult.error)
         }
@@ -160,6 +92,17 @@ class RegisterFragment : Fragment() {
     private val loggedInUserObserver: Observer<LoggedInUserView> = Observer {
         it?.let {
             navigateToHomeScreen()
+        }
+    }
+
+    private fun register() {
+        if (
+                authViewModel.registerDataCheck(
+                        binding.etUsername.text.toString(),
+                        binding.etPassword.text.toString(),
+                        binding.etPassword2.text.toString()
+                )) {
+            authViewModel.register(binding.etUsername.text.toString(), binding.etPassword.text.toString())
         }
     }
 
