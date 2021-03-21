@@ -27,6 +27,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -40,41 +41,52 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
                     android:text="@={exerciseModel.name}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <Spinner
-                android:id="@+id/category"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/exerciseCategoryLayout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:entries="@array/exercise_category"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/normal_margin"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/round_corner"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:strokeColor="@color/colorGrey"
+                app:strokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/exerciseCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:entries="@array/exercise_category"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"/>
+            </com.google.android.material.card.MaterialCardView>
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/description"
-                app:layout_constraintEnd_toEndOf="@+id/category"
-                app:layout_constraintStart_toStartOf="@+id/category"
-                app:layout_constraintTop_toBottomOf="@id/category">
+                app:layout_constraintEnd_toEndOf="@+id/exerciseCategoryLayout"
+                app:layout_constraintStart_toStartOf="@+id/exerciseCategoryLayout"
+                app:layout_constraintTop_toBottomOf="@id/exerciseCategoryLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine|textImeMultiLine"
+                    android:inputType="textMultiLine|textImeMultiLine|textCapSentences"
                     android:text="@={exerciseModel.description}" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -108,23 +120,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_image_button"
-                tools:ignore="ContentDescription" />
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnSaveExercise"
-                style="@style/AppTheme.FloatingActionButton"
-                invisibleUnless="@{exerciseModel.areInputsReady}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_save"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
+                tools:ignore="ContentDescription"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

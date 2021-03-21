@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="statsModel"
             type="cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,210 +14,25 @@
         android:layout_height="match_parent"
         tools:context=".ui.matches.MatchDetailFragmentStats">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/score"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+        <include
+            android:id="@+id/helper_match_stats_layout"
+            app:statsModel="@{statsModel}"
+            layout="@layout/helper_match_stats_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/half_normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/double_normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/score" />
-
-            <EditText
-                android:id="@+id/scoreTeam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.scoreTeam}" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:text=" : " />
-
-            <EditText
-                android:id="@+id/scoreOpponent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.scoreOpponent}" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/powerPlays"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/score"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/powerPlays" />
-
-            <EditText
-                android:id="@+id/powerPlaysTeam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.powerPlaysTeam}" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:text=" : " />
-
-            <EditText
-                android:id="@+id/powerPlaysOpponent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.powerPlaysOpponent}" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/powerPlaysUssage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/powerPlays"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/powerPlaysSuccess" />
-
-            <EditText
-                android:id="@+id/powerPlaysTeamSuccess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.powerPlaysTeamSuccess}" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:text=" : " />
-
-            <EditText
-                android:id="@+id/powerPlaysOpponentSuccess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.powerPlaysOpponentSuccess}" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/shots"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/powerPlaysUssage"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shots" />
-
-            <EditText
-                android:id="@+id/shotsTeam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.shotsTeam}" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:text=" : " />
-
-            <EditText
-                android:id="@+id/shotsOpponent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.shotsOpponent}" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/shotsOutsideLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/shots"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shotsOutside" />
-
-            <EditText
-                android:id="@+id/shotsOutside"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.shotsOutside}" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/shotsToBlockLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/shotsOutsideLayout"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shotsToBlock" />
-
-            <EditText
-                android:id="@+id/shotsToBlock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:inputType="number"
-                android:text="@={`` + statsModel.shotsToBlock}" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnSaveStats"
-            style="@style/AppTheme.FloatingActionButton"
-            invisibleUnless="@{statsModel.areInputsReady}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

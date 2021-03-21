@@ -14,51 +14,38 @@ import cz.lpatak.mycoachesdiary.data.model.Match
 import cz.lpatak.mycoachesdiary.databinding.FragmentMatchDetailInfoBinding
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
+import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
 import cz.lpatak.mycoachesdiary.util.convertLongToDate
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(),
+class MatchDetailFragmentInfo(private val matchFromArgs: Match, private val matchUIModel: MatchUIModel, private val binding: FragmentMatchDetailInfoBinding) : Fragment(),
         DatePickerDialog.OnDateSetListener {
-    private val matchesViewModel: MatchesViewModel by viewModel()
-    private lateinit var binding: FragmentMatchDetailInfoBinding
-    private var timestamp = Timestamp(Date(0))
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_match_detail_info,
-                container,
-                false
-        )
         with(binding) {
             lifecycleOwner = this@MatchDetailFragmentInfo
-            matchModel = MatchUIModel()
-            btnSaveMatch.setOnClickListener {
-                updateMatch(matchModel)
-            }
-            helperMatchesLayout.btnSetDate.setOnClickListener {
-                pickDate()
-            }
+            matchModel = matchUIModel
+            helperMatchesLayout.date.setOnClickListener { pickDate() }
         }
 
-        setMatch(binding.matchModel)
+        setMatch()
 
         return binding.root
     }
 
-    private fun setMatch(uiModel: MatchUIModel?) {
-        uiModel?.opponent?.value = matchFromArgs.opponent
+    private fun setMatch() {
+        matchUIModel.opponent.value = matchFromArgs.opponent
         binding.helperMatchesLayout.type.setSelection(getIndex(matchFromArgs.type.toString()))
-        uiModel?.dateString?.value = convertLongToDate(matchFromArgs.date!!.seconds)
-        uiModel?.playingTime?.value = matchFromArgs.playingTime
-        uiModel?.note?.value = matchFromArgs.note
+        matchUIModel.dateString.value = convertLongToDate(matchFromArgs.date!!.seconds)
+        matchUIModel.playingTime.value = matchFromArgs.playingTime.toString()
+        matchUIModel.note.value = matchFromArgs.note
     }
 
     private fun getIndex(type: String): Int {
@@ -70,44 +57,12 @@ class MatchDetailFragmentInfo(private val matchFromArgs: Match) : Fragment(),
         }
     }
 
-    private fun updateMatch(uiModel: MatchUIModel?) {
-        var date = matchFromArgs.date
-        if (timestamp != Timestamp(Date(0))) {
-            date = timestamp
-        }
-
-        if (uiModel != null) {
-            matchesViewModel.updateMatch(
-                    Match(
-                            matchFromArgs.id,
-                            matchFromArgs.team,
-                            uiModel.opponent.value.toString(),
-                            date,
-                            binding.helperMatchesLayout.type.selectedItem.toString(),
-                            uiModel.playingTime.value!!,
-                            uiModel.note.value.toString(),
-                            matchFromArgs.scoreTeam,
-                            matchFromArgs.scoreOpponent,
-                            matchFromArgs.powerPlaysTeam,
-                            matchFromArgs.powerPlaysOpponent,
-                            matchFromArgs.powerPlaysTeamSuccess,
-                            matchFromArgs.powerPlaysOpponentSuccess,
-                            matchFromArgs.shotsTeam,
-                            matchFromArgs.shotsOpponent,
-                            matchFromArgs.shotsToBlock,
-                            matchFromArgs.shotsOutside
-                    )
-            )
-        }
-    }
-
-
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val realMonth = month + 1
 
         val str = "$dayOfMonth.$realMonth.$year"
-        binding.matchModel!!.dateString.value = str
-        timestamp = stringDateToTimestamp(str)
+        matchUIModel.dateString.value = str
+        matchUIModel.timestamp = stringDateToTimestamp(str)
     }
 
     private fun pickDate() {

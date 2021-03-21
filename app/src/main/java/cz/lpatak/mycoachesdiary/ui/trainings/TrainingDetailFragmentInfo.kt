@@ -18,7 +18,7 @@ import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import java.util.*
 
 
-class TrainingDetailFragmentInfo(private val trainingFromArgs: Training, private val UIModel: TrainingUIModel) : Fragment(),
+class TrainingDetailFragmentInfo(private val trainingUIModel: TrainingUIModel) : Fragment(),
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: FragmentTrainingDetailInfoBinding
 
@@ -35,25 +35,13 @@ class TrainingDetailFragmentInfo(private val trainingFromArgs: Training, private
         )
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentInfo
-            trainingModel = UIModel
+            trainingModel = trainingUIModel
             trainingHelperLayout.date.setOnClickListener { pickDate() }
             trainingHelperLayout.startTime.setOnClickListener { pickTimeFrom() }
             trainingHelperLayout.endTime.setOnClickListener { pickTimeTo() }
         }
 
-        setTraining(binding.trainingModel)
-
         return binding.root
-    }
-
-    private fun setTraining(uiModel: TrainingUIModel?) {
-        uiModel?.place?.value = trainingFromArgs.place
-        uiModel?.date?.value = convertLongToDate(trainingFromArgs.date!!.seconds)
-        uiModel?.startTime?.value = trainingFromArgs.startTime
-        uiModel?.endTime?.value = trainingFromArgs.endTime
-        uiModel?.goalkeepers?.value = trainingFromArgs.goalkeepers
-        uiModel?.players?.value = trainingFromArgs.players
-        uiModel?.rating?.value = trainingFromArgs.rating
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

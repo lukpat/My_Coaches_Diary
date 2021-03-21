@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="@={`` + trainingModel.players}" />
+                    android:text="@={trainingModel.players}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="@={`` + trainingModel.goalkeepers}" />
+                    android:text="@={trainingModel.goalkeepers}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -110,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="@={`` + trainingModel.rating}" />
+                    android:text="@={trainingModel.rating}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

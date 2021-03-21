@@ -3,9 +3,7 @@ package cz.lpatak.mycoachesdiary.ui.exercises
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -25,6 +23,7 @@ class AddExerciseFragment : Fragment() {
 
     private lateinit var binding: FragmentAddExerciseBinding
     private val exercisesViewModel: ExercisesViewModel by viewModel()
+    private val exerciseUIModel: ExerciseUIModel = ExerciseUIModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -35,11 +34,32 @@ class AddExerciseFragment : Fragment() {
                 DataBindingUtil.inflate(inflater, R.layout.fragment_add_exercise, container, false)
         with(binding) {
             lifecycleOwner = this@AddExerciseFragment
-            exerciseModel = ExerciseUIModel()
+            exerciseModel = exerciseUIModel
             addImageButton.setOnClickListener { launchGallery() }
-            btnSaveExercise.setOnClickListener { startCreatingNewExercise() }
         }
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.save -> {
+                if (exerciseUIModel.checkInputs()) {
+                    startCreatingNewExercise()
+                } else {
+                    showToast(getString(R.string.exercise_error))
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun startCreatingNewExercise() {
@@ -48,13 +68,14 @@ class AddExerciseFragment : Fragment() {
                     Exercise(
                             "",
                             "",
-                            binding.exerciseModel?.name?.value,
-                            binding.exerciseModel?.name?.value?.toUpperCase(Locale.ROOT),
-                            binding.category.selectedItem.toString(),
-                            binding.exerciseModel?.description?.value,
+                            exerciseUIModel.name.value,
+                            exerciseUIModel.name.value?.toUpperCase(Locale.ROOT),
+                            binding.exerciseCategory.selectedItem.toString(),
+                            exerciseUIModel.description.value,
                             ""
                     )
             )
+            showToast(getString(R.string.exercise_created))
             findNavController().navigateUp()
         } else {
             val constraints = Constraints.Builder()
@@ -67,7 +88,7 @@ class AddExerciseFragment : Fragment() {
                             .setInputData(
                                     workDataOf(
                                             NewExerciseWorker.NAME to binding.exerciseModel?.name?.value,
-                                            NewExerciseWorker.CATEGORY to binding.category.selectedItem.toString(),
+                                            NewExerciseWorker.CATEGORY to binding.exerciseCategory.selectedItem.toString(),
                                             NewExerciseWorker.DESCRIPTION to binding.exerciseModel?.description?.value,
                                             ImageUploaderWorker.KEY_IMAGE_URI to binding.exerciseModel?.fileUri?.value.toString()
                                     )

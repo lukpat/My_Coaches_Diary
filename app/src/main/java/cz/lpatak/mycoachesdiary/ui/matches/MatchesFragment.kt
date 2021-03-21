@@ -39,8 +39,8 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             isTeamSelected = matchesViewModel.isTeamSelected()
             filterOn = false
             dateFilterLayoutHelper.btnSetFilter.setOnClickListener { applyFilter() }
-            dateFilterLayoutHelper.btnSetDateFrom.setOnClickListener { pickDateFrom() }
-            dateFilterLayoutHelper.btnSetDateTo.setOnClickListener { pickDateTo() }
+            dateFilterLayoutHelper.dateFrom.setOnClickListener { pickDateFrom() }
+            dateFilterLayoutHelper.dateTo.setOnClickListener { pickDateTo() }
         }
 
         adapter.setViewModel(matchesViewModel)
@@ -103,7 +103,7 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             return
         }
 
-        val matchCategory = binding.dateFilterLayoutHelper.matchCategory.selectedItem.toString()
+        val matchCategory = binding.dateFilterLayoutHelper.type.selectedItem.toString()
         var all = false
         if (matchCategory == "Všechny zápasy") {
             all = true
@@ -123,10 +123,10 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val str = "$dayOfMonth.$realMonth.$year"
 
         if (helper) {
-            binding.dateFilterLayoutHelper.dateFrom.text = str
+            binding.dateFilterLayoutHelper.dateFromVal = str
             dateFrom = stringDateToTimestamp(str)
         } else {
-            binding.dateFilterLayoutHelper.dateTo.text = str
+            binding.dateFilterLayoutHelper.dateToVal = str
             dateTo = stringDateToTimestamp(str)
         }
     }

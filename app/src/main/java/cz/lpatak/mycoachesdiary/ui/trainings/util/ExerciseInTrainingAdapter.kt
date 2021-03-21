@@ -2,11 +2,11 @@ package cz.lpatak.mycoachesdiary.ui.trainings.util
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.findFragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import cz.lpatak.mycoachesdiary.R
@@ -15,11 +15,15 @@ import cz.lpatak.mycoachesdiary.data.model.ExerciseInTraining
 import cz.lpatak.mycoachesdiary.databinding.ExerciseInTrainingItemBinding
 import cz.lpatak.mycoachesdiary.ui.base.DataBoundListAdapter
 import cz.lpatak.mycoachesdiary.ui.exercises.viewmodel.ExercisesViewModel
+import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragment
 import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentDirections
+import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises
+import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercisesDirections
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 
 class ExerciseInTrainingAdapter(
-        private val onClick: ((ExerciseInTraining) -> Unit)? = null
+        private val onClick: ((ExerciseInTraining) -> Unit)? = null,
+        private val fragment: TrainingDetailFragmentExercises
 ) : DataBoundListAdapter<ExerciseInTraining, ExerciseInTrainingItemBinding>(
         diffCallback = object : DiffUtil.ItemCallback<ExerciseInTraining>() {
             override fun areItemsTheSame(
@@ -60,26 +64,6 @@ class ExerciseInTrainingAdapter(
             this.root.setOnClickListener {
                 this.exercise?.let { goToExerciseDetail(this.root, it) }
             }
-
-            this.buttonSave.setOnClickListener {
-                var time = this.time.text.toString()
-                if (time == "") {
-                    time = "0"
-                }
-                val timeInt = time.toInt()
-
-                val exercise =
-                        ExerciseInTraining(
-                                this.exercise?.id,
-                                this.exercise?.name,
-                                this.exercise?.category,
-                                this.exercise?.description,
-                                this.exercise?.imageUrl,
-                                timeInt
-                        )
-                updateExerciseInTraining(exercise)
-                this.exercise = exercise
-            }
         }
     }
 
@@ -90,16 +74,12 @@ class ExerciseInTrainingAdapter(
     private fun deleteExercise(view: View, exerciseId: String) {
         AlertDialog.Builder(view.context)
                 .setMessage(R.string.delete_exercise_from_training_alert)
-                .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                .setPositiveButton(R.string.yes) { _, _ ->
                     viewModel.deleteExercise(exerciseId)
-                })
+                    view.findFragment<TrainingDetailFragmentExercises>().loadExercises()
+                }
                 .setNegativeButton(R.string.no, null)
                 .show()
-    }
-
-    private fun updateExerciseInTraining(exercise: ExerciseInTraining) {
-        Log.println(Log.ERROR, "ExerciseInTrainingAda", exercise.toString())
-        viewModel.updateExerciseInTraining(exercise)
     }
 
     private fun goToExerciseDetail(view: View, exerciseInTraining: ExerciseInTraining) {

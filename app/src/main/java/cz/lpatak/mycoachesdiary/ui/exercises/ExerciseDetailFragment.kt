@@ -18,38 +18,32 @@ class ExerciseDetailFragment : Fragment() {
 
     private val args: ExerciseDetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseDetailBinding
+    private val exerciseUIModel: ExerciseUIModel = ExerciseUIModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        binding =
-                DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.fragment_exercise_detail,
-                        container,
-                        false
-                )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_detail, container,false)
         with(binding) {
             lifecycleOwner = this@ExerciseDetailFragment
-            exerciseModel = ExerciseUIModel()
+            exerciseModel = exerciseUIModel
         }
 
-        setExercise(binding.exerciseModel)
+        setExercise()
 
         return binding.root
     }
 
 
-    private fun setExercise(uiModel: ExerciseUIModel?) {
+    private fun setExercise() {
         val exercise = args.exercise
-        val categoryText = "Kategorie: " + exercise.category
 
-        uiModel?.name?.value = exercise.name
-        binding.category.text = categoryText
-        uiModel?.description?.value = exercise.description
-        uiModel?.fileUri?.value = exercise.imageUrl!!.toUri()
+        exerciseUIModel.name.value = exercise.name
+        exerciseUIModel.category.value = exercise.category
+        exerciseUIModel.description.value = exercise.description
+        exerciseUIModel.fileUri.value = exercise.imageUrl!!.toUri()
     }
 
 }

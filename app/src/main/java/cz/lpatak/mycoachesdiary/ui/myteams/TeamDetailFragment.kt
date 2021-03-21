@@ -19,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TeamDetailFragment : Fragment() {
     private val myTeamsViewModel: MyTeamsViewModel by viewModel()
+    private val teamUIModel: TeamUIModel = TeamUIModel()
     private lateinit var binding: FragmentTeamDetailBinding
     private val args: TeamDetailFragmentArgs by navArgs()
     private lateinit var teamFromArgs: Team
@@ -33,12 +34,12 @@ class TeamDetailFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_team_detail, container, false)
         with(binding) {
             lifecycleOwner = this@TeamDetailFragment
-            teamModel = TeamUIModel()
+            teamModel = teamUIModel
             isCurrentTeam = !myTeamsViewModel.isTeamCurrentTeam(teamFromArgs.id.toString())
             btnSetAsCurrent.setOnClickListener { setCurrentTeam() }
         }
 
-        setTeam(binding.teamModel)
+        setTeam()
 
         return binding.root
     }
@@ -73,25 +74,26 @@ class TeamDetailFragment : Fragment() {
     }
 
     private fun updateTeam() {
-        if (binding.teamModel!!.checkInputs()) {
+        if (teamUIModel.checkInputs()) {
             myTeamsViewModel.updateTeam(
                     Team(
                             teamFromArgs.id,
                             teamFromArgs.owner,
-                            binding.teamModel!!.name.value.toString(),
-                            binding.teamModel!!.season.value.toString()
+                            teamUIModel.name.value.toString(),
+                            teamUIModel.season.value.toString()
                     )
             )
+            showToast(R.string.changes_were_saved)
             findNavController().navigateUp()
         } else {
-            showToast("Nemáte správně vyplněny hodnoty, uložení neproběhlo!")
+            showToast(getString(R.string.wrong_values_save_error))
         }
     }
 
 
-    private fun setTeam(uiModel: TeamUIModel?) {
-        uiModel?.name?.value = teamFromArgs.name
-        uiModel?.season?.value = teamFromArgs.season
+    private fun setTeam() {
+        teamUIModel.name.value = teamFromArgs.name
+        teamUIModel.season.value = teamFromArgs.season
     }
 
     private fun setCurrentTeam() {

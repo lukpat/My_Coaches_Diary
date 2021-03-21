@@ -1,15 +1,18 @@
 package cz.lpatak.mycoachesdiary.ui.trainings.util
 
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.DiffUtil
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Exercise
 import cz.lpatak.mycoachesdiary.databinding.ExerciseItemBinding
 import cz.lpatak.mycoachesdiary.ui.base.DataBoundListAdapter
+import cz.lpatak.mycoachesdiary.ui.trainings.AddExerciseToTrainingFragment
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 
 class ExerciseAdapter(
@@ -48,11 +51,6 @@ class ExerciseAdapter(
     }
 
     private fun addExerciseToTraining(exercise: Exercise, view: View) {
-        viewModel.addExerciseToTraining(exercise)
-        Toast.makeText(
-                view.context,
-                "Cvičení " + exercise.name + " bylo přidáno.",
-                Toast.LENGTH_SHORT
-        ).show()
+            view.findFragment<AddExerciseToTrainingFragment>().addExerciseToTraining(exercise)
     }
 }

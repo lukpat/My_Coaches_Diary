@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="matchModel"
             type="cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +15,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/opponent"
-            android:layout_width="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin"
             android:hint="@string/opponent"
@@ -27,67 +27,88 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:text="@={matchModel.opponent}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/type"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:entries="@array/match_category"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            app:layout_constraintEnd_toEndOf="@+id/opponent"
-            app:layout_constraintStart_toStartOf="@+id/opponent"
-            app:layout_constraintTop_toBottomOf="@+id/opponent" />
 
-        <LinearLayout
-            android:id="@+id/date_layout"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/type_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin"
-            app:layout_constraintEnd_toEndOf="@+id/place"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/type">
+            android:elevation="0dp"
+            app:cardCornerRadius="@dimen/round_corner"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            app:strokeColor="@color/colorGrey"
+            app:strokeWidth="1dp"
+            app:layout_constraintEnd_toEndOf="@+id/opponent"
+            app:layout_constraintStart_toStartOf="@+id/opponent"
+            app:layout_constraintTop_toBottomOf="@+id/opponent">
 
-            <ImageButton
-                android:id="@+id/btnSetDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calendar" />
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:entries="@array/match_category"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"/>
 
-            <TextView
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dateLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:hint="@string/date"
+            app:layout_constraintEnd_toEndOf="@+id/type_layout"
+            app:layout_constraintStart_toStartOf="@+id/type_layout"
+            app:layout_constraintTop_toBottomOf="@+id/type_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:hint="@string/date"
-                android:text="@={matchModel.dateString}"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:inputType="text"
+                android:focusable="false"
+                android:text="@{matchModel.dateString}" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/playingTime"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/playingTime"
-            app:layout_constraintEnd_toEndOf="@+id/date_layout"
-            app:layout_constraintStart_toStartOf="@+id/date_layout"
-            app:layout_constraintTop_toBottomOf="@id/date_layout">
+            app:layout_constraintEnd_toEndOf="@+id/dateLayout"
+            app:layout_constraintStart_toStartOf="@+id/dateLayout"
+            app:layout_constraintTop_toBottomOf="@id/dateLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:text="@={`` + matchModel.playingTime}" />
+                android:text="@={matchModel.playingTime}" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/playingTimeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="@dimen/half_normal_margin"
+            android:selectAllOnFocus="true"
+            android:text="@string/playingTimeHint"
+            app:layout_constraintEnd_toEndOf="@+id/playingTime"
+            app:layout_constraintStart_toStartOf="@+id/playingTime"
+            app:layout_constraintTop_toBottomOf="@+id/playingTime" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

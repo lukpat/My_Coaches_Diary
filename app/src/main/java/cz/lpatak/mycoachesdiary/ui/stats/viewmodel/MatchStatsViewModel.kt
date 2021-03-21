@@ -41,6 +41,7 @@ class MatchStatsViewModel(private val preferenceManager: PreferenceManger, priva
     var goalShotPercentage = 0.0
     var shotsOnGoalPercentage = 0.0
 
+
     fun loadMatchStats(
             matchCategory: String,
             all: Boolean,

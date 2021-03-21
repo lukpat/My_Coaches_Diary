@@ -38,8 +38,8 @@ class MatchStatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     setUI()
                 }
             }
-            filterLayout.btnSetDateFrom.setOnClickListener { pickDateFrom() }
-            filterLayout.btnSetDateTo.setOnClickListener { pickDateTo() }
+            filterLayout.dateFrom.setOnClickListener { pickDateFrom() }
+            filterLayout.dateTo.setOnClickListener { pickDateTo() }
             matchStatsLayout.btnChangeData.setOnClickListener { filterOn = true }
 
         }
@@ -49,7 +49,7 @@ class MatchStatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private suspend fun applyFilter() {
         val bool = dateFrom.seconds >= dateTo.seconds
-        val matchCategory = binding.filterLayout.matchCategory.selectedItem.toString()
+        val matchCategory = binding.filterLayout.type.selectedItem.toString()
         var all = false
 
         val request = GlobalScope.launch(Dispatchers.Main) {
@@ -80,10 +80,10 @@ class MatchStatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val str = "$dayOfMonth.$realMonth.$year"
 
         if (helper) {
-            binding.filterLayout.dateFrom.text = str
+            binding.filterLayout.dateFromVal = str
             dateFrom = stringDateToTimestamp(str)
         } else {
-            binding.filterLayout.dateTo.text = str
+            binding.filterLayout.dateToVal = str
             dateTo = stringDateToTimestamp(str)
         }
     }

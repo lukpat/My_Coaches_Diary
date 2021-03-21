@@ -8,16 +8,16 @@ class StatsUIModel : ObservableViewModel() {
 
     val areInputsReady = MediatorLiveData<Boolean>()
 
-    val scoreTeam = MutableLiveData(0)
-    val scoreOpponent = MutableLiveData(0)
-    val powerPlaysTeam = MutableLiveData(0)
-    val powerPlaysOpponent = MutableLiveData(0)
-    val powerPlaysTeamSuccess = MutableLiveData(0)
-    val powerPlaysOpponentSuccess = MutableLiveData(0)
-    val shotsTeam = MutableLiveData(0)
-    val shotsOpponent = MutableLiveData(0)
-    val shotsToBlock = MutableLiveData(0)
-    val shotsOutside = MutableLiveData(0)
+    val scoreTeam = MutableLiveData("")
+    val scoreOpponent = MutableLiveData("")
+    val powerPlaysTeam = MutableLiveData("")
+    val powerPlaysOpponent = MutableLiveData("")
+    val powerPlaysTeamSuccess = MutableLiveData("")
+    val powerPlaysOpponentSuccess = MutableLiveData("")
+    val shotsTeam = MutableLiveData("")
+    val shotsOpponent = MutableLiveData("")
+    val shotsToBlock = MutableLiveData("")
+    val shotsOutside = MutableLiveData("")
 
     init {
         areInputsReady.addSource(scoreTeam) { areInputsReady.value = checkInputs() }
@@ -32,9 +32,14 @@ class StatsUIModel : ObservableViewModel() {
         areInputsReady.addSource(shotsOutside) { areInputsReady.value = checkInputs() }
     }
 
-    private fun checkInputs(): Boolean {
+    fun checkInputs(): Boolean {
         return !(
-                !checkTeamPowerPlaysSuccess() ||
+                scoreTeam.value.isNullOrEmpty() || scoreOpponent.value.isNullOrEmpty() ||
+                        powerPlaysTeam.value.isNullOrEmpty() || powerPlaysOpponent.value.isNullOrEmpty() ||
+                        powerPlaysTeamSuccess.value.isNullOrEmpty() || powerPlaysOpponentSuccess.value.isNullOrEmpty() ||
+                        shotsTeam.value.isNullOrEmpty() || shotsOpponent.value.isNullOrEmpty() ||
+                        shotsToBlock.value.isNullOrEmpty() || shotsOutside.value.isNullOrEmpty() ||
+                        !checkTeamPowerPlaysSuccess() ||
                         !checkOpponentPowerPlaysSuccess() ||
                         !checkScore() ||
                         !checkShots() ||
@@ -44,26 +49,26 @@ class StatsUIModel : ObservableViewModel() {
     }
 
     private fun checkTeamPowerPlaysSuccess(): Boolean {
-        return powerPlaysTeam.value!! >= powerPlaysTeamSuccess.value!!
+        return powerPlaysTeam.value!!.toInt() >= powerPlaysTeamSuccess.value!!.toInt()
     }
 
     private fun checkOpponentPowerPlaysSuccess(): Boolean {
-        return powerPlaysOpponent.value!! >= powerPlaysOpponentSuccess.value!!
+        return powerPlaysOpponent.value!!.toInt() >= powerPlaysOpponentSuccess.value!!.toInt()
     }
 
     private fun checkScore(): Boolean {
-        return scoreOpponent.value in 0..50 && scoreTeam.value in 0..50
+        return scoreOpponent.value!!.toInt() in 0..50 && scoreTeam.value!!.toInt() in 0..50
     }
 
     private fun checkShots(): Boolean {
-        return shotsTeam.value in 0..200 && shotsOpponent.value in 0..200
+        return shotsTeam.value!!.toInt() in 0..200 && shotsOpponent.value!!.toInt() in 0..200
     }
 
     private fun checkShotsToBlock(): Boolean {
-        return shotsToBlock.value in 0..200
+        return shotsToBlock.value!!.toInt() in 0..200
     }
 
     private fun checkShotsOutside(): Boolean {
-        return shotsOutside.value in 0..200
+        return shotsOutside.value!!.toInt() in 0..200
     }
 }

@@ -27,6 +27,7 @@ import java.util.*
 class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
+    private val trainingUIModel: TrainingUIModel = TrainingUIModel()
     private lateinit var binding: FragmentAddTrainingBinding
     private var timestamp = Timestamp(Date(0))
 
@@ -39,7 +40,7 @@ class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener,
                 DataBindingUtil.inflate(inflater, R.layout.fragment_add_training, container, false)
         with(binding) {
             lifecycleOwner = this@AddTrainingFragment
-            trainingModel = TrainingUIModel()
+            trainingModel = trainingUIModel
             btnAddTrainings.setOnClickListener { createTeam() }
             trainingHelperLayout.date.setOnClickListener { pickDate() }
             trainingHelperLayout.startTime.setOnClickListener { pickTimeFrom() }
@@ -51,11 +52,11 @@ class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     private fun createTeam() {
         val training = Training(
                 "",
-                binding.trainingModel!!.place.value,
+                trainingUIModel.place.value,
                 0,
                 timestamp,
-                binding.trainingModel!!.startTime.value,
-                binding.trainingModel!!.endTime.value,
+                trainingUIModel.startTime.value,
+                trainingUIModel.endTime.value,
                 0,
                 0
         )
@@ -68,7 +69,7 @@ class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         val realMonth = month + 1
 
         val str = "$dayOfMonth.$realMonth.$year"
-        binding.trainingModel!!.date.value = str
+        trainingUIModel.date.value = str
         timestamp = stringDateToTimestamp(str)
     }
 
@@ -104,9 +105,9 @@ class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         val str = createTime(hourOfDay, minute)
         if (helper) {
-            binding.trainingModel!!.startTime.value = str
+            trainingUIModel.startTime.value = str
         } else {
-            binding.trainingModel!!.endTime.value = str
+            trainingUIModel.endTime.value = str
         }
     }
 

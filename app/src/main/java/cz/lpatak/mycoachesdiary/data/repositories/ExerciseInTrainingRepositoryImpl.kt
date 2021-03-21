@@ -1,6 +1,8 @@
 package cz.lpatak.mycoachesdiary.data.repositories
 
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.toObjects
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_CATEGORY
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.COLUMN_DESCRIPTION
@@ -47,6 +49,10 @@ class ExerciseInTrainingRepositoryImpl(
                             cont.resume(Result.Error(it))
                         }
             }
+
+    fun getExercise(exerciseId: String): Task<DocumentSnapshot> {
+        return exercisesPath.document(exerciseId).get()
+    }
 
     override fun updateExerciseInTraining(exercise: ExerciseInTraining) {
         val data = hashMapOf(

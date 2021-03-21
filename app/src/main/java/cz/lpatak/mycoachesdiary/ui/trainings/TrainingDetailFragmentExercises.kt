@@ -1,22 +1,29 @@
 package cz.lpatak.mycoachesdiary.ui.trainings
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Result
+import cz.lpatak.mycoachesdiary.data.model.Team
 import cz.lpatak.mycoachesdiary.data.model.Training
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailExercisesBinding
 import cz.lpatak.mycoachesdiary.ui.trainings.util.ExerciseInTrainingAdapter
+import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 
-class TrainingDetailFragmentExercises(private val trainingFromArgs: Training) : Fragment() {
+class TrainingDetailFragmentExercises() : Fragment() {
     private lateinit var binding: FragmentTrainingDetailExercisesBinding
-    private val adapter: ExerciseInTrainingAdapter = ExerciseInTrainingAdapter()
+    private val adapter: ExerciseInTrainingAdapter = ExerciseInTrainingAdapter(null, this)
     private val trainingsViewModel: TrainingsViewModel by viewModel()
 
     override fun onCreateView(
@@ -36,8 +43,7 @@ class TrainingDetailFragmentExercises(private val trainingFromArgs: Training) : 
 
         binding.exercisesList.adapter = adapter
         binding.fabAddExerciseToTraining.setOnClickListener {
-            val directions =
-                    TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationAddExerciseToTraining()
+            val directions = TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationAddExerciseToTraining()
             findNavController().navigate(directions)
         }
 
@@ -51,14 +57,7 @@ class TrainingDetailFragmentExercises(private val trainingFromArgs: Training) : 
         loadExercises()
     }
 
-    //todo: Pomáhá, ale málo.
-/*
-    override fun onResume() {
-        super.onResume()
-        loadExercises()
-    }
-*/
-    private fun loadExercises() {
+    fun loadExercises() {
         trainingsViewModel.loadExercisesInTraining().observe(viewLifecycleOwner, { result ->
             binding.result = result
             if (result is Result.Success) {

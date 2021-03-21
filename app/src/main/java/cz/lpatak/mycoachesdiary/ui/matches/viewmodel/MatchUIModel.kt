@@ -2,7 +2,9 @@ package cz.lpatak.mycoachesdiary.ui.matches.viewmodel
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.ui.base.ObservableViewModel
+import java.util.*
 
 class MatchUIModel : ObservableViewModel() {
 
@@ -10,8 +12,9 @@ class MatchUIModel : ObservableViewModel() {
 
     val opponent = MutableLiveData("")
     val dateString = MutableLiveData("")
-    val playingTime = MutableLiveData(0)
+    val playingTime = MutableLiveData("")
     val note = MutableLiveData("")
+    var timestamp = Timestamp(Date(0))
 
     init {
         areInputsReady.addSource(opponent) { areInputsReady.value = checkInputs() }
@@ -20,15 +23,16 @@ class MatchUIModel : ObservableViewModel() {
     }
 
 
-    private fun checkInputs(): Boolean {
+    fun checkInputs(): Boolean {
         return !(
                 opponent.value.isNullOrEmpty() ||
                         dateString.value.isNullOrEmpty() ||
+                        playingTime.value.isNullOrBlank() ||
                         checkPlayingTime()
                 )
     }
 
     private fun checkPlayingTime(): Boolean {
-        return playingTime.value !in 0..100
+        return playingTime.value!!.toInt() !in 0..100
     }
 }

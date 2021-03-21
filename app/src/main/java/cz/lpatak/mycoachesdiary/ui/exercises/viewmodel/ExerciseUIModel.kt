@@ -12,6 +12,7 @@ class ExerciseUIModel : ObservableViewModel() {
 
     val name = MutableLiveData("")
     val description = MutableLiveData("")
+    val category = MutableLiveData("")
     val fileUri = MutableLiveData<Uri>(null)
     val imageReady = Transformations.map(fileUri) { it != null }
 
@@ -20,7 +21,7 @@ class ExerciseUIModel : ObservableViewModel() {
         areInputsReady.addSource(description) { areInputsReady.value = checkInputs() }
     }
 
-    private fun checkInputs(): Boolean {
+    fun checkInputs(): Boolean {
         return !(
                 name.value.isNullOrEmpty() || description.value.isNullOrEmpty()
                 )

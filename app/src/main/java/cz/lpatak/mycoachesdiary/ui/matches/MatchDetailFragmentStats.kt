@@ -14,8 +14,7 @@ import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MatchDetailFragmentStats(private val matchFromArgs: Match) : Fragment() {
-    private val matchesViewModel: MatchesViewModel by viewModel()
+class MatchDetailFragmentStats(private val matchFromArgs: Match, private val statsUIModel: StatsUIModel) : Fragment() {
     private lateinit var binding: FragmentMatchDetailStatsBinding
 
     override fun onCreateView(
@@ -31,55 +30,25 @@ class MatchDetailFragmentStats(private val matchFromArgs: Match) : Fragment() {
         )
         with(binding) {
             lifecycleOwner = this@MatchDetailFragmentStats
-            statsModel = StatsUIModel()
-            btnSaveStats.setOnClickListener {
-                updateTeam(statsModel)
-            }
+            statsModel = statsUIModel
         }
 
-        setStats(binding.statsModel)
+        setStats()
 
         return binding.root
     }
 
 
-    private fun setStats(uiModel: StatsUIModel?) {
-        uiModel?.scoreTeam?.value = matchFromArgs.scoreTeam
-        uiModel?.scoreOpponent?.value = matchFromArgs.scoreOpponent
-        uiModel?.powerPlaysTeam?.value = matchFromArgs.powerPlaysTeam
-        uiModel?.powerPlaysOpponent?.value = matchFromArgs.powerPlaysOpponent
-        uiModel?.powerPlaysTeamSuccess?.value = matchFromArgs.powerPlaysTeamSuccess
-        uiModel?.powerPlaysOpponentSuccess?.value = matchFromArgs.powerPlaysOpponentSuccess
-        uiModel?.shotsTeam?.value = matchFromArgs.shotsTeam
-        uiModel?.shotsOpponent?.value = matchFromArgs.shotsOpponent
-        uiModel?.shotsToBlock?.value = matchFromArgs.shotsToBlock
-        uiModel?.shotsOutside?.value = matchFromArgs.shotsOutside
-    }
-
-
-    private fun updateTeam(uiModel: StatsUIModel?) {
-        if (uiModel != null) {
-            matchesViewModel.updateMatch(
-                    Match(
-                            matchFromArgs.id,
-                            matchFromArgs.team,
-                            matchFromArgs.opponent,
-                            matchFromArgs.date,
-                            matchFromArgs.type,
-                            matchFromArgs.playingTime,
-                            matchFromArgs.note,
-                            uiModel.scoreTeam.value!!,
-                            uiModel.scoreOpponent.value!!,
-                            uiModel.powerPlaysTeam.value!!,
-                            uiModel.powerPlaysOpponent.value!!,
-                            uiModel.powerPlaysTeamSuccess.value!!,
-                            uiModel.powerPlaysOpponentSuccess.value!!,
-                            uiModel.shotsTeam.value!!,
-                            uiModel.shotsOpponent.value!!,
-                            uiModel.shotsToBlock.value!!,
-                            uiModel.shotsOutside.value!!
-                    )
-            )
-        }
+    private fun setStats() {
+        statsUIModel.scoreTeam.value = matchFromArgs.scoreTeam.toString()
+        statsUIModel.scoreOpponent.value = matchFromArgs.scoreOpponent.toString()
+        statsUIModel.powerPlaysTeam.value = matchFromArgs.powerPlaysTeam.toString()
+        statsUIModel.powerPlaysOpponent.value = matchFromArgs.powerPlaysOpponent.toString()
+        statsUIModel.powerPlaysTeamSuccess.value = matchFromArgs.powerPlaysTeamSuccess.toString()
+        statsUIModel.powerPlaysOpponentSuccess.value = matchFromArgs.powerPlaysOpponentSuccess.toString()
+        statsUIModel.shotsTeam.value = matchFromArgs.shotsTeam.toString()
+        statsUIModel.shotsOpponent.value = matchFromArgs.shotsOpponent.toString()
+        statsUIModel.shotsToBlock.value = matchFromArgs.shotsToBlock.toString()
+        statsUIModel.shotsOutside.value = matchFromArgs.shotsOutside.toString()
     }
 }

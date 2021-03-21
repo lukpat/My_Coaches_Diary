@@ -17,6 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddTeamFragment : Fragment() {
     private val myTeamsViewModel: MyTeamsViewModel by viewModel()
+    private val teamUIModel: TeamUIModel = TeamUIModel()
     private lateinit var binding: FragmentAddTeamBinding
 
     override fun onCreateView(
@@ -27,7 +28,7 @@ class AddTeamFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_team, container, false)
         with(binding) {
             lifecycleOwner = this@AddTeamFragment
-            teamModel = TeamUIModel()
+            teamModel = teamUIModel
             btnAddTeam.setOnClickListener { createTeam() }
         }
         return binding.root
@@ -39,8 +40,8 @@ class AddTeamFragment : Fragment() {
                 Team(
                         "",
                         "",
-                        binding.teamModel!!.name.value.toString(),
-                        binding.teamModel!!.season.value.toString()
+                        teamUIModel.name.value.toString(),
+                        teamUIModel.season.value.toString()
                 )
         )
         findNavController().navigateUp()

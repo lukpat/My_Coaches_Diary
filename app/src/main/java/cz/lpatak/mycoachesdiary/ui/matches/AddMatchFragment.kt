@@ -20,6 +20,7 @@ import java.util.*
 
 class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val matchesViewModel: MatchesViewModel by viewModel()
+    private val matchUIModel: MatchUIModel = MatchUIModel()
     private lateinit var binding: FragmentAddMatchBinding
     private var timestamp = Timestamp(Date(0))
 
@@ -31,9 +32,9 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_match, container, false)
         with(binding) {
             lifecycleOwner = this@AddMatchFragment
-            matchModel = MatchUIModel()
+            matchModel = matchUIModel
             btnAddMatch.setOnClickListener { createMatch() }
-            helperMatchesLayout.btnSetDate.setOnClickListener { pickDate() }
+            helperMatchesLayout.date.setOnClickListener { pickDate() }
         }
 
         return binding.root
@@ -41,10 +42,10 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun createMatch() {
         matchesViewModel.addMatch(
-                binding.matchModel!!.opponent.value.toString(),
+                matchUIModel.opponent.value.toString(),
                 timestamp,
                 binding.helperMatchesLayout.type.selectedItem.toString(),
-                binding.matchModel!!.playingTime.value!!
+                matchUIModel.playingTime.value!!.toInt()
         )
         findNavController().navigateUp()
     }

@@ -12,14 +12,13 @@ import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 class TabsTrainingManager(
         fragmentManager: FragmentManager,
         lifecycle: Lifecycle,
-        args: TrainingDetailFragmentArgs,
         UIModel: TrainingUIModel
 ) :
         FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragments: ArrayList<Fragment> = arrayListOf(
-            TrainingDetailFragmentInfo(args.training, UIModel),
-            TrainingDetailFragmentExercises(args.training)
+            TrainingDetailFragmentInfo(UIModel),
+            TrainingDetailFragmentExercises()
     )
 
     override fun getItemCount(): Int {

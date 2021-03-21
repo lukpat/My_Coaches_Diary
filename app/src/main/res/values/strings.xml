@@ -66,7 +66,7 @@
     <string name="delete_match_alert">Doopravdy chcete odstranit tento zápas? Společně s ním zaniknout i jeho statistiky.</string>
     <string name="opponent">soupeř</string>
     <string name="match_type">typ zápasu</string>
-    <string name="playingTime">hrací čas</string>
+    <string name="playingTime">hrací čas (min)</string>
     <string name="match_detail">detail zápasu</string>
     <string name="note">poznámka</string>
     <string name="powerPlays">přesilovky</string>
@@ -109,6 +109,15 @@
     <string name="time_to">konec tréninku</string>
     <string name="goalkeeprsHint">Povolený počet brankářů na tréninku je 0-20.</string>
     <string name="playersHint">Povolený počet hráčů na tréninku je 0-50.</string>
+    <string name="changes_were_saved">změny byly úspěšně uloženy</string>
+    <string name="wrong_values_save_error">Nemáte správně vyplněny hodnoty, uložení neproběhlo!</string>
+    <string name="scoreOpponent">góly soupeř</string>
+    <string name="team">tým</string>
+    <string name="success">úspěšných</string>
+    <string name="playingTimeHint">Jako hrací čas jsou dovoleny hodnoty 0-100.</string>
+    <string name="exercise_error">Musíte vyplnit název cvičení a jeho popis, jinak jej není možné vytvořit.</string>
+    <string name="exercise_created">Cvičení bylo vytvořeno.</string>
+    <string name="exercise_already_in_training">Cvičení již je v tréninku, proto nelze přidat.</string>
 
     <string-array name="exercise_owner">
         <item>Jen moje cvičení</item>

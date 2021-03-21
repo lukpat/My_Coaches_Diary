@@ -57,9 +57,6 @@
         <action
             android:id="@+id/action_navigation_trainings_to_navigation_trainig_detail"
             app:destination="@id/navigation_training_detail" />
-        <action
-            android:id="@+id/action_navigation_trainings_to_navigation_trainig_detail_info"
-            app:destination="@id/navigation_training_detail_info" />
     </fragment>
 
     <fragment
@@ -158,9 +155,6 @@
     <fragment
         android:id="@+id/navigation_training_detail_exercises"
         android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises">
-        <action
-            android:id="@+id/action_navigation_training_detail_exercises_self"
-            app:destination="@id/navigation_training_detail_exercises" />
         <action
             android:id="@+id/action_navigation_training_detail_exercises_to_navigation_exercise_detail"
             app:destination="@id/navigation_exercise_detail" />
