@@ -19,9 +19,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TeamDetailFragment : Fragment() {
     private val myTeamsViewModel: MyTeamsViewModel by viewModel()
-    private val teamUIModel: TeamUIModel = TeamUIModel()
-    private lateinit var binding: FragmentTeamDetailBinding
+    private val teamUIModel: TeamUIModel by viewModel()
     private val args: TeamDetailFragmentArgs by navArgs()
+
+    private lateinit var binding: FragmentTeamDetailBinding
     private lateinit var teamFromArgs: Team
 
     override fun onCreateView(

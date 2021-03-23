@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddTeamFragment : Fragment() {
     private val myTeamsViewModel: MyTeamsViewModel by viewModel()
-    private val teamUIModel: TeamUIModel = TeamUIModel()
+    private val teamUIModel: TeamUIModel by viewModel()
     private lateinit var binding: FragmentAddTeamBinding
 
     override fun onCreateView(

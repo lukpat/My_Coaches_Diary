@@ -27,7 +27,7 @@ import java.util.*
 class AddTrainingFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
-    private val trainingUIModel: TrainingUIModel = TrainingUIModel()
+    private val trainingUIModel: TrainingUIModel by viewModel()
     private lateinit var binding: FragmentAddTrainingBinding
     private var timestamp = Timestamp(Date(0))
 

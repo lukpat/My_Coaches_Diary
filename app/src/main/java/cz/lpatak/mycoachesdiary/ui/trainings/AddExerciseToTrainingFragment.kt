@@ -24,7 +24,6 @@ class AddExerciseToTrainingFragment : Fragment(),
         androidx.appcompat.widget.SearchView.OnQueryTextListener {
     private val exercisesViewModel: ExercisesViewModel by viewModel()
     private val trainingsViewModel: TrainingsViewModel by viewModel()
-    private val args: TrainingDetailFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentAddExerciseToTrainingBinding
     private val adapter: ExerciseAdapter = ExerciseAdapter()

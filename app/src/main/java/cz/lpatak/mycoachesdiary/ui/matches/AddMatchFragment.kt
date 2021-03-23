@@ -20,7 +20,7 @@ import java.util.*
 
 class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val matchesViewModel: MatchesViewModel by viewModel()
-    private val matchUIModel: MatchUIModel = MatchUIModel()
+    private val matchUIModel: MatchUIModel by viewModel()
     private lateinit var binding: FragmentAddMatchBinding
     private var timestamp = Timestamp(Date(0))
 

@@ -23,7 +23,7 @@ class AddExerciseFragment : Fragment() {
 
     private lateinit var binding: FragmentAddExerciseBinding
     private val exercisesViewModel: ExercisesViewModel by viewModel()
-    private val exerciseUIModel: ExerciseUIModel = ExerciseUIModel()
+    private val exerciseUIModel: ExerciseUIModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,

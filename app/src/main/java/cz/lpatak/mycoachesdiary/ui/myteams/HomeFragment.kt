@@ -21,9 +21,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment() {
     private val myTeamsViewModel: MyTeamsViewModel by viewModel()
     private val authViewModel: AuthViewModel by viewModel()
+    private val adapter: TeamsAdapter = TeamsAdapter()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var preferenceManager: PreferenceManger
-    private val adapter: TeamsAdapter = TeamsAdapter()
 
     override fun onCreateView(
             inflater: LayoutInflater,

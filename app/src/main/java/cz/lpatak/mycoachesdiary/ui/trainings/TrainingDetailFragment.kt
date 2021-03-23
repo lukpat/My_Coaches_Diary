@@ -27,7 +27,7 @@ class TrainingDetailFragment : Fragment() {
     private lateinit var binding: FragmentTrainingDetailBinding
     private val args: TrainingDetailFragmentArgs by navArgs()
     private val trainingsViewModel: TrainingsViewModel by viewModel()
-    private var trainingUIModel: TrainingUIModel = TrainingUIModel()
+    private val trainingUIModel: TrainingUIModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,

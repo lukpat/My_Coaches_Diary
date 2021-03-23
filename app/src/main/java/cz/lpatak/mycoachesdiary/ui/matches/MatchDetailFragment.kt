@@ -28,8 +28,8 @@ class MatchDetailFragment : Fragment() {
     private lateinit var binding2: FragmentMatchDetailInfoBinding
     private val args: MatchDetailFragmentArgs by navArgs()
     private val matchViewModel: MatchesViewModel by viewModel()
-    private val matchUIModel: MatchUIModel = MatchUIModel()
-    private val statsUIModel: StatsUIModel = StatsUIModel()
+    private val matchUIModel: MatchUIModel by viewModel ()
+    private val statsUIModel: StatsUIModel  by viewModel ()
     private lateinit var matchFromArgs: Match
 
     override fun onCreateView(

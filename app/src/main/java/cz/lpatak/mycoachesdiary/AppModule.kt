@@ -4,11 +4,16 @@ import cz.lpatak.mycoachesdiary.data.repositories.*
 import cz.lpatak.mycoachesdiary.data.source.AuthDataSource
 import cz.lpatak.mycoachesdiary.data.source.FirestoreSource
 import cz.lpatak.mycoachesdiary.ui.auth.viewmodel.AuthViewModel
+import cz.lpatak.mycoachesdiary.ui.exercises.viewmodel.ExerciseUIModel
 import cz.lpatak.mycoachesdiary.ui.exercises.viewmodel.ExercisesViewModel
+import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
+import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.MyTeamsViewModel
+import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.TeamUIModel
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.MatchStatsViewModel
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.TrainingStatsViewModel
+import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -37,4 +42,10 @@ val appModule = module {
     viewModel { TrainingStatsViewModel(get(), get()) }
     viewModel { MatchesViewModel(get(), get()) }
     viewModel { ExercisesViewModel(get()) }
+
+    viewModel { ExerciseUIModel() }
+    viewModel { MatchUIModel() }
+    viewModel { StatsUIModel() }
+    viewModel { TeamUIModel() }
+    viewModel { TrainingUIModel() }
 }
