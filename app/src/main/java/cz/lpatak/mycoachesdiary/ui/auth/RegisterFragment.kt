@@ -21,9 +21,9 @@ class RegisterFragment : Fragment() {
     private val authViewModel: AuthViewModel by viewModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
         with(binding) {
@@ -97,12 +97,16 @@ class RegisterFragment : Fragment() {
 
     private fun register() {
         if (
-                authViewModel.registerDataCheck(
-                        binding.etUsername.text.toString(),
-                        binding.etPassword.text.toString(),
-                        binding.etPassword2.text.toString()
-                )) {
-            authViewModel.register(binding.etUsername.text.toString(), binding.etPassword.text.toString())
+            authViewModel.registerDataCheck(
+                binding.etUsername.text.toString(),
+                binding.etPassword.text.toString(),
+                binding.etPassword2.text.toString()
+            )
+        ) {
+            authViewModel.register(
+                binding.etUsername.text.toString(),
+                binding.etPassword.text.toString()
+            )
         }
     }
 

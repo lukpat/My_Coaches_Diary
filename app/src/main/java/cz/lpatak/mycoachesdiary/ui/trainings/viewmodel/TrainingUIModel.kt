@@ -8,6 +8,7 @@ import java.util.*
 
 class TrainingUIModel : ObservableViewModel() {
     val areInputsReady = MediatorLiveData<Boolean>()
+    val areInputsReady2 = MediatorLiveData<Boolean>()
 
     val place = MutableLiveData("")
     val rating = MutableLiveData("")
@@ -19,11 +20,29 @@ class TrainingUIModel : ObservableViewModel() {
     var timestamp = Timestamp(Date(0))
 
     init {
-        areInputsReady.addSource(place) { areInputsReady.value = checkInputs() }
-        areInputsReady.addSource(date) { areInputsReady.value = checkInputs() }
-        areInputsReady.addSource(startTime) { areInputsReady.value = checkInputs() }
-        areInputsReady.addSource(endTime) { areInputsReady.value = checkInputs() }
+        areInputsReady.addSource(place) { areInputsReady.value = checkInputsAdd() }
+        areInputsReady.addSource(date) { areInputsReady.value = checkInputsAdd() }
+        areInputsReady.addSource(startTime) { areInputsReady.value = checkInputsAdd() }
+        areInputsReady.addSource(endTime) { areInputsReady.value = checkInputsAdd() }
+
+        areInputsReady2.addSource(place) { areInputsReady2.value = checkInputs() }
+        areInputsReady2.addSource(date) { areInputsReady2.value = checkInputs() }
+        areInputsReady2.addSource(startTime) { areInputsReady2.value = checkInputs() }
+        areInputsReady2.addSource(endTime) { areInputsReady2.value = checkInputs() }
+        areInputsReady2.addSource(players) { areInputsReady2.value = checkInputs() }
+        areInputsReady2.addSource(goalkeepers) { areInputsReady2.value = checkInputs() }
+        areInputsReady2.addSource(rating) { areInputsReady2.value = checkInputs() }
     }
+
+    private fun checkInputsAdd(): Boolean {
+        return !(
+                place.value.isNullOrEmpty() ||
+                        date.value.isNullOrEmpty() ||
+                        startTime.value.isNullOrEmpty() ||
+                        endTime.value.isNullOrEmpty()
+                )
+    }
+
 
     fun checkInputs(): Boolean {
         return !(

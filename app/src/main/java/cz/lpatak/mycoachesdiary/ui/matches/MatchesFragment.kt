@@ -23,9 +23,9 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val adapter: MatchesAdapter = MatchesAdapter()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_matches, container, false)
         with(binding) {
@@ -33,10 +33,10 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             matchesList.adapter = adapter
             fabAddMatch.setOnClickListener {
                 val directions =
-                        MatchesFragmentDirections.actionNavigationMatchesToNavigationAddMatch()
+                    MatchesFragmentDirections.actionNavigationMatchesToNavigationAddMatch()
                 findNavController().navigate(directions)
             }
-            isTeamSelected = matchesViewModel.isTeamSelected()
+            isTeamSelected = matchesViewModel.isTeamSelected
             filterOn = false
             dateFilterLayoutHelper.btnSetFilter.setOnClickListener { applyFilter() }
             dateFilterLayoutHelper.dateFrom.setOnClickListener { pickDateFrom() }
@@ -82,24 +82,24 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun loadMatchesWithFilter(
-            matchCategory: String,
-            all: Boolean,
-            dateFrom: Timestamp,
-            dateTo: Timestamp
+        matchCategory: String,
+        all: Boolean,
+        dateFrom: Timestamp,
+        dateTo: Timestamp
     ) {
         matchesViewModel.loadMatchesFilter(matchCategory, all, dateFrom, dateTo)
-                .observe(viewLifecycleOwner, { result ->
-                    binding.result = result
-                    if (result is Result.Success) {
-                        adapter.submitList(result.data)
-                    }
-                })
+            .observe(viewLifecycleOwner, { result ->
+                binding.result = result
+                if (result is Result.Success) {
+                    adapter.submitList(result.data)
+                }
+            })
     }
 
     private fun applyFilter() {
-        if (dateFrom.seconds >= dateTo.seconds) {
-            val error = "Datum počátku je později než datum konce, takže filtr není možné provést"
-            binding.dateFilterLayoutHelper.dateError.text = error
+        val default = Timestamp(Date(0))
+        if (dateFrom.seconds > dateTo.seconds || dateFrom.seconds == default.seconds || dateTo.seconds == default.seconds) {
+            binding.dateFilterLayoutHelper.dateError.text = getString(R.string.date_error)
             return
         }
 

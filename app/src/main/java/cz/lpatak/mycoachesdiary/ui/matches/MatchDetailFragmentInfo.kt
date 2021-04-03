@@ -6,28 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.firebase.Timestamp
-import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Match
 import cz.lpatak.mycoachesdiary.databinding.FragmentMatchDetailInfoBinding
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel
-import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
-import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
 import cz.lpatak.mycoachesdiary.util.convertLongToDate
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class MatchDetailFragmentInfo(private val matchFromArgs: Match, private val matchUIModel: MatchUIModel, private val binding: FragmentMatchDetailInfoBinding) : Fragment(),
-        DatePickerDialog.OnDateSetListener {
+class MatchDetailFragmentInfo(
+    private val matchFromArgs: Match,
+    private val matchUIModel: MatchUIModel,
+    private val binding: FragmentMatchDetailInfoBinding
+) : Fragment(),
+    DatePickerDialog.OnDateSetListener {
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         with(binding) {
             lifecycleOwner = this@MatchDetailFragmentInfo

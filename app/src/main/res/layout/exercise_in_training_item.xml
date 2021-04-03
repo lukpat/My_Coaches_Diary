@@ -23,75 +23,64 @@
         app:strokeColor="@color/colorPrimary"
         app:strokeWidth="1.5dp">
 
-               <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:ellipsize="end"
+                android:text="@{exercise.name}"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/name" />
+
+            <TextView
+                android:id="@+id/exerciseTime"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:ellipsize="end"
+                android:text="@{exercise.time + ` min`}"
+                android:textColor="@color/colorGrey"
+                android:layout_marginEnd="@dimen/double_normal_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/name" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/half_normal_margin"
+                android:background="@drawable/ic_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                   android:layout_marginTop="4dp"
-                   android:layout_marginBottom="4dp">
+                android:layout_marginStart="@dimen/normal_margin"
+                android:text="@{exercise.category}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="@string/season" />
 
-                <TextView
-                    android:id="@+id/name"
-                    style="@style/TextAppearance.MaterialComponents.Headline5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:text="@{exercise.name}"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginStart="@dimen/normal_margin"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/name" />
-
-                <EditText
-                    android:id="@+id/time"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="@{`` + exercise.time}"
-                    android:textColor="@android:color/darker_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/min"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="15" />
-
-                <TextView
-                    android:id="@+id/min"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" min"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_marginEnd="@dimen/half_normal_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="min" />
-
-                <Button
-                    android:id="@+id/buttonDelete"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/ic_delete"
-                    android:layout_marginEnd="@dimen/half_normal_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/normal_margin"
-                    android:text="@{exercise.category}"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:textColor="@android:color/darker_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/name"
-                    app:layout_constraintTop_toBottomOf="@+id/name"
-                    tools:text="@string/season" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </com.google.android.material.card.MaterialCardView>

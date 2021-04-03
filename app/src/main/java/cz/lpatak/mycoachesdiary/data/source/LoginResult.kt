@@ -1,9 +1,5 @@
 package cz.lpatak.mycoachesdiary.data.source
 
-/**
- * A generic class that holds a value with its loading status.
- * @param <T>
- */
 sealed class LoginResult<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : LoginResult<T>()

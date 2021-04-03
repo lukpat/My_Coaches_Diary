@@ -13,6 +13,7 @@ import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.MyTeamsViewModel
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.TeamUIModel
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.MatchStatsViewModel
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.TrainingStatsViewModel
+import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.ExerciseInTrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import cz.lpatak.mycoachesdiary.util.PreferenceManger
@@ -27,7 +28,6 @@ val appModule = module {
     single { FirestoreSource() }
 
     single<AuthRepository> { AuthRepositoryImpl(get()) }
-
     single { TeamRepositoryImpl(get()) }
     single { MatchRepositoryImpl(get(), get()) }
     single { TrainingRepositoryImpl(get(), get()) }
@@ -37,13 +37,14 @@ val appModule = module {
 
     viewModel { AuthViewModel(get(), get(), get()) }
     viewModel { MyTeamsViewModel(get(), get()) }
-    viewModel { TrainingsViewModel(get(), get(), get(), get()) }
+    viewModel { TrainingsViewModel(get(), get(), get()) }
     viewModel { MatchStatsViewModel(get(), get()) }
     viewModel { TrainingStatsViewModel(get(), get()) }
     viewModel { MatchesViewModel(get(), get()) }
     viewModel { ExercisesViewModel(get()) }
 
     viewModel { ExerciseUIModel() }
+    viewModel { ExerciseInTrainingUIModel() }
     viewModel { MatchUIModel() }
     viewModel { StatsUIModel() }
     viewModel { TeamUIModel() }

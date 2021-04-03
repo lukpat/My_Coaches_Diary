@@ -8,9 +8,16 @@ import cz.lpatak.mycoachesdiary.data.repositories.StatsRepositoryImpl
 import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.*
 
-class MatchStatsViewModel(private val preferenceManager: PreferenceManger, private val statsRepository: StatsRepositoryImpl) : ViewModel() {
+class MatchStatsViewModel(
+    private val preferenceManager: PreferenceManger,
+    private val statsRepository: StatsRepositoryImpl
+) : ViewModel() {
     private val matchList: MutableList<Match?> = mutableListOf()
+
+    var dateFrom: Timestamp = Timestamp(Date(0))
+    var dateTo: Timestamp = Timestamp(Date(0))
 
     var matches = 0
     private var playingTime = 0
@@ -43,25 +50,26 @@ class MatchStatsViewModel(private val preferenceManager: PreferenceManger, priva
 
 
     fun loadMatchStats(
-            matchCategory: String,
-            all: Boolean,
-            dateFrom: Timestamp,
-            dateTo: Timestamp
+        matchCategory: String,
+        all: Boolean,
+        dateFrom: Timestamp,
+        dateTo: Timestamp
     ) {
-        statsRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo).addOnSuccessListener {
-            if (!it.isEmpty) {
-                val list = it.documents
-                for (doc in list) {
-                    val match = doc.toObject(Match::class.java)
-                    matchList.add(match)
+        statsRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo)
+            .addOnSuccessListener {
+                if (!it.isEmpty) {
+                    val list = it.documents
+                    for (doc in list) {
+                        val match = doc.toObject(Match::class.java)
+                        matchList.add(match)
+                    }
                 }
+                matches = matchList.size
+            }.continueWith {
+                if (matches != 0) getMatchesStats()
+            }.continueWith {
+                if (matches != 0) calculateMatchStats()
             }
-            matches = matchList.size
-        }.continueWith {
-            if (matches != 0) getMatchesStats()
-        }.continueWith {
-            if (matches != 0) calculateMatchStats()
-        }
     }
 
 
@@ -119,10 +127,12 @@ class MatchStatsViewModel(private val preferenceManager: PreferenceManger, priva
 
     private fun calculatePowerPlaysStats() {
         powerPlaysSuccessRate = (powerPlaysTeamSuccess.toDouble() / powerPlaysTeam) * 100
-        powerPlaysSuccessRate = BigDecimal(powerPlaysSuccessRate).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        powerPlaysSuccessRate =
+            BigDecimal(powerPlaysSuccessRate).setScale(2, RoundingMode.HALF_EVEN).toDouble()
 
         penaltyKillPercentage = (powerPlaysOpponentSuccess.toDouble() / powerPlaysOpponent) * 100
-        penaltyKillPercentage = BigDecimal(penaltyKillPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        penaltyKillPercentage =
+            BigDecimal(penaltyKillPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
     }
 
     private fun calculateShotsStats() {
@@ -138,21 +148,26 @@ class MatchStatsViewModel(private val preferenceManager: PreferenceManger, priva
         shotsBalance = shotsTeam - shotsOpponent
 
         goalkeeperSavesPercentage = 100 - ((goalsConceded.toDouble() / shotsOpponent) * 100)
-        goalkeeperSavesPercentage = BigDecimal(goalkeeperSavesPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        goalkeeperSavesPercentage =
+            BigDecimal(goalkeeperSavesPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
 
         goalShotPercentage = (goalsScored / shotsTeamDouble) * 100
-        goalShotPercentage = BigDecimal(goalShotPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        goalShotPercentage =
+            BigDecimal(goalShotPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
 
         shotsOnGoalPercentage = (shotsTeamDouble / totalShots) * 100
-        shotsOnGoalPercentage = BigDecimal(shotsOnGoalPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        shotsOnGoalPercentage =
+            BigDecimal(shotsOnGoalPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
 
 
         shotsOutsidePercentage = (shotsOutside.toDouble() / totalShots) * 100
-        shotsOutsidePercentage = BigDecimal(shotsOutsidePercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        shotsOutsidePercentage =
+            BigDecimal(shotsOutsidePercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
 
 
         shotsToBlockPercentage = (shotsToBlock.toDouble() / totalShots) * 100
-        shotsToBlockPercentage = BigDecimal(shotsToBlockPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        shotsToBlockPercentage =
+            BigDecimal(shotsToBlockPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
     }
 
     fun isTeamSelected(): Boolean {

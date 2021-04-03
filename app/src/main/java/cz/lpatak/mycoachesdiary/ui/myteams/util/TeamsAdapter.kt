@@ -14,17 +14,17 @@ import cz.lpatak.mycoachesdiary.ui.myteams.HomeFragmentDirections
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.MyTeamsViewModel
 
 class TeamsAdapter(
-        private val onClick: ((Team) -> Unit)? = null
+    private val onClick: ((Team) -> Unit)? = null
 ) : DataBoundListAdapter<Team, TeamItemBinding>(
-        diffCallback = object : DiffUtil.ItemCallback<Team>() {
-            override fun areItemsTheSame(oldItem: Team, newItem: Team): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Team, newItem: Team): Boolean {
-                return oldItem == newItem
-            }
+    diffCallback = object : DiffUtil.ItemCallback<Team>() {
+        override fun areItemsTheSame(oldItem: Team, newItem: Team): Boolean {
+            return oldItem.id == newItem.id
         }
+
+        override fun areContentsTheSame(oldItem: Team, newItem: Team): Boolean {
+            return oldItem == newItem
+        }
+    }
 ) {
     private lateinit var viewModel: MyTeamsViewModel
 
@@ -34,9 +34,9 @@ class TeamsAdapter(
 
     override fun createBinding(parent: ViewGroup): TeamItemBinding {
         return DataBindingUtil.inflate<TeamItemBinding>(
-                LayoutInflater.from(parent.context),
-                R.layout.team_item,
-                parent, false
+            LayoutInflater.from(parent.context),
+            R.layout.team_item,
+            parent, false
         ).apply {
             this.root.setOnClickListener {
                 this.team?.let { goToTeamDetail(this.root, it) }

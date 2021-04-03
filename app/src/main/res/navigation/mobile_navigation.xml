@@ -62,7 +62,14 @@
     <fragment
         android:id="@+id/navigation_stats"
         android:name="cz.lpatak.mycoachesdiary.ui.stats.StatsFragment"
-        android:label="@string/stats" />
+        android:label="@string/stats" >
+        <action
+            android:id="@+id/action_navigation_stats_to_navigation_match_stats"
+            app:destination="@id/navigation_match_stats" />
+        <action
+            android:id="@+id/action_navigation_stats_to_navigation_training_stats"
+            app:destination="@id/navigation_training_stats" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_exercise_library"
@@ -163,7 +170,7 @@
     <fragment
         android:id="@+id/navigation_add_exercise_to_training"
         android:name="cz.lpatak.mycoachesdiary.ui.trainings.AddExerciseToTrainingFragment"
-        android:label="@string/add_exercise" />
+        android:label="@string/add_exercise_to_training" />
 
     <fragment
         android:id="@+id/navigation_add_match"
@@ -189,5 +196,21 @@
         android:id="@+id/navigation_reset_password"
         android:name="cz.lpatak.mycoachesdiary.ui.auth.ResetPasswordFragment"
         android:label="@string/renew_password" />
+
+    <fragment
+        android:id="@+id/navigation_match_stats"
+        android:name="cz.lpatak.mycoachesdiary.ui.stats.MatchStatsFragment"
+        android:label="@string/match_stats" />
+
+    <fragment
+        android:id="@+id/navigation_training_stats"
+        android:name="cz.lpatak.mycoachesdiary.ui.stats.TrainingStatsFragment"
+        android:label="@string/training_stats" >
+        <argument
+            android:name="dateFrom"
+            app:argType="com.google.firebase.Timestamp" />
+        <argument android:name="dateTo"
+            app:argType="com.google.firebase.Timestamp" />
+    </fragment>
 
 </navigation>

@@ -1,10 +1,10 @@
 package cz.lpatak.mycoachesdiary.ui.myteams.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import cz.lpatak.mycoachesdiary.data.model.DBConstants
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.TEAM_ID_KEY
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.TEAM_NAME_KEY
 import cz.lpatak.mycoachesdiary.data.model.DBConstants.Companion.TEAM_SEASON_KEY
@@ -15,10 +15,10 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import kotlinx.coroutines.Dispatchers
 
 class MyTeamsViewModel(
-        private val teamsRepository: TeamRepositoryImpl,
-        private val preferenceManager: PreferenceManger
+    private val teamsRepository: TeamRepositoryImpl,
+    private val preferenceManager: PreferenceManger
 ) : ViewModel() {
-
+    val isTeamSelected = !preferenceManager.getStringValue(DBConstants.TEAM_ID_KEY).isNullOrEmpty()
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
 
     fun loadTeams(): LiveData<Result<List<Team>>> = liveData(coroutineContext) {
@@ -58,13 +58,7 @@ class MyTeamsViewModel(
         return preferenceManager
     }
 
-    fun isTeamSelected(): Boolean {
-        return !preferenceManager.getStringValue(TEAM_ID_KEY).isNullOrEmpty()
-    }
-
     fun isTeamCurrentTeam(teamId: String): Boolean {
-        Log.println(Log.ERROR, "teamId", teamId)
-        Log.println(Log.ERROR, "prefMan", preferenceManager.getStringValue(TEAM_ID_KEY).toString())
         return (teamId == preferenceManager.getStringValue(TEAM_ID_KEY))
     }
 }

@@ -3,7 +3,6 @@ package cz.lpatak.mycoachesdiary.ui.matches
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -28,17 +27,19 @@ class MatchDetailFragment : Fragment() {
     private lateinit var binding2: FragmentMatchDetailInfoBinding
     private val args: MatchDetailFragmentArgs by navArgs()
     private val matchViewModel: MatchesViewModel by viewModel()
-    private val matchUIModel: MatchUIModel by viewModel ()
-    private val statsUIModel: StatsUIModel  by viewModel ()
+    private val matchUIModel: MatchUIModel by viewModel()
+    private val statsUIModel: StatsUIModel by viewModel()
     private lateinit var matchFromArgs: Match
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
-        binding2 = DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail_info, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
+        binding2 =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail_info, container, false)
 
         matchFromArgs = args.match
 
@@ -60,13 +61,13 @@ class MatchDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                        .setMessage(R.string.delete_match_alert)
-                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                            matchViewModel.deleteMatch(args.match.id.toString())
-                            findNavController().navigateUp()
-                        })
-                        .setNegativeButton(R.string.no, null)
-                        .show()
+                    .setMessage(R.string.delete_match_alert)
+                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                        matchViewModel.deleteMatch(args.match.id.toString())
+                        findNavController().navigateUp()
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show()
             }
             R.id.save -> {
                 if (binding.viewPager.currentItem == 0) {
@@ -81,7 +82,14 @@ class MatchDetailFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = TabsMatchManager(activity?.supportFragmentManager!!, lifecycle, args, matchUIModel, statsUIModel, binding2)
+        val adapter = TabsMatchManager(
+            activity?.supportFragmentManager!!,
+            lifecycle,
+            args,
+            matchUIModel,
+            statsUIModel,
+            binding2
+        )
         binding.viewPager.adapter = adapter
 
         val names: Array<String> = arrayOf("Informace", "Statistiky")
@@ -102,25 +110,25 @@ class MatchDetailFragment : Fragment() {
             }
 
             matchViewModel.updateMatch(
-                    Match(
-                            matchFromArgs.id,
-                            matchFromArgs.team,
-                            matchUIModel.opponent.value.toString(),
-                            date,
-                            binding2.helperMatchesLayout.type.selectedItem.toString(),
-                            matchUIModel.playingTime.value!!.toInt(),
-                            matchUIModel.note.value.toString(),
-                            matchFromArgs.scoreTeam,
-                            matchFromArgs.scoreOpponent,
-                            matchFromArgs.powerPlaysTeam,
-                            matchFromArgs.powerPlaysOpponent,
-                            matchFromArgs.powerPlaysTeamSuccess,
-                            matchFromArgs.powerPlaysOpponentSuccess,
-                            matchFromArgs.shotsTeam,
-                            matchFromArgs.shotsOpponent,
-                            matchFromArgs.shotsToBlock,
-                            matchFromArgs.shotsOutside
-                    )
+                Match(
+                    matchFromArgs.id,
+                    matchFromArgs.team,
+                    matchUIModel.opponent.value.toString(),
+                    date,
+                    binding2.helperMatchesLayout.type.selectedItem.toString(),
+                    matchUIModel.playingTime.value!!.toInt(),
+                    matchUIModel.note.value.toString(),
+                    matchFromArgs.scoreTeam,
+                    matchFromArgs.scoreOpponent,
+                    matchFromArgs.powerPlaysTeam,
+                    matchFromArgs.powerPlaysOpponent,
+                    matchFromArgs.powerPlaysTeamSuccess,
+                    matchFromArgs.powerPlaysOpponentSuccess,
+                    matchFromArgs.shotsTeam,
+                    matchFromArgs.shotsOpponent,
+                    matchFromArgs.shotsToBlock,
+                    matchFromArgs.shotsOutside
+                )
             )
 
             showToast(getString(R.string.changes_were_saved))
@@ -132,27 +140,26 @@ class MatchDetailFragment : Fragment() {
             showToast(getString(R.string.wrong_values_save_error))
         } else {
             val match = Match(
-                    matchFromArgs.id,
-                    matchFromArgs.team,
-                    matchFromArgs.opponent,
-                    matchFromArgs.date,
-                    matchFromArgs.type,
-                    matchFromArgs.playingTime,
-                    matchFromArgs.note,
-                    statsUIModel.scoreTeam.value!!.toInt(),
-                    statsUIModel.scoreOpponent.value!!.toInt(),
-                    statsUIModel.powerPlaysTeam.value!!.toInt(),
-                    statsUIModel.powerPlaysOpponent.value!!.toInt(),
-                    statsUIModel.powerPlaysTeamSuccess.value!!.toInt(),
-                    statsUIModel.powerPlaysOpponentSuccess.value!!.toInt(),
-                    statsUIModel.shotsTeam.value!!.toInt(),
-                    statsUIModel.shotsOpponent.value!!.toInt(),
-                    statsUIModel.shotsToBlock.value!!.toInt(),
-                    statsUIModel.shotsOutside.value!!.toInt()
+                matchFromArgs.id,
+                matchFromArgs.team,
+                matchFromArgs.opponent,
+                matchFromArgs.date,
+                matchFromArgs.type,
+                matchFromArgs.playingTime,
+                matchFromArgs.note,
+                statsUIModel.scoreTeam.value!!.toInt(),
+                statsUIModel.scoreOpponent.value!!.toInt(),
+                statsUIModel.powerPlaysTeam.value!!.toInt(),
+                statsUIModel.powerPlaysOpponent.value!!.toInt(),
+                statsUIModel.powerPlaysTeamSuccess.value!!.toInt(),
+                statsUIModel.powerPlaysOpponentSuccess.value!!.toInt(),
+                statsUIModel.shotsTeam.value!!.toInt(),
+                statsUIModel.shotsOpponent.value!!.toInt(),
+                statsUIModel.shotsToBlock.value!!.toInt(),
+                statsUIModel.shotsOutside.value!!.toInt()
             )
-            Log.println(Log.ERROR,"match",match.toString())
             matchViewModel.updateMatch(
-                    match
+                match
             )
             showToast(getString(R.string.changes_were_saved))
         }

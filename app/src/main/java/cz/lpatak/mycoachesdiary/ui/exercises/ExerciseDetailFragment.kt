@@ -21,11 +21,12 @@ class ExerciseDetailFragment : Fragment() {
     private val exerciseUIModel: ExerciseUIModel = ExerciseUIModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_detail, container,false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_detail, container, false)
         with(binding) {
             lifecycleOwner = this@ExerciseDetailFragment
             exerciseModel = exerciseUIModel

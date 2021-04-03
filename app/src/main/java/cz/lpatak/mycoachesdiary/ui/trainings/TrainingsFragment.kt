@@ -23,9 +23,9 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val adapter: TrainingsAdapter = TrainingsAdapter()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trainings, container, false)
         with(binding) {
@@ -33,10 +33,10 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             trainingsList.adapter = adapter
             fabAddTraining.setOnClickListener {
                 val directions =
-                        TrainingsFragmentDirections.actionNavigationTrainingsToNavigationAddTraining()
+                    TrainingsFragmentDirections.actionNavigationTrainingsToNavigationAddTraining()
                 findNavController().navigate(directions)
             }
-            isTeamSelected = trainingsViewModel.isTeamSelected()
+            isTeamSelected = trainingsViewModel.isTeamSelected
             filterOn = false
             filterLayout.btnSetFilter.setOnClickListener { applyFilter() }
             filterLayout.dateFrom.setOnClickListener { pickDateFrom() }
@@ -86,18 +86,18 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun loadTrainingsWithFilter(dateFrom: Timestamp, dateTo: Timestamp) {
         trainingsViewModel.loadTrainingsWithFilter(dateFrom, dateTo)
-                .observe(viewLifecycleOwner, { result ->
-                    binding.result = result
-                    if (result is Result.Success) {
-                        adapter.submitList(result.data)
-                    }
-                })
+            .observe(viewLifecycleOwner, { result ->
+                binding.result = result
+                if (result is Result.Success) {
+                    adapter.submitList(result.data)
+                }
+            })
     }
 
     private fun applyFilter() {
-        if (dateFrom.seconds > dateTo.seconds) {
-            val error = "Datum počátku je později než datum konce, takže filtr není možné provést"
-            binding.filterLayout.dateError.text = error
+        val default = Timestamp(Date(0))
+        if (dateFrom.seconds > dateTo.seconds || dateFrom.seconds == default.seconds || dateTo.seconds == default.seconds) {
+            binding.filterLayout.dateError.text = getString(R.string.date_error)
             return
         }
 
