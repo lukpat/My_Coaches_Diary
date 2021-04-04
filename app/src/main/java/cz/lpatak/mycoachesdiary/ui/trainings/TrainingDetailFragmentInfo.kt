@@ -17,19 +17,19 @@ import java.util.*
 
 
 class TrainingDetailFragmentInfo(private val trainingUIModel: TrainingUIModel) : Fragment(),
-    DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: FragmentTrainingDetailInfoBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_training_detail_info,
-            container,
-            false
+                inflater,
+                R.layout.fragment_training_detail_info,
+                container,
+                false
         )
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentInfo

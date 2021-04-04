@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.databinding.FragmentStatsBinding
-import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.MatchStatsViewModel
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.TrainingStatsViewModel
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,13 +19,12 @@ import java.util.*
 
 class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val trainingStatsViewModel: TrainingStatsViewModel by viewModel()
-    private val matchStatsViewModel: MatchStatsViewModel by viewModel()
     private lateinit var binding: FragmentStatsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false)
 
@@ -56,11 +54,22 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             return
         } else {
             val directions = if (binding.filterOn!!) {
-                StatsFragmentDirections.actionNavigationStatsToNavigationMatchStats()
+
+                var bool = false
+                if (binding.type.selectedItem.toString() == "Všechny zápasy") {
+                    bool = true
+                }
+
+                StatsFragmentDirections.actionNavigationStatsToNavigationMatchStats(
+                        binding.type.selectedItem.toString(),
+                        bool,
+                        dateFrom,
+                        dateTo
+                )
             } else {
                 StatsFragmentDirections.actionNavigationStatsToNavigationTrainingStats(
-                    dateFrom,
-                    dateTo
+                        dateFrom,
+                        dateTo
                 )
             }
             findNavController().navigate(directions)

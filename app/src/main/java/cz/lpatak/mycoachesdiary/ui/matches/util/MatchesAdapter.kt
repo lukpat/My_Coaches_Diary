@@ -14,17 +14,17 @@ import cz.lpatak.mycoachesdiary.ui.matches.MatchesFragmentDirections
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
 
 class MatchesAdapter(
-    private val onClick: ((Match) -> Unit)? = null
+        private val onClick: ((Match) -> Unit)? = null
 ) : DataBoundListAdapter<Match, MatchItemBinding>(
-    diffCallback = object : DiffUtil.ItemCallback<Match>() {
-        override fun areItemsTheSame(oldItem: Match, newItem: Match): Boolean {
-            return oldItem.id == newItem.id
-        }
+        diffCallback = object : DiffUtil.ItemCallback<Match>() {
+            override fun areItemsTheSame(oldItem: Match, newItem: Match): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Match, newItem: Match): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Match, newItem: Match): Boolean {
+                return oldItem == newItem
+            }
         }
-    }
 ) {
     private lateinit var viewModel: MatchesViewModel
 
@@ -34,9 +34,9 @@ class MatchesAdapter(
 
     override fun createBinding(parent: ViewGroup): MatchItemBinding {
         return DataBindingUtil.inflate<MatchItemBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.match_item,
-            parent, false
+                LayoutInflater.from(parent.context),
+                R.layout.match_item,
+                parent, false
         ).apply {
             this.root.setOnClickListener {
                 this.match?.let { goToMatchDetail(this.root, it) }
@@ -48,12 +48,12 @@ class MatchesAdapter(
     override fun bind(binding: MatchItemBinding, item: Match) {
         binding.match = item
         binding.dateAndTypeOfMatch =
-            viewModel.convertDateToString(item.date!!) + " (" + item.type + ")"
+                viewModel.convertDateToString(item.date!!) + " (" + item.type + ")"
     }
 
     private fun goToMatchDetail(view: View, match: Match) {
         val directions =
-            MatchesFragmentDirections.actionNavigationMatchesToNavigationMatchDetail(match)
+                MatchesFragmentDirections.actionNavigationMatchesToNavigationMatchDetail(match)
         view.findNavController().navigate(directions)
     }
 }

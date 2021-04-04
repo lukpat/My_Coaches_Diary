@@ -36,10 +36,10 @@ import androidx.recyclerview.widget.ListAdapter
  * @param <V> The type of the ViewDataBinding
 </V></T> */
 abstract class DataBoundListAdapter<T, V : ViewDataBinding>(
-    diffCallback: DiffUtil.ItemCallback<T>
+        diffCallback: DiffUtil.ItemCallback<T>
 ) : ListAdapter<T, DataBoundViewHolder<V>>(
-    AsyncDifferConfig.Builder<T>(diffCallback)
-        .build()
+        AsyncDifferConfig.Builder<T>(diffCallback)
+                .build()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder<V> {
         val binding = createBinding(parent)

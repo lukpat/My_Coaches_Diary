@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,11 +16,11 @@
             app:cardCornerRadius="@dimen/round_corner"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
-            app:strokeColor="@color/colorGrey"
-            app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/colorGrey"
+            app:strokeWidth="1dp">
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/exerciseOwner"
@@ -29,7 +28,7 @@
                 android:layout_height="55dp"
                 android:entries="@array/exercise_owner"
                 android:paddingStart="4dp"
-                android:paddingEnd="4dp"/>
+                android:paddingEnd="4dp" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -41,11 +40,11 @@
             app:cardCornerRadius="@dimen/round_corner"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
-            app:strokeColor="@color/colorGrey"
-            app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="@+id/exerciseOwnerLayout"
             app:layout_constraintStart_toStartOf="@+id/exerciseOwnerLayout"
-            app:layout_constraintTop_toBottomOf="@+id/exerciseOwnerLayout">
+            app:layout_constraintTop_toBottomOf="@+id/exerciseOwnerLayout"
+            app:strokeColor="@color/colorGrey"
+            app:strokeWidth="1dp">
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/exerciseCategory"
@@ -53,7 +52,7 @@
                 android:layout_height="55dp"
                 android:entries="@array/exercise_category"
                 android:paddingStart="4dp"
-                android:paddingEnd="4dp"/>
+                android:paddingEnd="4dp" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton

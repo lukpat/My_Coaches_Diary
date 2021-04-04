@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="teamModel"
             type="cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.TeamUIModel" />
@@ -34,15 +35,15 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddTeam"
                 style="@style/buttonBoldFilled"
-                android:enabled="@{teamModel.areInputsReady}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:text="@string/add_team"
                 android:layout_marginTop="@dimen/normal_margin"
+                android:enabled="@{teamModel.areInputsReady}"
+                android:text="@string/add_team"
                 app:layout_constraintEnd_toEndOf="@+id/team_layout_helper"
                 app:layout_constraintStart_toStartOf="@+id/team_layout_helper"
-                app:layout_constraintTop_toBottomOf="@+id/team_layout_helper"/>
+                app:layout_constraintTop_toBottomOf="@+id/team_layout_helper" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="statsModel"
             type="cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel" />
@@ -20,11 +21,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/score"
-                android:textColor="@color/colorPrimary"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -52,9 +53,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/opponent"
             app:layout_constraintBottom_toBottomOf="@+id/scoreTeam"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/scoreTeam"
-            app:layout_constraintTop_toTopOf="@+id/scoreTeam"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/scoreTeam">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -68,16 +69,16 @@
             android:id="@+id/powerPlaysLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/normal_margin"
+            android:gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@+id/scoreTeam">
 
             <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/powerPlays"
-                android:textColor="@color/colorPrimary"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -105,9 +106,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/opponent"
             app:layout_constraintBottom_toBottomOf="@+id/powerPlaysTeam"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/powerPlaysTeam"
-            app:layout_constraintTop_toTopOf="@+id/powerPlaysTeam"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/powerPlaysTeam">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -121,8 +122,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="@string/success"
             android:layout_marginTop="@dimen/half_normal_margin"
+            android:hint="@string/success"
             app:layout_constraintEnd_toEndOf="@+id/powerPlaysTeam"
             app:layout_constraintStart_toStartOf="@+id/powerPlaysTeam"
             app:layout_constraintTop_toBottomOf="@+id/powerPlaysTeam">
@@ -142,9 +143,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/success"
             app:layout_constraintBottom_toBottomOf="@+id/powerPlaysTeamSuccess"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/powerPlaysTeamSuccess"
-            app:layout_constraintTop_toTopOf="@+id/powerPlaysTeamSuccess"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/powerPlaysTeamSuccess">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -158,16 +159,16 @@
             android:id="@+id/shotsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/normal_margin"
+            android:gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@+id/powerPlaysTeamSuccess">
 
             <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/shots"
-                android:textColor="@color/colorPrimary"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -195,9 +196,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/opponent"
             app:layout_constraintBottom_toBottomOf="@+id/shotsTeam"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shotsTeam"
-            app:layout_constraintTop_toTopOf="@+id/shotsTeam"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/shotsTeam">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -207,12 +208,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/shotsToBlock"
+            android:id="@+id/winsPercentage"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="@string/ToBlock"
             android:layout_marginTop="@dimen/half_normal_margin"
+            android:hint="@string/ToBlock"
             app:layout_constraintEnd_toEndOf="@+id/shotsTeam"
             app:layout_constraintStart_toStartOf="@+id/shotsTeam"
             app:layout_constraintTop_toBottomOf="@+id/shotsTeam">
@@ -231,10 +232,10 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:hint="@string/outside"
-            app:layout_constraintBottom_toBottomOf="@+id/shotsToBlock"
-            app:layout_constraintStart_toEndOf="@+id/shotsToBlock"
-            app:layout_constraintTop_toTopOf="@+id/shotsToBlock"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintBottom_toBottomOf="@+id/winsPercentage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/winsPercentage"
+            app:layout_constraintTop_toTopOf="@+id/winsPercentage">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

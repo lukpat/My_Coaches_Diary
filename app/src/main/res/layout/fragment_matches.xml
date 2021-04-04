@@ -35,10 +35,10 @@
 
         <ScrollView
             invisibleUnless="@{!filterOn}"
-            android:layout_marginTop="@dimen/half_normal_margin"
-            android:layout_marginBottom="@dimen/half_normal_margin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/half_normal_margin"
+            android:layout_marginBottom="@dimen/half_normal_margin"
             android:fillViewport="true">
 
             <androidx.recyclerview.widget.RecyclerView

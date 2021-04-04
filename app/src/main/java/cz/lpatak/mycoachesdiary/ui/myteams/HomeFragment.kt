@@ -26,9 +26,9 @@ class HomeFragment : Fragment() {
     private lateinit var preferenceManager: PreferenceManger
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         preferenceManager = myTeamsViewModel.getPreferenceManager()
 
@@ -62,13 +62,13 @@ class HomeFragment : Fragment() {
             R.id.logout -> {
                 val directions = HomeFragmentDirections.actionGlobalNavigationLogin()
                 AlertDialog.Builder(context)
-                    .setMessage(R.string.logout_message)
-                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                        authViewModel.logOut()
-                        findNavController().navigate(directions)
-                    })
-                    .setNegativeButton(R.string.no, null)
-                    .show()
+                        .setMessage(R.string.logout_message)
+                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                            authViewModel.logOut()
+                            findNavController().navigate(directions)
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show()
             }
         }
         return super.onOptionsItemSelected(item)

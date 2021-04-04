@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="dateFromVal"
-            type="String"/>
+            type="String" />
 
         <variable
             name="dateToVal"
@@ -25,11 +26,11 @@
             app:cardCornerRadius="@dimen/round_corner"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
-            app:strokeColor="@color/colorGrey"
-            app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/colorGrey"
+            app:strokeWidth="1dp">
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/type"
@@ -37,7 +38,7 @@
                 android:layout_height="55dp"
                 android:entries="@array/match_category_filter"
                 android:paddingStart="4dp"
-                android:paddingEnd="4dp"/>
+                android:paddingEnd="4dp" />
         </com.google.android.material.card.MaterialCardView>
 
 
@@ -89,8 +90,8 @@
             android:id="@+id/dateError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"

@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import cz.lpatak.mycoachesdiary.R
-import cz.lpatak.mycoachesdiary.data.model.Exercise
+import cz.lpatak.mycoachesdiary.data.model.ExerciseInTraining
 import cz.lpatak.mycoachesdiary.data.model.Result
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailExercisesBinding
-import cz.lpatak.mycoachesdiary.ui.trainings.util.AddExerciseToTrainingDialog
 import cz.lpatak.mycoachesdiary.ui.trainings.util.ExerciseInTrainingAdapter
+import cz.lpatak.mycoachesdiary.ui.trainings.util.UpdateExerciseTimeDialog
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -18,29 +18,31 @@ import java.util.*
 
 class TrainingDetailFragmentExercises : Fragment() {
     private lateinit var binding: FragmentTrainingDetailExercisesBinding
-    private val adapter: ExerciseInTrainingAdapter = ExerciseInTrainingAdapter(null, this)
+    val adapter: ExerciseInTrainingAdapter = ExerciseInTrainingAdapter(null)
     private val trainingsViewModel: TrainingsViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_training_detail_exercises,
-            container,
-            false
+                inflater,
+                R.layout.fragment_training_detail_exercises,
+                container,
+                false
         )
+
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentExercises
-            exercisesList.adapter = adapter
             fabAddExerciseToTraining.setOnClickListener {
                 val directions =
-                    TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationAddExerciseToTraining()
+                        TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationAddExerciseToTraining()
                 findNavController().navigate(directions)
             }
+            exercisesList.adapter = adapter
         }
+
         adapter.setViewModel(trainingsViewModel)
 
         return binding.root
@@ -48,11 +50,6 @@ class TrainingDetailFragmentExercises : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        loadExercises()
-    }
-
-    override fun onResume() {
-        super.onResume()
         loadExercises()
     }
 
@@ -65,8 +62,9 @@ class TrainingDetailFragmentExercises : Fragment() {
         })
     }
 
-    fun updateExerciseTime(exercise: Exercise, time: Int) {
-        val dialog = AddExerciseToTrainingDialog(exercise, time, false)
-        dialog.show(this.requireActivity().supportFragmentManager, "add exercise to training")
+    fun updateExerciseTime(exercise: ExerciseInTraining) {
+        val dialog = UpdateExerciseTimeDialog(exercise, this, false)
+        dialog.show(this.requireActivity().supportFragmentManager, "update exercise time in training")
+        adapter.notifyDataSetChanged()
     }
 }

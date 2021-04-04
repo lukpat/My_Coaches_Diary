@@ -17,8 +17,8 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 
 
 class StatsRepositoryImpl(
-    private val firestoreSource: FirestoreSource,
-    private val preferenceManager: PreferenceManger
+        private val firestoreSource: FirestoreSource,
+        private val preferenceManager: PreferenceManger
 ) : StatsRepository {
 
     private val matchesPath: CollectionReference
@@ -29,27 +29,27 @@ class StatsRepositoryImpl(
     private val trainingsPath: CollectionReference
         get() {
             return firestoreSource.firestore.collection(DBConstants.TeamsCOLLECTION)
-                .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
-                .collection(TrainingsCOLLECTION)
+                    .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
+                    .collection(TrainingsCOLLECTION)
         }
 
     override fun getMatchesFilter(
-        matchCategory: String,
-        all: Boolean,
-        dateFrom: Timestamp,
-        dateTo: Timestamp
+            matchCategory: String,
+            all: Boolean,
+            dateFrom: Timestamp,
+            dateTo: Timestamp
     ): Task<QuerySnapshot> {
         var query = matchesPath
-            .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
-            .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
-            .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
+                .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
+                .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
+                .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
 
         if (!all) {
             query = matchesPath
-                .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
-                .whereEqualTo(COLUMN_TYPE, matchCategory)
-                .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
-                .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
+                    .whereEqualTo(COLUMN_TEAM, preferenceManager.getStringValue(TEAM_ID_KEY))
+                    .whereEqualTo(COLUMN_TYPE, matchCategory)
+                    .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
+                    .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
         }
 
         return query.get()
@@ -57,9 +57,9 @@ class StatsRepositoryImpl(
 
     override fun getTrainings(dateFrom: Timestamp, dateTo: Timestamp): Task<QuerySnapshot> {
         return trainingsPath
-            .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
-            .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
-            .get()
+                .whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
+                .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
+                .get()
     }
 
 

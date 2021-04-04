@@ -34,19 +34,18 @@
                 app:trainingModel="@{trainingModel}" />
 
 
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddTrainings"
                 style="@style/buttonBoldFilled"
-                android:enabled="@{trainingModel.areInputsReady}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:text="@string/add_training"
                 android:layout_marginTop="@dimen/normal_margin"
+                android:enabled="@{trainingModel.areInputsReady}"
+                android:text="@string/add_training"
                 app:layout_constraintEnd_toEndOf="@+id/training_helper_layout"
                 app:layout_constraintStart_toStartOf="@+id/training_helper_layout"
-                app:layout_constraintTop_toBottomOf="@+id/training_helper_layout"/>
+                app:layout_constraintTop_toBottomOf="@+id/training_helper_layout" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

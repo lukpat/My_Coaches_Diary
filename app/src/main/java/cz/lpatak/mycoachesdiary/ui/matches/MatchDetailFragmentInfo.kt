@@ -16,16 +16,16 @@ import java.util.*
 
 
 class MatchDetailFragmentInfo(
-    private val matchFromArgs: Match,
-    private val matchUIModel: MatchUIModel,
-    private val binding: FragmentMatchDetailInfoBinding
+        private val matchFromArgs: Match,
+        private val matchUIModel: MatchUIModel,
+        private val binding: FragmentMatchDetailInfoBinding
 ) : Fragment(),
-    DatePickerDialog.OnDateSetListener {
+        DatePickerDialog.OnDateSetListener {
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         with(binding) {
             lifecycleOwner = this@MatchDetailFragmentInfo

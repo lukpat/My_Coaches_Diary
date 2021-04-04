@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardCornerRadius="@dimen/round_corner"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/colorPrimary"
+        app:strokeWidth="1.5dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginBottom="@dimen/half_normal_margin"
+                android:ellipsize="end"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/statTeam"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/normal_margin"
+                android:ellipsize="end"
+                android:textColor="@color/colorGrey"
+                app:layout_constraintBottom_toTopOf="@+id/teamText"
+                app:layout_constraintEnd_toStartOf="@+id/column"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/teamText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half_normal_margin"
+                android:ellipsize="end"
+                android:text="@string/team"
+                android:textColor="@color/colorGrey"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/statTeam"
+                app:layout_constraintStart_toStartOf="@+id/statTeam"
+                app:layout_constraintTop_toBottomOf="@+id/statTeam" />
+
+
+            <TextView
+                android:id="@+id/column"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginEnd="@dimen/normal_margin"
+                android:ellipsize="end"
+                android:text="|"
+                android:textColor="@color/colorGrey"
+                app:layout_constraintBottom_toBottomOf="@+id/statTeam"
+                app:layout_constraintEnd_toStartOf="@+id/statOpponent"
+                app:layout_constraintTop_toTopOf="@+id/statTeam" />
+
+            <TextView
+                android:id="@+id/statOpponent"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/double_normal_margin"
+                android:ellipsize="end"
+                android:textColor="@color/colorGrey"
+                app:layout_constraintBottom_toTopOf="@+id/opponentText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/opponentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half_normal_margin"
+                android:ellipsize="end"
+                android:text="@string/opponent"
+                android:textColor="@color/colorGrey"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/statOpponent"
+                app:layout_constraintStart_toStartOf="@+id/statOpponent"
+                app:layout_constraintTop_toBottomOf="@+id/statOpponent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

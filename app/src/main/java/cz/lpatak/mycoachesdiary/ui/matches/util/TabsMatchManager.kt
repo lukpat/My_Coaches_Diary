@@ -12,18 +12,18 @@ import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
 
 class TabsMatchManager(
-    fragmentManager: FragmentManager,
-    lifecycle: Lifecycle,
-    args: MatchDetailFragmentArgs,
-    UIModel: MatchUIModel,
-    statsUIModel: StatsUIModel,
-    binding: FragmentMatchDetailInfoBinding
+        fragmentManager: FragmentManager,
+        lifecycle: Lifecycle,
+        args: MatchDetailFragmentArgs,
+        UIModel: MatchUIModel,
+        statsUIModel: StatsUIModel,
+        binding: FragmentMatchDetailInfoBinding
 ) :
-    FragmentStateAdapter(fragmentManager, lifecycle) {
+        FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragments: ArrayList<Fragment> = arrayListOf(
-        MatchDetailFragmentInfo(args.match, UIModel, binding),
-        MatchDetailFragmentStats(args.match, statsUIModel)
+            MatchDetailFragmentInfo(args.match, UIModel, binding),
+            MatchDetailFragmentStats(args.match, statsUIModel)
     )
 
     override fun getItemCount(): Int {

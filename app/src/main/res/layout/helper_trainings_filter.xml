@@ -2,15 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<data>
-    <variable
-        name="dateFromVal"
-        type="String"/>
+    <data>
 
-    <variable
-        name="dateToVal"
-        type="String" />
-</data>
+        <variable
+            name="dateFromVal"
+            type="String" />
+
+        <variable
+            name="dateToVal"
+            type="String" />
+    </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,11 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/normal_margin"
-            android:orientation="horizontal"
             android:gravity="center_horizontal"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -38,24 +39,24 @@
                     android:id="@+id/dateFrom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:focusable="false"
+                    android:inputType="text"
                     android:text="@{dateFromVal}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="120dp"
-                android:layout_marginStart="32dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:hint="@string/date_to">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dateTo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:focusable="false"
+                    android:inputType="text"
                     android:text="@{dateToVal}" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,8 +67,8 @@
             android:id="@+id/dateError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"

@@ -1,176 +1,182 @@
 package cz.lpatak.mycoachesdiary.ui.stats.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
-import cz.lpatak.mycoachesdiary.data.model.DBConstants
 import cz.lpatak.mycoachesdiary.data.model.Match
-import cz.lpatak.mycoachesdiary.data.repositories.StatsRepositoryImpl
-import cz.lpatak.mycoachesdiary.util.PreferenceManger
+import cz.lpatak.mycoachesdiary.data.model.Result
+import cz.lpatak.mycoachesdiary.data.repositories.MatchRepositoryImpl
+import cz.lpatak.mycoachesdiary.databinding.FragmentMatchStatsBinding
+import kotlinx.coroutines.Dispatchers
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.util.*
 
-class MatchStatsViewModel(
-    private val preferenceManager: PreferenceManger,
-    private val statsRepository: StatsRepositoryImpl
-) : ViewModel() {
-    private val matchList: MutableList<Match?> = mutableListOf()
-
-    var dateFrom: Timestamp = Timestamp(Date(0))
-    var dateTo: Timestamp = Timestamp(Date(0))
-
-    var matches = 0
-    private var playingTime = 0
-    var win = 0
-    var lost = 0
-    var draw = 0
-    var goalsScored = 0
-    var goalsConceded = 0
-    var winPercentage = 0.0
-
-    var powerPlaysTeam = 0
-    var powerPlaysOpponent = 0
-    private var powerPlaysTeamSuccess = 0
-    private var powerPlaysOpponentSuccess = 0
-    var powerPlaysSuccessRate = 0.0
-    var penaltyKillPercentage = 0.0
-
-    var shotsTeam = 0
-    var shotsOpponent = 0
-    var shotsToBlock = 0
-    var shotsToBlockPercentage = 0.0
-    var shotsOutside = 0
-    var shotsOutsidePercentage = 0.0
-    var shotsBalance = 0
-    var shotsPerGame = 0.0
-    var shotsPerMinute = 0.0
-    var goalkeeperSavesPercentage = 0.0
-    var goalShotPercentage = 0.0
-    var shotsOnGoalPercentage = 0.0
+class MatchStatsViewModel(private val matchRepository: MatchRepositoryImpl) : ViewModel() {
+    private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
 
 
-    fun loadMatchStats(
-        matchCategory: String,
-        all: Boolean,
-        dateFrom: Timestamp,
-        dateTo: Timestamp
-    ) {
-        statsRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo)
-            .addOnSuccessListener {
-                if (!it.isEmpty) {
-                    val list = it.documents
-                    for (doc in list) {
-                        val match = doc.toObject(Match::class.java)
-                        matchList.add(match)
-                    }
+    fun loadMatchesFilter(
+            matchCategory: String,
+            all: Boolean,
+            dateFrom: Timestamp,
+            dateTo: Timestamp
+    ): LiveData<Result<List<Match>>> =
+            liveData(coroutineContext) {
+                emit(Result.Loading)
+
+                val result = matchRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo)
+
+                if (result is Result.Success) {
+                    result.data
+                    emit(result)
                 }
-                matches = matchList.size
-            }.continueWith {
-                if (matches != 0) getMatchesStats()
-            }.continueWith {
-                if (matches != 0) calculateMatchStats()
             }
+
+    fun setUI(matchList: MutableList<Match>, binding: FragmentMatchStatsBinding) {
+        setMatchCategory(matchList, binding)
+        setMatchStats(matchList, binding)
+        setShotsStats(matchList, binding)
+        setCompareStats(matchList, binding)
     }
 
+    private fun setMatchCategory(matchList: MutableList<Match>, binding: FragmentMatchStatsBinding) {
+        var league = 0
+        var tournament = 0
+        var friendly = 0
 
-    private fun getMatchesStats() {
         for (match in matchList) {
-            if (match != null) {
-                getScoreInfo(match)
-                getPowerPlaysInfo(match)
-                getShotsInfo(match)
+            when (match.type) {
+                "Liga" -> {
+                    league++
+                }
+                "Turnaj" -> {
+                    tournament++
+                }
+                "Přátelák" -> {
+                    friendly++
+                }
             }
+        }
+
+        with(binding) {
+            matchCategoryLayout.league.text = league.toString()
+            matchCategoryLayout.tournament.text = tournament.toString()
+            matchCategoryLayout.friendly.text = friendly.toString()
         }
     }
 
-    private fun calculateMatchStats() {
-        calculateWinPercentage()
-        calculatePowerPlaysStats()
-        calculateShotsStats()
-    }
+    private fun setMatchStats(matchList: MutableList<Match>, binding: FragmentMatchStatsBinding) {
+        var w = 0
+        var d = 0
+        var l = 0
 
-    private fun getScoreInfo(match: Match) {
-        goalsScored += match.scoreTeam
-        goalsConceded += match.scoreOpponent
-        playingTime += match.playingTime
-        when {
-            match.scoreTeam == match.scoreOpponent -> {
-                draw++
+        for (match in matchList) {
+            when {
+                match.scoreTeam == match.scoreOpponent -> {
+                    d++
+                }
+                match.scoreTeam > match.scoreOpponent -> {
+                    w++
+                }
+                match.scoreTeam < match.scoreOpponent -> {
+                    l++
+                }
             }
-            match.scoreTeam > match.scoreOpponent -> {
-                win++
-            }
-            else -> {
-                lost++
-            }
+        }
+
+        val matchCountText = "Celkový počet zápasů: " + matchList.size.toString()
+        val winPercentage = BigDecimal((w.toDouble() / matchList.size) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + " %"
+
+        with(binding) {
+            matchesCount.text = matchCountText
+            matchResultsLayout.wins.text = w.toString()
+            matchResultsLayout.draws.text = d.toString()
+            matchResultsLayout.lost.text = l.toString()
+            matchResultsLayout.winsPercentage.text = winPercentage
         }
     }
 
-    private fun getPowerPlaysInfo(match: Match) {
-        powerPlaysTeam += match.powerPlaysTeam
-        powerPlaysOpponent += match.powerPlaysOpponent
-        powerPlaysTeamSuccess += match.powerPlaysTeamSuccess
-        powerPlaysOpponentSuccess += match.powerPlaysOpponentSuccess
+    private fun setShotsStats(matchList: MutableList<Match>, binding: FragmentMatchStatsBinding) {
+        var shotsOn = 0
+        var shotsOutside = 0
+        var shotsToBlock = 0
+
+        for (match in matchList) {
+            shotsOn += match.shotsTeam
+            shotsOutside += match.shotsOutside
+            shotsToBlock += match.shotsToBlock
+        }
+
+        val shots = shotsOn + shotsOutside + shotsToBlock
+
+        with(binding) {
+            shotsLayout.shots.text = shots.toString()
+            shotsLayout.shotsOnGoal.text = shotsOn.toString()
+            shotsLayout.shotsOutside.text = shotsOutside.toString()
+            shotsLayout.shotsToBlock.text = shotsToBlock.toString()
+        }
     }
 
-    private fun getShotsInfo(match: Match) {
-        shotsTeam += match.shotsTeam
-        shotsOpponent += match.shotsOpponent
-        shotsToBlock += match.shotsToBlock
-        shotsOutside += match.shotsOutside
-    }
+    private fun setCompareStats(matchList: MutableList<Match>, binding: FragmentMatchStatsBinding) {
+        var scoreTeam = 0
+        var scoreOpponent = 0
+        var powerPlaysTeam = 0
+        var powerPlaysOpponent = 0
+        var powerPlaysTeamSuccess = 0
+        var powerPlaysOpponentSuccess = 0
+        var shotsTeam = 0
+        var shotsOpponent = 0
 
-    private fun calculateWinPercentage() {
-        winPercentage = ((win.toDouble() / matches) * 100)
-        winPercentage = BigDecimal(winPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-    }
+        for (match in matchList) {
+            scoreTeam += match.scoreTeam
+            scoreOpponent += match.scoreOpponent
+            powerPlaysTeam += match.powerPlaysTeam
+            powerPlaysOpponent += match.powerPlaysOpponent
+            powerPlaysTeamSuccess += match.powerPlaysTeamSuccess
+            powerPlaysOpponentSuccess += match.powerPlaysOpponentSuccess
+            shotsTeam += match.shotsTeam
+            shotsOpponent += match.shotsOpponent
+        }
 
-    private fun calculatePowerPlaysStats() {
-        powerPlaysSuccessRate = (powerPlaysTeamSuccess.toDouble() / powerPlaysTeam) * 100
-        powerPlaysSuccessRate =
-            BigDecimal(powerPlaysSuccessRate).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        var powerPlaysTeamSuccessStr = "0"
+        if (powerPlaysTeam != 0) {
+            powerPlaysTeamSuccessStr = BigDecimal((powerPlaysTeamSuccess.toDouble() / powerPlaysTeam) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+        }
 
-        penaltyKillPercentage = (powerPlaysOpponentSuccess.toDouble() / powerPlaysOpponent) * 100
-        penaltyKillPercentage =
-            BigDecimal(penaltyKillPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-    }
+        var powerPlaysOpponentSuccessStr = "0"
+        if (powerPlaysOpponent != 0) {
+            powerPlaysOpponentSuccessStr = BigDecimal((powerPlaysOpponentSuccess.toDouble() / powerPlaysOpponent) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+        }
 
-    private fun calculateShotsStats() {
-        val shotsTeamDouble = shotsTeam.toDouble()
-        val totalShots = shotsToBlock + shotsOutside + shotsTeam
+        var goalkeepersPercTeam = "0"
+        if (shotsOpponent != 0) {
+            goalkeepersPercTeam = BigDecimal((scoreOpponent.toDouble() / shotsOpponent) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+        }
 
-        shotsPerGame = (shotsTeamDouble / matches)
-        shotsPerGame = BigDecimal(shotsPerGame).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-
-        shotsPerMinute = (shotsTeamDouble / playingTime)
-        shotsPerMinute = BigDecimal(shotsPerMinute).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-
-        shotsBalance = shotsTeam - shotsOpponent
-
-        goalkeeperSavesPercentage = 100 - ((goalsConceded.toDouble() / shotsOpponent) * 100)
-        goalkeeperSavesPercentage =
-            BigDecimal(goalkeeperSavesPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-
-        goalShotPercentage = (goalsScored / shotsTeamDouble) * 100
-        goalShotPercentage =
-            BigDecimal(goalShotPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-
-        shotsOnGoalPercentage = (shotsTeamDouble / totalShots) * 100
-        shotsOnGoalPercentage =
-            BigDecimal(shotsOnGoalPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        var goalkeepersPercOpponent = "0"
+        if (shotsTeam != 0) {
+            goalkeepersPercOpponent = BigDecimal((scoreTeam.toDouble() / shotsTeam) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+        }
 
 
-        shotsOutsidePercentage = (shotsOutside.toDouble() / totalShots) * 100
-        shotsOutsidePercentage =
-            BigDecimal(shotsOutsidePercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        with(binding) {
+            goalsLayout.statTeam.text = scoreTeam.toString()
+            goalsLayout.statOpponent.text = scoreOpponent.toString()
 
+            powerPlaysLayout.statTeam.text = powerPlaysTeam.toString()
+            powerPlaysLayout.statOpponent.text = powerPlaysOpponent.toString()
 
-        shotsToBlockPercentage = (shotsToBlock.toDouble() / totalShots) * 100
-        shotsToBlockPercentage =
-            BigDecimal(shotsToBlockPercentage).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-    }
+            powerPlaysSuccesLayout.statTeam.text = powerPlaysTeamSuccessStr
+            powerPlaysSuccesLayout.statOpponent.text = powerPlaysOpponentSuccessStr
 
-    fun isTeamSelected(): Boolean {
-        return !preferenceManager.getStringValue(DBConstants.TEAM_ID_KEY).isNullOrEmpty()
+            shotsLayout2.statTeam.text = shotsTeam.toString()
+            shotsLayout2.statOpponent.text = shotsOpponent.toString()
+
+            goalkeeperPercLayout.statTeam.text = goalkeepersPercTeam
+            goalkeeperPercLayout.statOpponent.text = goalkeepersPercOpponent
+        }
+
     }
 }

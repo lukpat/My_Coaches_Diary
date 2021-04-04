@@ -13,21 +13,21 @@ import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
 
 
 class MatchDetailFragmentStats(
-    private val matchFromArgs: Match,
-    private val statsUIModel: StatsUIModel
+        private val matchFromArgs: Match,
+        private val statsUIModel: StatsUIModel
 ) : Fragment() {
     private lateinit var binding: FragmentMatchDetailStatsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_match_detail_stats,
-            container,
-            false
+                inflater,
+                R.layout.fragment_match_detail_stats,
+                container,
+                false
         )
         with(binding) {
             lifecycleOwner = this@MatchDetailFragmentStats
@@ -47,7 +47,7 @@ class MatchDetailFragmentStats(
         statsUIModel.powerPlaysOpponent.value = matchFromArgs.powerPlaysOpponent.toString()
         statsUIModel.powerPlaysTeamSuccess.value = matchFromArgs.powerPlaysTeamSuccess.toString()
         statsUIModel.powerPlaysOpponentSuccess.value =
-            matchFromArgs.powerPlaysOpponentSuccess.toString()
+                matchFromArgs.powerPlaysOpponentSuccess.toString()
         statsUIModel.shotsTeam.value = matchFromArgs.shotsTeam.toString()
         statsUIModel.shotsOpponent.value = matchFromArgs.shotsOpponent.toString()
         statsUIModel.shotsToBlock.value = matchFromArgs.shotsToBlock.toString()

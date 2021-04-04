@@ -14,8 +14,8 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class TrainingStatsViewModel(
-    preferenceManager: PreferenceManger,
-    private val statsRepository: StatsRepositoryImpl
+        preferenceManager: PreferenceManger,
+        private val statsRepository: StatsRepositoryImpl
 ) : ViewModel() {
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
     val isTeamSelected = !preferenceManager.getStringValue(DBConstants.TEAM_ID_KEY).isNullOrEmpty()

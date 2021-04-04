@@ -27,12 +27,12 @@ class TrainingDetailFragment : Fragment() {
     private val trainingUIModel: TrainingUIModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
 
         setupViewPager()
         setTraining()
@@ -53,13 +53,13 @@ class TrainingDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                    .setMessage(R.string.delete_trainig_alert)
-                    .setPositiveButton(R.string.yes) { _, _ ->
-                        trainingsViewModel.deleteTraining(args.training.id.toString())
-                        findNavController().navigateUp()
-                    }
-                    .setNegativeButton(R.string.no, null)
-                    .show()
+                        .setMessage(R.string.delete_trainig_alert)
+                        .setPositiveButton(R.string.yes) { _, _ ->
+                            trainingsViewModel.deleteTraining(args.training.id.toString())
+                            findNavController().navigateUp()
+                        }
+                        .setNegativeButton(R.string.no, null)
+                        .show()
             }
             R.id.save -> {
                 if (binding.viewPager.currentItem == 0) {
@@ -75,7 +75,7 @@ class TrainingDetailFragment : Fragment() {
 
     private fun setupViewPager() {
         val adapter =
-            TabsTrainingManager(activity?.supportFragmentManager!!, lifecycle, trainingUIModel)
+                TabsTrainingManager(activity?.supportFragmentManager!!, lifecycle, trainingUIModel)
         binding.viewPager.adapter = adapter
 
         val names: Array<String> = arrayOf("Informace", "Cvičení")
@@ -93,16 +93,16 @@ class TrainingDetailFragment : Fragment() {
             }
 
             trainingsViewModel.updateTraining(
-                Training(
-                    args.training.id,
-                    trainingUIModel.place.value,
-                    trainingUIModel.rating.value!!.toInt(),
-                    date,
-                    trainingUIModel.startTime.value,
-                    trainingUIModel.endTime.value,
-                    trainingUIModel.players.value!!.toInt(),
-                    trainingUIModel.goalkeepers.value!!.toInt()
-                )
+                    Training(
+                            args.training.id,
+                            trainingUIModel.place.value,
+                            trainingUIModel.rating.value!!.toInt(),
+                            date,
+                            trainingUIModel.startTime.value,
+                            trainingUIModel.endTime.value,
+                            trainingUIModel.players.value!!.toInt(),
+                            trainingUIModel.goalkeepers.value!!.toInt()
+                    )
             )
             showToast(getString(R.string.changes_were_saved))
         } else {

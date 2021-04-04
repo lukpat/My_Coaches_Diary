@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="statsModel"
             type="cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel" />
@@ -19,18 +20,18 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-        <include
-            android:id="@+id/helper_match_stats_layout"
-            app:statsModel="@{statsModel}"
-            layout="@layout/helper_match_stats_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/half_normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:layout_marginBottom="@dimen/double_normal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            <include
+                android:id="@+id/helper_match_stats_layout"
+                layout="@layout/helper_match_stats_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/half_normal_margin"
+                android:layout_marginEnd="@dimen/normal_margin"
+                android:layout_marginBottom="@dimen/double_normal_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:statsModel="@{statsModel}" />
 
         </ScrollView>
 

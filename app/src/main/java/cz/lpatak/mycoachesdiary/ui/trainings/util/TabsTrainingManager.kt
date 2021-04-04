@@ -9,15 +9,15 @@ import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentInfo
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 
 class TabsTrainingManager(
-    fragmentManager: FragmentManager,
-    lifecycle: Lifecycle,
-    UIModel: TrainingUIModel
+        fragmentManager: FragmentManager,
+        lifecycle: Lifecycle,
+        UIModel: TrainingUIModel
 ) :
-    FragmentStateAdapter(fragmentManager, lifecycle) {
+        FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragments: ArrayList<Fragment> = arrayListOf(
-        TrainingDetailFragmentInfo(UIModel),
-        TrainingDetailFragmentExercises()
+            TrainingDetailFragmentInfo(UIModel),
+            TrainingDetailFragmentExercises()
     )
 
     override fun getItemCount(): Int {

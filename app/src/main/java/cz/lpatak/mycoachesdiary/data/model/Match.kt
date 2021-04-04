@@ -7,44 +7,44 @@ import com.google.firebase.firestore.DocumentId
 import java.util.*
 
 data class Match(
-    @DocumentId
-    val id: String?,
-    var team: String?,
-    val opponent: String?,
-    val date: Timestamp?,
-    val type: String?,
-    val playingTime: Int,
-    val note: String?,
-    //stats part
-    val scoreTeam: Int,
-    val scoreOpponent: Int,
-    val powerPlaysTeam: Int,
-    val powerPlaysOpponent: Int,
-    val powerPlaysTeamSuccess: Int,
-    val powerPlaysOpponentSuccess: Int,
-    val shotsTeam: Int,
-    val shotsOpponent: Int,
-    val shotsToBlock: Int,
-    val shotsOutside: Int
+        @DocumentId
+        val id: String?,
+        var team: String?,
+        val opponent: String?,
+        val date: Timestamp?,
+        val type: String?,
+        val playingTime: Int,
+        val note: String?,
+        //stats part
+        val scoreTeam: Int,
+        val scoreOpponent: Int,
+        val powerPlaysTeam: Int,
+        val powerPlaysOpponent: Int,
+        val powerPlaysTeamSuccess: Int,
+        val powerPlaysOpponentSuccess: Int,
+        val shotsTeam: Int,
+        val shotsOpponent: Int,
+        val shotsToBlock: Int,
+        val shotsOutside: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        Timestamp(Date(parcel.readLong())),
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt()
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            Timestamp(Date(parcel.readLong())),
+            parcel.readString(),
+            parcel.readInt(),
+            parcel.readString(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt()
     )
 
     @Suppress("unused")

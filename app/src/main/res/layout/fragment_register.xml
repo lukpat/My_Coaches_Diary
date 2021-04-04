@@ -29,7 +29,7 @@
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +48,7 @@
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textWebPassword"/>
+                android:inputType="textWebPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +68,7 @@
                 android:id="@+id/etPassword2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textWebPassword"/>
+                android:inputType="textWebPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +80,7 @@
             android:text="@string/switch_to_login"
             app:layout_constraintEnd_toEndOf="@+id/password2"
             app:layout_constraintStart_toStartOf="@+id/password2"
-            app:layout_constraintTop_toBottomOf="@+id/password2"/>
+            app:layout_constraintTop_toBottomOf="@+id/password2" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
@@ -91,7 +91,7 @@
             android:text="@string/action_register"
             app:layout_constraintEnd_toEndOf="@+id/password"
             app:layout_constraintStart_toStartOf="@+id/password"
-            app:layout_constraintTop_toBottomOf="@+id/switchToLogin"/>
+            app:layout_constraintTop_toBottomOf="@+id/switchToLogin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

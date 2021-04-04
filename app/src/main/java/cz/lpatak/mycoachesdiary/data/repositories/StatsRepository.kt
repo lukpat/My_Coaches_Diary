@@ -6,10 +6,10 @@ import com.google.firebase.firestore.QuerySnapshot
 
 interface StatsRepository {
     fun getMatchesFilter(
-        matchCategory: String,
-        all: Boolean,
-        dateFrom: Timestamp,
-        dateTo: Timestamp
+            matchCategory: String,
+            all: Boolean,
+            dateFrom: Timestamp,
+            dateTo: Timestamp
     ): Task<QuerySnapshot>
 
     fun getTrainings(dateFrom: Timestamp, dateTo: Timestamp): Task<QuerySnapshot>

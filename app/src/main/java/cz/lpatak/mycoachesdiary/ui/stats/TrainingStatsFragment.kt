@@ -24,12 +24,12 @@ class TrainingStatsFragment : Fragment() {
     private val args: TrainingStatsFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_training_stats, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_training_stats, container, false)
 
         with(binding) {
             chart.description.isEnabled = false

@@ -19,8 +19,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/normal_margin"
             tools:context=".ui.trainings.TrainingDetailFragmentInfo">
@@ -56,8 +56,8 @@
                 android:id="@+id/playersText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="@dimen/half_normal_margin"
+                android:layout_marginTop="2dp"
                 android:selectAllOnFocus="true"
                 android:text="@string/playersHint"
                 app:layout_constraintEnd_toEndOf="@+id/players"
@@ -87,8 +87,8 @@
                 android:id="@+id/goalkeepers_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="@dimen/half_normal_margin"
+                android:layout_marginTop="2dp"
                 android:selectAllOnFocus="true"
                 android:text="@string/goalkeeprsHint"
                 app:layout_constraintEnd_toEndOf="@+id/goalkeepers"
@@ -117,13 +117,13 @@
                 android:id="@+id/ratingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="@dimen/half_normal_margin"
+                android:layout_marginTop="2dp"
                 android:selectAllOnFocus="true"
                 android:text="@string/rating_helper_text"
                 app:layout_constraintEnd_toEndOf="@+id/rating"
                 app:layout_constraintStart_toStartOf="@+id/rating"
-                app:layout_constraintTop_toBottomOf="@+id/rating"/>
+                app:layout_constraintTop_toBottomOf="@+id/rating" />
 
             <TextView
                 android:id="@+id/plank"
@@ -133,7 +133,7 @@
                 android:selectAllOnFocus="true"
                 app:layout_constraintEnd_toEndOf="@+id/ratingText"
                 app:layout_constraintStart_toStartOf="@+id/ratingText"
-                app:layout_constraintTop_toBottomOf="@+id/ratingText"/>
+                app:layout_constraintTop_toBottomOf="@+id/ratingText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

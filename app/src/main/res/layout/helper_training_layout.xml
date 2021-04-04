@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="trainingModel"
             type="cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel" />
@@ -46,8 +47,8 @@
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:focusable="false"
+                android:inputType="text"
                 android:text="@{trainingModel.date}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,8 +67,8 @@
                 android:id="@+id/startTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:focusable="false"
+                android:inputType="text"
                 android:text="@{trainingModel.startTime}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,8 +87,8 @@
                 android:id="@+id/endTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:focusable="false"
+                android:inputType="text"
                 android:text="@{trainingModel.endTime}" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

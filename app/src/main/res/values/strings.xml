@@ -71,7 +71,6 @@
     <string name="note">poznámka</string>
     <string name="powerPlays">přesilovky</string>
     <string name="score">skóre</string>
-    <string name="powerPlaysSuccess">úspěšných přesilovek</string>
     <string name="shots">střely</string>
     <string name="shotsToBlock">střely do bloku</string>
     <string name="shotsOutside">střely mimo</string>
@@ -94,7 +93,7 @@
     <string name="draws">remízy</string>
     <string name="losses">prohry</string>
     <string name="winPercentage">% výher</string>
-    <string name="goalkeeprPercentage">% zákroků gólmanů</string>
+    <string name="goalkeeprPercentage">% zákroků</string>
     <string name="shots_opponent">střely soupeř</string>
     <string name="goals">góly</string>
     <string name="shots_on_goal">na bránu</string>
@@ -113,7 +112,7 @@
     <string name="wrong_values_save_error">Nemáte správně vyplněny hodnoty, uložení neproběhlo!</string>
     <string name="scoreOpponent">góly soupeř</string>
     <string name="team">tým</string>
-    <string name="success">úspěšných</string>
+    <string name="success">% úspěšnost</string>
     <string name="playingTimeHint">Jako hrací čas jsou dovoleny hodnoty 0–100.</string>
     <string name="exercise_error">Musíte vyplnit název cvičení a jeho popis, jinak jej není možné vytvořit.</string>
     <string name="exercise_created">Cvičení bylo vytvořeno.</string>
@@ -128,6 +127,14 @@
     <string name="add_exercise_to_training">Přidat cvičení do tréninku</string>
     <string name="cancel">zrušit</string>
     <string name="exercise_time_must_be_between">Čas cvičení musí být mezi 1 minutou a 100 minutami.</string>
+    <string name="loading_stats">Načítám statistiky...</string>
+    <string name="advanced_stats">Porovnání se soupeři:</string>
+    <string name="shot_stats">Statistiky střel:</string>
+    <string name="sum">celkem</string>
+    <string name="league">liga</string>
+    <string name="tournament">turnaj</string>
+    <string name="friendly">přátelák</string>
+    <string name="no_data_found">Zadaným kritériím neodpovídají žádná data, zkusto to prosím znovu.</string>
 
     <string-array name="exercise_owner">
         <item>Jen moje cvičení</item>
