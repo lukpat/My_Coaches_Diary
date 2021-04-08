@@ -14,8 +14,6 @@ import cz.lpatak.mycoachesdiary.data.model.Result
 import cz.lpatak.mycoachesdiary.databinding.FragmentMatchStatsBinding
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.MatchStatsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 class MatchStatsFragment : Fragment() {
     private lateinit var binding: FragmentMatchStatsBinding

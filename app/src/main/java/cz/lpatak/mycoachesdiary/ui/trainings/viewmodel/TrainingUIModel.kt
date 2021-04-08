@@ -8,7 +8,6 @@ import java.util.*
 
 class TrainingUIModel : ObservableViewModel() {
     val areInputsReady = MediatorLiveData<Boolean>()
-    val areInputsReady2 = MediatorLiveData<Boolean>()
 
     val place = MutableLiveData("")
     val rating = MutableLiveData("")
@@ -24,14 +23,6 @@ class TrainingUIModel : ObservableViewModel() {
         areInputsReady.addSource(date) { areInputsReady.value = checkInputsAdd() }
         areInputsReady.addSource(startTime) { areInputsReady.value = checkInputsAdd() }
         areInputsReady.addSource(endTime) { areInputsReady.value = checkInputsAdd() }
-
-        areInputsReady2.addSource(place) { areInputsReady2.value = checkInputs() }
-        areInputsReady2.addSource(date) { areInputsReady2.value = checkInputs() }
-        areInputsReady2.addSource(startTime) { areInputsReady2.value = checkInputs() }
-        areInputsReady2.addSource(endTime) { areInputsReady2.value = checkInputs() }
-        areInputsReady2.addSource(players) { areInputsReady2.value = checkInputs() }
-        areInputsReady2.addSource(goalkeepers) { areInputsReady2.value = checkInputs() }
-        areInputsReady2.addSource(rating) { areInputsReady2.value = checkInputs() }
     }
 
     private fun checkInputsAdd(): Boolean {
@@ -61,10 +52,10 @@ class TrainingUIModel : ObservableViewModel() {
     }
 
     private fun checkPlayers(): Boolean {
-        return rating.value!!.toInt() !in 0..50
+        return players.value!!.toInt() !in 0..50
     }
 
     private fun checkGoalkeepers(): Boolean {
-        return rating.value!!.toInt() !in 0..20
+        return goalkeepers.value!!.toInt() !in 0..20
     }
 }

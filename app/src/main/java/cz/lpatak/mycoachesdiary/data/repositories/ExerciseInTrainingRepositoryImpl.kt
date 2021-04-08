@@ -51,6 +51,26 @@ class ExerciseInTrainingRepositoryImpl(
                         }
             }
 
+    suspend fun getExercises(path: String): Result<List<ExerciseInTraining>> =
+            suspendCoroutine { cont ->
+                firestoreSource.firestore.collection(TeamsCOLLECTION)
+                            .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
+                            .collection(TrainingsCOLLECTION)
+                            .document((path))
+                            .collection(ExercisesCOLLECTION)
+                        .get()
+                        .addOnSuccessListener {
+                            try {
+                                cont.resume(Result.Success(it.toObjects()))
+                            } catch (e: Exception) {
+                                cont.resume(Result.Error(e))
+                            }
+                        }.addOnFailureListener {
+                            cont.resume(Result.Error(it))
+                        }
+            }
+
+
     override fun updateExerciseInTraining(exercise: ExerciseInTraining) {
         val data = hashMapOf(
                 COLUMN_NAME to exercise.name,

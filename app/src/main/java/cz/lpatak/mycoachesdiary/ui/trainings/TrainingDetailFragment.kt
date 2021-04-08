@@ -7,16 +7,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Training
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailBinding
-import cz.lpatak.mycoachesdiary.ui.trainings.util.TabsTrainingManager
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import cz.lpatak.mycoachesdiary.util.convertLongToDate
 import cz.lpatak.mycoachesdiary.util.showToast
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -34,7 +33,14 @@ class TrainingDetailFragment : Fragment() {
         binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
 
-        setupViewPager()
+        with (binding){
+            btnTrainingExercises.setOnClickListener {
+                val directions = TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationTrainingDetailExercises()
+                findNavController().navigate(directions)
+            }
+            trainingModel = trainingUIModel
+        }
+
         setTraining()
 
         return binding.root
@@ -62,27 +68,10 @@ class TrainingDetailFragment : Fragment() {
                         .show()
             }
             R.id.save -> {
-                if (binding.viewPager.currentItem == 0) {
                     updateTraining()
-                } else {
-                    // TODO:!!!!!!
-                    showToast("niciiiiiiiiiiiiiiiiiiiiiiiiiiiic")
-                }
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun setupViewPager() {
-        val adapter =
-                TabsTrainingManager(activity?.supportFragmentManager!!, lifecycle, trainingUIModel)
-        binding.viewPager.adapter = adapter
-
-        val names: Array<String> = arrayOf("Informace", "Cvičení")
-
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = names[position]
-        }.attach()
     }
 
     private fun updateTraining() {
@@ -109,7 +98,6 @@ class TrainingDetailFragment : Fragment() {
             showToast(getString(R.string.wrong_values_save_error))
         }
     }
-
 
     private fun setTraining() {
         val trainingFromArgs = args.training

@@ -18,13 +18,37 @@
         android:layout_height="match_parent"
         tools:context=".ui.trainigs.TrainingDetailFragmentExercises">
 
+        <TextView
+            android:id="@+id/exerciseTimeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/exercise_time_in_training"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/exerciseTime"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/exerciseTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:layout_marginEnd="@dimen/double_normal_margin"
+            app:layout_constraintStart_toEndOf="@+id/exerciseTimeTxt"
+            app:layout_constraintTop_toTopOf="@+id/exerciseTimeTxt"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/half_normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/half_normal_margin"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/exerciseTimeTxt">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exercises_list"

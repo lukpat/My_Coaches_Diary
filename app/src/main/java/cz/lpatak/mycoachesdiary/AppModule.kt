@@ -33,13 +33,12 @@ val appModule = module {
     single { TrainingRepositoryImpl(get(), get()) }
     single { ExerciseRepositoryImpl(get()) }
     single { ExerciseInTrainingRepositoryImpl(get(), get()) }
-    single { StatsRepositoryImpl(get(), get()) }
 
     viewModel { AuthViewModel(get(), get(), get()) }
     viewModel { MyTeamsViewModel(get(), get()) }
     viewModel { TrainingsViewModel(get(), get(), get()) }
     viewModel { MatchStatsViewModel(get()) }
-    viewModel { TrainingStatsViewModel(get(), get()) }
+    viewModel { TrainingStatsViewModel(get(), get(), get()) }
     viewModel { MatchesViewModel(get(), get()) }
     viewModel { ExercisesViewModel(get()) }
 

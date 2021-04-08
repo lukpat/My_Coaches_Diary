@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +14,18 @@ import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
+import cz.lpatak.mycoachesdiary.data.model.ExerciseInTraining
+import cz.lpatak.mycoachesdiary.data.model.Result
+import cz.lpatak.mycoachesdiary.data.model.Training
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingStatsBinding
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.TrainingStatsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrainingStatsFragment : Fragment() {
     private lateinit var binding: FragmentTrainingStatsBinding
-    private val viewModel: TrainingStatsViewModel by viewModel()
+    private val trainingStatsViewModel: TrainingStatsViewModel by viewModel()
     private val args: TrainingStatsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -39,12 +44,41 @@ class TrainingStatsFragment : Fragment() {
             chart.transparentCircleRadius = 50f
         }
 
-        setUI()
-
+        loadTrainings(args.dateFrom, args.dateTo)
 
         return binding.root
     }
 
+    private fun loadTrainings(
+            dateFrom: Timestamp,
+            dateTo: Timestamp
+    ) {
+        val trainingsList: MutableList<Training> = mutableListOf()
+
+        trainingStatsViewModel.loadTrainings(dateFrom, dateTo)
+                .observe(viewLifecycleOwner, { result ->
+                    if (result is Result.Success) {
+                        trainingsList.addAll(result.data)
+                        setUITraining(trainingsList)
+                        loadExercises(trainingsList)
+                    }
+                })
+    }
+
+    private fun loadExercises(trainingList: MutableList<Training>) {
+        val exerciseList: MutableList<ExerciseInTraining> = mutableListOf()
+
+        for (training in trainingList) {
+            trainingStatsViewModel.loadExercises(training.id.toString()).observe(
+                    viewLifecycleOwner, { result ->
+                if (result is Result.Success) {
+                    exerciseList.addAll(result.data)
+                    setUI(exerciseList)
+                    setUI(exerciseList)
+                }
+            })
+        }
+    }
 
     private fun generateCenterText(): SpannableString {
         val s = SpannableString(getString(R.string.training_stats_graph_title))
@@ -52,10 +86,18 @@ class TrainingStatsFragment : Fragment() {
         return s
     }
 
-    private fun setUI() {
-        viewModel.loadTrainingsStats(args.dateFrom, args.dateTo)
+    private fun setUITraining(trainingList: MutableList<Training>) {
+        if (trainingList.size == 0) {
+            binding.moreThanZero = false
+            binding.noTrainings.text = getString(R.string.no_data_found)
+        } else {
+            binding.moreThanZero = true
+            trainingStatsViewModel.setTrainingStats(trainingList, binding)
+        }
+    }
 
-        val ds1 = PieDataSet(viewModel.getEntries(), "")
+    private fun setUI(exerciseList: MutableList<ExerciseInTraining>) {
+        val ds1 = PieDataSet(trainingStatsViewModel.getEntries(exerciseList), "")
         ds1.setColors(*ColorTemplate.PASTEL_COLORS)
         ds1.sliceSpace = 2f
         ds1.valueTextColor = Color.WHITE
@@ -63,6 +105,5 @@ class TrainingStatsFragment : Fragment() {
 
         val dataSet = PieData(ds1)
         binding.chart.data = dataSet
-
     }
 }

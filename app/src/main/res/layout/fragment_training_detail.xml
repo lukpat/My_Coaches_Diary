@@ -1,42 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="trainingModel"
+            type="cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/normal_margin"
+        android:fillViewport="true">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/half_normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
+            tools:context=".ui.trainings.TrainingDetailFragment">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/app_bar_layout"
+            <include
+                android:id="@+id/training_helper_layout"
+                layout="@layout/helper_training_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/white"
-                app:elevation="0dp">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:trainingModel="@{trainingModel}" />
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabIndicatorColor="@color/colorAccent"
-                    app:tabRippleColor="@color/colorAccent"
-                    app:tabSelectedTextColor="@color/colorPrimaryDark"
-                    app:tabTextColor="@color/colorPrimary" />
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager"
+            <include
+                android:id="@+id/training_helper_layout2"
+                layout="@layout/helper_training_layout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/app_bar_layout"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/training_helper_layout"
+                app:trainingModel="@{trainingModel}" />
 
-        </RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTrainingExercises"
+                style="@style/buttonBoldFilled"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/normal_margin"
+                android:text="@string/exercisesInTraining"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/training_helper_layout2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

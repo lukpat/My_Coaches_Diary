@@ -53,8 +53,8 @@
     <string name="endTime">konec</string>
     <string name="rating">úroveň</string>
     <string name="rating_helper_text">Úroveň je celé číslo v rozmezí 0–10.</string>
-    <string name="players_attendance">počet hráčů</string>
-    <string name="goalkeepers_attendance">počet brankářů</string>
+    <string name="players_attendance">hráčů</string>
+    <string name="goalkeepers_attendance">brankářů</string>
     <string name="delete_exercise_alert">Určitě chcete odstranit toto cvičení? Jeho záznamy v rámci tréninků zůstanou uložené, ale nebude možné zobrazit detaily tohoto cvičení.</string>
     <string name="impossible_delete_exercise_alert">Nejste autorem tohoto cvičení, takže jej nemůžete odstranit.</string>
     <string name="close">zavřít</string>
@@ -106,13 +106,13 @@
     <string name="date_to">datum do</string>
     <string name="time_from">začátek tréninku</string>
     <string name="time_to">konec tréninku</string>
-    <string name="goalkeeprsHint">Povolený počet brankářů na tréninku je 0–20.</string>
-    <string name="playersHint">Povolený počet hráčů na tréninku je 0–50.</string>
+    <string name="goalkeeprsHint">Povolený počet je 0–20.</string>
+    <string name="playersHint">Povolený počet je 0–50.</string>
     <string name="changes_were_saved">změny byly úspěšně uloženy</string>
     <string name="wrong_values_save_error">Nemáte správně vyplněny hodnoty, uložení neproběhlo!</string>
     <string name="scoreOpponent">góly soupeř</string>
     <string name="team">tým</string>
-    <string name="success">% úspěšnost</string>
+    <string name="success">z toho úspěšný</string>
     <string name="playingTimeHint">Jako hrací čas jsou dovoleny hodnoty 0–100.</string>
     <string name="exercise_error">Musíte vyplnit název cvičení a jeho popis, jinak jej není možné vytvořit.</string>
     <string name="exercise_created">Cvičení bylo vytvořeno.</string>
@@ -135,6 +135,8 @@
     <string name="tournament">turnaj</string>
     <string name="friendly">přátelák</string>
     <string name="no_data_found">Zadaným kritériím neodpovídají žádná data, zkusto to prosím znovu.</string>
+    <string name="exercisesInTraining">Obsah tréninku</string>
+    <string name="exercise_time_in_training">Celkový čas cvičení:</string>
 
     <string-array name="exercise_owner">
         <item>Jen moje cvičení</item>

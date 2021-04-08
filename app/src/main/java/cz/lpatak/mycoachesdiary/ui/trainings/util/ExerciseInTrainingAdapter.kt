@@ -15,6 +15,7 @@ import cz.lpatak.mycoachesdiary.databinding.ExerciseInTrainingItemBinding
 import cz.lpatak.mycoachesdiary.ui.base.DataBoundListAdapter
 import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentDirections
 import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises
+import cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercisesDirections
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 
 class ExerciseInTrainingAdapter(
@@ -86,7 +87,7 @@ class ExerciseInTrainingAdapter(
                 exerciseInTraining.imageUrl
         )
         val directions =
-                TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationExerciseDetail(
+                TrainingDetailFragmentExercisesDirections.actionNavigationTrainingDetailExercisesToNavigationExerciseDetail(
                         exercise
                 )
         view.findNavController().navigate(directions)

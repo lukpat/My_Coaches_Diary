@@ -31,9 +31,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/scoreTeam"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/team"
+            android:layout_marginEnd="@dimen/double_normal_margin"
             app:layout_constraintEnd_toStartOf="@id/scoreOpponent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scoreLayout">
@@ -49,9 +50,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/scoreOpponent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/opponent"
+            android:layout_marginStart="@dimen/double_normal_margin"
             app:layout_constraintBottom_toBottomOf="@+id/scoreTeam"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/scoreTeam"
@@ -84,10 +86,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/powerPlaysTeam"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/team"
-            app:layout_constraintEnd_toEndOf="@+id/scoreTeam"
+            android:layout_marginEnd="@dimen/double_normal_margin"
+            app:layout_constraintEnd_toStartOf="@+id/powerPlaysOpponent"
             app:layout_constraintStart_toStartOf="@+id/scoreTeam"
             app:layout_constraintTop_toBottomOf="@+id/powerPlaysLayout">
 
@@ -102,9 +105,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/powerPlaysOpponent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/opponent"
+            android:layout_marginStart="@dimen/double_normal_margin"
             app:layout_constraintBottom_toBottomOf="@+id/powerPlaysTeam"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/powerPlaysTeam"
@@ -120,11 +124,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/powerPlaysTeamSuccess"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_normal_margin"
             android:hint="@string/success"
-            app:layout_constraintEnd_toEndOf="@+id/powerPlaysTeam"
+            android:layout_marginEnd="@dimen/double_normal_margin"
+            app:layout_constraintEnd_toStartOf="@+id/powerPlaysOpponentSuccess"
             app:layout_constraintStart_toStartOf="@+id/powerPlaysTeam"
             app:layout_constraintTop_toBottomOf="@+id/powerPlaysTeam">
 
@@ -139,9 +144,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/powerPlaysOpponentSuccess"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/success"
+            android:layout_marginStart="@dimen/double_normal_margin"
             app:layout_constraintBottom_toBottomOf="@+id/powerPlaysTeamSuccess"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/powerPlaysTeamSuccess"
@@ -174,10 +180,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/shotsTeam"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/team"
-            app:layout_constraintEnd_toEndOf="@+id/powerPlaysTeam"
+            android:layout_marginEnd="@dimen/double_normal_margin"
+            app:layout_constraintEnd_toStartOf="@+id/shotsOpponent"
             app:layout_constraintStart_toStartOf="@+id/powerPlaysTeam"
             app:layout_constraintTop_toBottomOf="@+id/shotsLayout">
 
@@ -192,9 +199,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/shotsOpponent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/opponent"
+            android:layout_marginStart="@dimen/double_normal_margin"
             app:layout_constraintBottom_toBottomOf="@+id/shotsTeam"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shotsTeam"
@@ -210,11 +218,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/winsPercentage"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_normal_margin"
             android:hint="@string/ToBlock"
-            app:layout_constraintEnd_toEndOf="@+id/shotsTeam"
+            android:layout_marginEnd="@dimen/double_normal_margin"
+            app:layout_constraintEnd_toStartOf="@+id/shotsOutside"
             app:layout_constraintStart_toStartOf="@+id/shotsTeam"
             app:layout_constraintTop_toBottomOf="@+id/shotsTeam">
 
@@ -229,9 +238,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/shotsOutside"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/outside"
+            android:layout_marginStart="@dimen/double_normal_margin"
             app:layout_constraintBottom_toBottomOf="@+id/winsPercentage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/winsPercentage"
