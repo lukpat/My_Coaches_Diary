@@ -79,24 +79,11 @@ class ExerciseInTrainingRepositoryImpl(
                 COLUMN_DESCRIPTION to exercise.description,
                 COLUMN_IMAGE_URL to exercise.imageUrl
         )
-
-        exercisesPath.document(exercise.id.toString())
-                .set(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        exercisesPath.document(exercise.id.toString()).set(data)
     }
 
     override fun deleteExercise(exerciseId: String) {
-        exercisesPath.document(exerciseId)
-                .delete()
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        exercisesPath.document(exerciseId).delete()
     }
 
     fun getDocument(documentId: String): Task<DocumentSnapshot> {

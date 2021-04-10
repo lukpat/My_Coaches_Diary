@@ -122,7 +122,7 @@
     <string name="training_stats">Tréninkové statistiky</string>
     <string name="get_training_stats">Načíst tréninkové statistiky</string>
     <string name="get_match_stats">Načíst zápasové statistiky</string>
-    <string name="date_error">\"Datum počátku je později než datum konce, takže filtr není možné provést.</string>
+    <string name="date_error">Datum počátku je později než datum konce, takže filtr není možné provést.</string>
     <string name="exercise_time">čas cvičení</string>
     <string name="add_exercise_to_training">Přidat cvičení do tréninku</string>
     <string name="cancel">zrušit</string>

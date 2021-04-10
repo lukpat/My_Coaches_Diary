@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="isTeamSelected"
             type="Boolean" />
@@ -12,14 +11,6 @@
         <variable
             name="filterOn"
             type="Boolean" />
-
-        <variable
-            name="dateFromVal"
-            type="String" />
-
-        <variable
-            name="dateToVal"
-            type="String" />
     </data>
 
 
@@ -69,107 +60,19 @@
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <include
+                android:id="@+id/training_filter"
+                invisibleUnless="@{!filterOn}"
+                layout="@layout/helper_trainings_filter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"/>
 
-
-                <LinearLayout
-                    android:id="@+id/linLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/normal_margin"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="@+id/type_layout"
-                    app:layout_constraintStart_toStartOf="@+id/type_layout"
-                    app:layout_constraintTop_toBottomOf="@+id/type_layout">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/date_from">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/dateFrom"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:focusable="false"
-                            android:inputType="text"
-                            android:text="@{dateFromVal}" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:hint="@string/date_to">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/dateTo"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:focusable="false"
-                            android:inputType="text"
-                            android:text="@{dateToVal}" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/dateError"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/normal_margin"
-                    android:layout_marginTop="@dimen/half_normal_margin"
-                    android:layout_marginEnd="@dimen/normal_margin"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="@+id/linLayout"
-                    app:layout_constraintStart_toStartOf="@+id/linLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/linLayout" />
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/type_layout"
-                    invisibleUnless="@{filterOn}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/normal_margin"
-                    android:elevation="0dp"
-                    app:cardCornerRadius="@dimen/round_corner"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/colorGrey"
-                    app:strokeWidth="1dp">
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/type"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:entries="@array/match_category_filter"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp" />
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSetFilter"
-                    style="@style/buttonBoldFilled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/half_normal_margin"
-                    app:layout_constraintEnd_toEndOf="@+id/dateError"
-                    app:layout_constraintStart_toStartOf="@+id/dateError"
-                    app:layout_constraintTop_toBottomOf="@+id/dateError" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/match_filter"
+                invisibleUnless="@{filterOn}"
+                layout="@layout/helper_matches_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 

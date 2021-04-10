@@ -77,15 +77,7 @@ class TrainingRepositoryImpl(
                 COLUMN_PLAYERS to training.players,
                 COLUMN_GOALKEEPERS to training.goalkeepers
         )
-
-        trainingsPath
-                .add(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
-
+        trainingsPath.add(data)
     }
 
     override fun updateTraining(training: Training) {
@@ -98,23 +90,10 @@ class TrainingRepositoryImpl(
                 COLUMN_PLAYERS to training.players,
                 COLUMN_GOALKEEPERS to training.goalkeepers
         )
-
-        trainingsPath.document(training.id!!)
-                .set(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        trainingsPath.document(training.id!!).set(data)
     }
 
     override fun deleteTraining(trainingId: String) {
-        trainingsPath.document(trainingId)
-                .delete()
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        trainingsPath.document(trainingId).delete()
     }
 }

@@ -14,6 +14,7 @@ import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.databinding.FragmentStatsBinding
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.TrainingStatsViewModel
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -30,38 +31,58 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         with(binding) {
             filterOn = false
-            btnSetFilter.text = getString(R.string.get_training_stats)
             isTeamSelected = trainingStatsViewModel.isTeamSelected
-            btnTrainingStats.setOnClickListener {
-                filterOn = false
-                btnSetFilter.text = getString(R.string.get_training_stats)
-            }
-            btnMatchesStats.setOnClickListener {
-                filterOn = true
-                btnSetFilter.text = getString(R.string.get_match_stats)
-            }
-            btnSetFilter.setOnClickListener { applyFilter() }
-            dateFrom.setOnClickListener { pickDateFrom() }
-            dateTo.setOnClickListener { pickDateTo() }
+            btnTrainingStats.setOnClickListener { setTrainingStatsLayout() }
+            btnMatchesStats.setOnClickListener { setMatchStatsLayout() }
         }
+
+        setTrainingStatsLayout()
+
         return binding.root
+    }
+
+    private fun setTrainingStatsLayout() {
+        with(binding){
+            filterOn = false
+            trainingFilter.btnSetFilter.text = getString(R.string.get_training_stats)
+            trainingFilter.dateError.text = ""
+            trainingFilter.btnSetFilter.setOnClickListener { applyFilter() }
+            trainingFilter.dateFrom.setOnClickListener { pickDateFrom() }
+            trainingFilter.dateTo.setOnClickListener { pickDateTo() }
+            dateFrom = Timestamp(Date(0))
+            dateTo = Timestamp(Date(0))
+        }
+    }
+
+    private fun setMatchStatsLayout(){
+        with(binding) {
+            filterOn = true
+            matchFilter.btnSetFilter.text = getString(R.string.get_match_stats)
+            matchFilter.dateError.text = ""
+            matchFilter.btnSetFilter.setOnClickListener { applyFilter() }
+            matchFilter.dateFrom.setOnClickListener { pickDateFrom() }
+            matchFilter.dateTo.setOnClickListener { pickDateTo() }
+            dateFrom = Timestamp(Date(0))
+            dateTo = Timestamp(Date(0))
+        }
     }
 
     private fun applyFilter() {
         val default = Timestamp(Date(0))
         if (dateFrom.seconds > dateTo.seconds || dateFrom.seconds == default.seconds || dateTo.seconds == default.seconds) {
-            binding.dateError.text = getString(R.string.date_error)
+            binding.trainingFilter.dateError.text = getString(R.string.date_error)
+            binding.matchFilter.dateError.text = getString(R.string.date_error)
             return
         } else {
             val directions = if (binding.filterOn!!) {
 
                 var bool = false
-                if (binding.type.selectedItem.toString() == "Všechny zápasy") {
+                if (binding.matchFilter.type.selectedItem.toString() == "Všechny zápasy") {
                     bool = true
                 }
 
                 StatsFragmentDirections.actionNavigationStatsToNavigationMatchStats(
-                        binding.type.selectedItem.toString(),
+                        binding.matchFilter.type.selectedItem.toString(),
                         bool,
                         dateFrom,
                         dateTo
@@ -86,10 +107,12 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val str = "$dayOfMonth.$realMonth.$year"
 
         if (helper) {
-            binding.dateFromVal = str
+            binding.trainingFilter.dateFromVal = str
+            binding.matchFilter.dateFromVal = str
             dateFrom = stringDateToTimestamp(str)
         } else {
-            binding.dateToVal = str
+            binding.trainingFilter.dateToVal = str
+            binding.matchFilter.dateToVal = str
             dateTo = stringDateToTimestamp(str)
         }
     }

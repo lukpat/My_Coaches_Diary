@@ -53,7 +53,7 @@ class TrainingStatsViewModel(
 
     fun setTrainingStats(trainingsList: MutableList<Training>, binding: FragmentTrainingStatsBinding) {
         with(binding) {
-            val str = "Celkový počet tréninků:" + trainingsList.size
+            val str = "Celkový počet tréninků: " + trainingsList.size
             trainingsCount.text = str
 
             var players = 0

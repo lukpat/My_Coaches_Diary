@@ -39,15 +39,7 @@ class TeamRepositoryImpl(
                 COLUMN_OWNER to currentUserUID,
                 COLUMN_SEASON to team.season
         )
-
-        teamsPath
-                .add(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
-
+        teamsPath.add(data)
     }
 
     override fun updateTeam(team: Team) {
@@ -56,24 +48,11 @@ class TeamRepositoryImpl(
                 COLUMN_OWNER to team.owner,
                 COLUMN_SEASON to team.season
         )
-
-        teamsPath.document(team.id.toString())
-                .set(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        teamsPath.document(team.id.toString()).set(data)
     }
 
     override fun deleteTeam(teamId: String) {
-        teamsPath.document(teamId)
-                .delete()
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        teamsPath.document(teamId).delete()
     }
 
 }

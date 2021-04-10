@@ -88,7 +88,6 @@ class MatchRepositoryImpl(
             }
 
     override fun addMatch(match: Match) {
-
         val data = hashMapOf(
                 COLUMN_TEAM to preferenceManager.getStringValue(TEAM_ID_KEY),
                 COLUMN_OPPONENT to match.opponent,
@@ -97,15 +96,7 @@ class MatchRepositoryImpl(
                 COLUMN_PLAYING_TIME to match.playingTime,
                 COLUMN_NOTE to match.note
         )
-
-        matchesPath
-                .add(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
-
+        matchesPath.add(data)
     }
 
     override fun updateMatch(match: Match) {
@@ -127,24 +118,11 @@ class MatchRepositoryImpl(
                 COLUMN_SHOTS_TO_BLOCK to match.shotsToBlock,
                 COLUMN_SHOTS_OUTSIDE to match.shotsOutside
         )
-
-        matchesPath.document(match.id!!)
-                .set(data)
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        matchesPath.document(match.id!!).set(data)
     }
 
     override fun deleteMatch(matchId: String) {
-        matchesPath.document(matchId)
-                .delete()
-                .addOnSuccessListener {
-                    Result.Success(true)
-                }.addOnFailureListener {
-                    Result.Error(it)
-                }
+        matchesPath.document(matchId).delete()
     }
 
 }
