@@ -74,7 +74,6 @@ class TrainingStatsFragment : Fragment() {
                 if (result is Result.Success) {
                     exerciseList.addAll(result.data)
                     setUI(exerciseList)
-                    setUI(exerciseList)
                 }
             })
         }

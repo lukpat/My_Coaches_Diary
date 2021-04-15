@@ -112,7 +112,7 @@
     <string name="wrong_values_save_error">Nemáte správně vyplněny hodnoty, uložení neproběhlo!</string>
     <string name="scoreOpponent">góly soupeř</string>
     <string name="team">tým</string>
-    <string name="success">z toho úspěšný</string>
+    <string name="success">z toho úspěšných</string>
     <string name="playingTimeHint">Jako hrací čas jsou dovoleny hodnoty 0–100.</string>
     <string name="exercise_error">Musíte vyplnit název cvičení a jeho popis, jinak jej není možné vytvořit.</string>
     <string name="exercise_created">Cvičení bylo vytvořeno.</string>
