@@ -13,6 +13,7 @@ import cz.lpatak.mycoachesdiary.data.model.Team
 import cz.lpatak.mycoachesdiary.databinding.FragmentTeamDetailBinding
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.MyTeamsViewModel
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.TeamUIModel
+import cz.lpatak.mycoachesdiary.util.hideKeyboard
 import cz.lpatak.mycoachesdiary.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,9 +27,9 @@ class TeamDetailFragment : Fragment() {
     private lateinit var teamFromArgs: Team
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         teamFromArgs = args.team
 
@@ -58,16 +59,18 @@ class TeamDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                        .setMessage(R.string.delete_team_alert)
-                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                            myTeamsViewModel.deleteTeam(teamFromArgs.id.toString())
-                            findNavController().navigateUp()
-                        })
-                        .setNegativeButton(R.string.no, null)
-                        .show()
+                    .setMessage(R.string.delete_team_alert)
+                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                        myTeamsViewModel.deleteTeam(teamFromArgs.id.toString())
+                        findNavController().navigateUp()
+                        hideKeyboard(requireActivity())
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show()
             }
             R.id.save -> {
                 updateTeam()
+                hideKeyboard(requireActivity())
             }
         }
 
@@ -77,12 +80,12 @@ class TeamDetailFragment : Fragment() {
     private fun updateTeam() {
         if (teamUIModel.checkInputs()) {
             myTeamsViewModel.updateTeam(
-                    Team(
-                            teamFromArgs.id,
-                            teamFromArgs.owner,
-                            teamUIModel.name.value.toString(),
-                            teamUIModel.season.value.toString()
-                    )
+                Team(
+                    teamFromArgs.id,
+                    teamFromArgs.owner,
+                    teamUIModel.name.value.toString(),
+                    teamUIModel.season.value.toString()
+                )
             )
             showToast(R.string.changes_were_saved)
             findNavController().navigateUp()

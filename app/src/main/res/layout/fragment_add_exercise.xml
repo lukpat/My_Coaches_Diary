@@ -106,9 +106,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddExercise"
+                style="@style/buttonBoldFilled"
+                invisibleUnless="@{!exerciseModel.imageReady}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:enabled="@{exerciseModel.areInputsReady}"
+                android:text="@string/add_exercise"
+                app:layout_constraintEnd_toEndOf="@+id/description"
+                app:layout_constraintStart_toStartOf="@+id/description"
+                app:layout_constraintTop_toBottomOf="@+id/add_image_button" />
+
             <ImageView
                 android:id="@+id/imageView"
                 imageUri="@{exerciseModel.fileUri}"
+                invisibleUnless="@{exerciseModel.imageReady}"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
                 android:layout_marginStart="16dp"
@@ -122,6 +136,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/add_image_button"
                 tools:ignore="ContentDescription" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddExercise2"
+                style="@style/buttonBoldFilled"
+                invisibleUnless="@{exerciseModel.imageReady}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:enabled="@{exerciseModel.areInputsReady}"
+                android:text="@string/add_exercise"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

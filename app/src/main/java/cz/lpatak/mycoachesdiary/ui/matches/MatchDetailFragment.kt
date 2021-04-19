@@ -16,6 +16,7 @@ import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
 import cz.lpatak.mycoachesdiary.util.convertLongToDate
+import cz.lpatak.mycoachesdiary.util.hideKeyboard
 import cz.lpatak.mycoachesdiary.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -60,19 +61,21 @@ class MatchDetailFragment : Fragment() {
                     .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
                         matchViewModel.deleteMatch(args.match.id.toString())
                         findNavController().navigateUp()
+                        hideKeyboard(requireActivity())
                     })
                     .setNegativeButton(R.string.no, null)
                     .show()
             }
             R.id.save -> {
                 saveUpdates()
+                hideKeyboard(requireActivity())
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setUI(){
+    private fun setUI() {
         binding.matchModel = matchUIModel
         binding.statsModel = statsUIModel
 

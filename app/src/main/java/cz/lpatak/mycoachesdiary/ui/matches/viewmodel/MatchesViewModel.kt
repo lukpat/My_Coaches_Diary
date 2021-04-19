@@ -15,8 +15,8 @@ import cz.lpatak.mycoachesdiary.util.convertLongToDate
 import kotlinx.coroutines.Dispatchers
 
 class MatchesViewModel(
-        private val matchRepository: MatchRepositoryImpl,
-        private val preferenceManager: PreferenceManger
+    private val matchRepository: MatchRepositoryImpl,
+    private val preferenceManager: PreferenceManger
 ) : ViewModel() {
     val isTeamSelected = !preferenceManager.getStringValue(DBConstants.TEAM_ID_KEY).isNullOrEmpty()
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
@@ -32,32 +32,32 @@ class MatchesViewModel(
     }
 
     fun loadMatchesFilter(
-            matchCategory: String,
-            all: Boolean,
-            dateFrom: Timestamp,
-            dateTo: Timestamp
+        matchCategory: String,
+        all: Boolean,
+        dateFrom: Timestamp,
+        dateTo: Timestamp
     ): LiveData<Result<List<Match>>> =
-            liveData(coroutineContext) {
-                emit(Result.Loading)
+        liveData(coroutineContext) {
+            emit(Result.Loading)
 
-                val result = matchRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo)
+            val result = matchRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo)
 
-                if (result is Result.Success) {
-                    emit(result)
-                }
+            if (result is Result.Success) {
+                emit(result)
             }
+        }
 
     fun addMatch(opponent: String, date: Timestamp, type: String, playingTime: Int) {
         matchRepository.addMatch(
-                Match(
-                        "",
-                        preferenceManager.getStringValue(TEAM_ID_KEY),
-                        opponent,
-                        date,
-                        type,
-                        playingTime,
-                        "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                )
+            Match(
+                "",
+                preferenceManager.getStringValue(TEAM_ID_KEY),
+                opponent,
+                date,
+                type,
+                playingTime,
+                "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            )
         )
     }
 

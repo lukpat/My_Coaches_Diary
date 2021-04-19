@@ -11,4 +11,6 @@ interface ExerciseRepository {
     fun addExerciseWithoutIMG(exercise: Exercise)
     fun uploadImageWithUri(uri: Uri, block: ((Result<Uri>, Int) -> Unit)? = null)
     suspend fun searchData(query: String): Result<List<Exercise>>
+    fun deleteExercise(exerciseId: String)
+    fun isExerciseOwner(owner: String): Boolean
 }

@@ -70,7 +70,7 @@
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/half_normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorRed"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="@+id/linLayout"
             app:layout_constraintStart_toStartOf="@+id/linLayout"

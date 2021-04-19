@@ -65,7 +65,7 @@
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/exerciseTimeTxt"
-                    tools:listitem="@layout/exercise_in_training_item"/>
+                    tools:listitem="@layout/exercise_in_training_item" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

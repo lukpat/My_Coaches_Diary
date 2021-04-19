@@ -24,8 +24,8 @@ class ExercisesViewModel(private val exerciseRepository: ExerciseRepositoryImpl)
     }
 
     fun loadExercisesFilter(
-            exerciseOwner: Boolean,
-            category: String
+        exerciseOwner: Boolean,
+        category: String
     ): LiveData<Result<List<Exercise>>> = liveData(coroutineContext) {
         emit(Result.Loading)
 
@@ -38,6 +38,14 @@ class ExercisesViewModel(private val exerciseRepository: ExerciseRepositoryImpl)
 
     fun addExercise(exercise: Exercise) {
         exerciseRepository.addExerciseWithoutIMG(exercise)
+    }
+
+    fun deleteExercise(exerciseId: String) {
+        exerciseRepository.deleteExercise(exerciseId)
+    }
+
+    fun isExerciseOwner(owner: String): Boolean {
+        return exerciseRepository.isExerciseOwner(owner)
     }
 
     fun searchData(query: String): LiveData<Result<List<Exercise>>> = liveData(coroutineContext) {

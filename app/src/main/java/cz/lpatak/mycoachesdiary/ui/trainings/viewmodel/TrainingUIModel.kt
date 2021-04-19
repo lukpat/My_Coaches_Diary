@@ -30,7 +30,8 @@ class TrainingUIModel : ObservableViewModel() {
                 place.value.isNullOrEmpty() ||
                         date.value.isNullOrEmpty() ||
                         startTime.value.isNullOrEmpty() ||
-                        endTime.value.isNullOrEmpty()
+                        endTime.value.isNullOrEmpty() ||
+                        !checkTime()
                 )
     }
 
@@ -43,8 +44,20 @@ class TrainingUIModel : ObservableViewModel() {
                         startTime.value.isNullOrEmpty() ||
                         endTime.value.isNullOrEmpty() ||
                         players.value.isNullOrEmpty() || checkPlayers() ||
-                        goalkeepers.value.isNullOrEmpty() || checkGoalkeepers()
+                        goalkeepers.value.isNullOrEmpty() || checkGoalkeepers() ||
+                        !checkTime()
                 )
+    }
+
+    private fun checkTime(): Boolean {
+        if (!startTime.value.isNullOrEmpty() && !endTime.value.isNullOrEmpty()) {
+            val hoursFrom = startTime.value!!.replace(":", "").toInt()
+            val hoursTo = endTime.value!!.replace(":", "").toInt()
+            if (hoursFrom < hoursTo) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun checkRating(): Boolean {

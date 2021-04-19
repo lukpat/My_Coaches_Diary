@@ -20,11 +20,11 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-        private val context: Context,
-        private val authRepository: AuthRepository,
-        private val preferenceManager: PreferenceManger
+    private val context: Context,
+    private val authRepository: AuthRepository,
+    private val preferenceManager: PreferenceManger
 ) :
-        ViewModel() {
+    ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -42,21 +42,21 @@ class AuthViewModel(
 
         if (result is Success) {
             _loginResult.value =
-                    AuthResult(
-                            success = LoggedInUserView(
-                                    email = result.data.email
-                                            ?: context.getString(R.string.unknown),
-                                    uid = result.data.uid ?: "UID"
-                            )
+                AuthResult(
+                    success = LoggedInUserView(
+                        email = result.data.email
+                            ?: context.getString(R.string.unknown),
+                        uid = result.data.uid ?: "UID"
                     )
+                )
         } else {
             val exception = (result as Error).exception
             if (exception is NoConnectivityException) {
                 _loginResult.value =
-                        AuthResult(error = R.string.message_internet_unavailable)
+                    AuthResult(error = R.string.message_internet_unavailable)
             } else {
                 _loginResult.value =
-                        AuthResult(error = R.string.login_failed)
+                    AuthResult(error = R.string.login_failed)
             }
         }
     }
@@ -66,21 +66,21 @@ class AuthViewModel(
 
         if (result is Success) {
             _registerResult.value =
-                    AuthResult(
-                            success = LoggedInUserView(
-                                    email = result.data.email
-                                            ?: context.getString(R.string.unknown),
-                                    uid = result.data.uid ?: "UID"
-                            )
+                AuthResult(
+                    success = LoggedInUserView(
+                        email = result.data.email
+                            ?: context.getString(R.string.unknown),
+                        uid = result.data.uid ?: "UID"
                     )
+                )
         } else {
             val exception = (result as Error).exception
             if (exception is NoConnectivityException) {
                 _registerResult.value =
-                        AuthResult(error = R.string.message_internet_unavailable)
+                    AuthResult(error = R.string.message_internet_unavailable)
             } else {
                 _registerResult.value =
-                        AuthResult(error = R.string.login_failed)
+                    AuthResult(error = R.string.login_failed)
             }
         }
     }
@@ -88,15 +88,15 @@ class AuthViewModel(
     fun loginDataCheck(username: String, password: String): Boolean {
         return if (!isUserNameValid(username)) {
             _loginForm.value =
-                    LoginFormState(usernameError = R.string.invalid_username)
+                LoginFormState(usernameError = R.string.invalid_username)
             false
         } else if (!isPasswordValid(password)) {
             _loginForm.value =
-                    LoginFormState(passwordError = R.string.invalid_password)
+                LoginFormState(passwordError = R.string.invalid_password)
             false
         } else {
             _loginForm.value =
-                    LoginFormState(isDataValid = true)
+                LoginFormState(isDataValid = true)
             true
         }
     }
@@ -104,30 +104,30 @@ class AuthViewModel(
     fun registerDataCheck(username: String, password: String, password2: String): Boolean {
         if (!isUserNameValid(username)) {
             _registerForm.value =
-                    RegisterFormState(usernameError = R.string.invalid_username)
+                RegisterFormState(usernameError = R.string.invalid_username)
             return false
         } else if (!isPasswordValid(password)) {
             _registerForm.value =
-                    RegisterFormState(passwordError = R.string.invalid_password)
+                RegisterFormState(passwordError = R.string.invalid_password)
             return false
         } else if (!isPasswordValid(password2)) {
             _registerForm.value =
-                    RegisterFormState(passwordError2 = R.string.invalid_password)
+                RegisterFormState(passwordError2 = R.string.invalid_password)
             return false
         } else if (passwordMatch(password, password2)) {
             _registerForm.value =
-                    RegisterFormState(passwordError = R.string.password_match_error)
+                RegisterFormState(passwordError = R.string.password_match_error)
             return false
         } else {
             _registerForm.value =
-                    RegisterFormState(isDataValid = true)
+                RegisterFormState(isDataValid = true)
             return true
         }
     }
 
     private fun isUserNameValid(username: String): Boolean {
         return username.isNotBlank() && username.contains('@') && Patterns.EMAIL_ADDRESS.matcher(
-                username
+            username
         ).matches()
     }
 
@@ -147,10 +147,10 @@ class AuthViewModel(
             val uid = it.uid
 
             userdata.value =
-                    LoggedInUserView(
-                            email,
-                            uid
-                    )
+                LoggedInUserView(
+                    email,
+                    uid
+                )
             return userdata
         }
 

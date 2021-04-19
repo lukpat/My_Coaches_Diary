@@ -21,74 +21,74 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class TrainingRepositoryImpl(
-        private val firestoreSource: FirestoreSource,
-        private val preferenceManager: PreferenceManger
+    private val firestoreSource: FirestoreSource,
+    private val preferenceManager: PreferenceManger
 ) : TrainingRepository {
 
     private val trainingsPath: CollectionReference
         get() {
             return firestoreSource.firestore.collection(TeamsCOLLECTION)
-                    .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
-                    .collection(TrainingsCOLLECTION)
+                .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
+                .collection(TrainingsCOLLECTION)
         }
 
     override suspend fun getTrainings(): Result<List<Training>> =
-            suspendCoroutine { cont ->
-                trainingsPath
-                        .get()
-                        .addOnSuccessListener {
-                            try {
-                                cont.resume(Result.Success(it.toObjects()))
-                            } catch (e: Exception) {
-                                cont.resume(Result.Error(e))
-                            }
-                        }.addOnFailureListener {
-                            cont.resume(Result.Error(it))
-                        }
-            }
+        suspendCoroutine { cont ->
+            trainingsPath
+                .get()
+                .addOnSuccessListener {
+                    try {
+                        cont.resume(Result.Success(it.toObjects()))
+                    } catch (e: Exception) {
+                        cont.resume(Result.Error(e))
+                    }
+                }.addOnFailureListener {
+                    cont.resume(Result.Error(it))
+                }
+        }
 
     override suspend fun getTrainingsFilter(
-            dateFrom: Timestamp,
-            dateTo: Timestamp
+        dateFrom: Timestamp,
+        dateTo: Timestamp
     ): Result<List<Training>> =
-            suspendCoroutine { cont ->
-                trainingsPath.whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
-                        .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
-                        .orderBy(COLUMN_DATE)
-                        .get()
-                        .addOnSuccessListener {
-                            try {
-                                cont.resume(Result.Success(it.toObjects()))
-                            } catch (e: Exception) {
-                                cont.resume(Result.Error(e))
-                            }
-                        }.addOnFailureListener {
-                            cont.resume(Result.Error(it))
-                        }
-            }
+        suspendCoroutine { cont ->
+            trainingsPath.whereGreaterThanOrEqualTo(COLUMN_DATE, dateFrom)
+                .whereLessThanOrEqualTo(COLUMN_DATE, dateTo)
+                .orderBy(COLUMN_DATE)
+                .get()
+                .addOnSuccessListener {
+                    try {
+                        cont.resume(Result.Success(it.toObjects()))
+                    } catch (e: Exception) {
+                        cont.resume(Result.Error(e))
+                    }
+                }.addOnFailureListener {
+                    cont.resume(Result.Error(it))
+                }
+        }
 
     override fun addTraining(training: Training) {
         val data = hashMapOf(
-                COLUMN_DATE to training.date,
-                COLUMN_END_TIME to training.endTime,
-                COLUMN_START_TIME to training.startTime,
-                COLUMN_RATING to training.rating,
-                COLUMN_PLACE to training.place,
-                COLUMN_PLAYERS to training.players,
-                COLUMN_GOALKEEPERS to training.goalkeepers
+            COLUMN_DATE to training.date,
+            COLUMN_END_TIME to training.endTime,
+            COLUMN_START_TIME to training.startTime,
+            COLUMN_RATING to training.rating,
+            COLUMN_PLACE to training.place,
+            COLUMN_PLAYERS to training.players,
+            COLUMN_GOALKEEPERS to training.goalkeepers
         )
         trainingsPath.add(data)
     }
 
     override fun updateTraining(training: Training) {
         val data = hashMapOf(
-                COLUMN_DATE to training.date,
-                COLUMN_END_TIME to training.endTime,
-                COLUMN_START_TIME to training.startTime,
-                COLUMN_RATING to training.rating,
-                COLUMN_PLACE to training.place,
-                COLUMN_PLAYERS to training.players,
-                COLUMN_GOALKEEPERS to training.goalkeepers
+            COLUMN_DATE to training.date,
+            COLUMN_END_TIME to training.endTime,
+            COLUMN_START_TIME to training.startTime,
+            COLUMN_RATING to training.rating,
+            COLUMN_PLACE to training.place,
+            COLUMN_PLAYERS to training.players,
+            COLUMN_GOALKEEPERS to training.goalkeepers
         )
         trainingsPath.document(training.id!!).set(data)
     }

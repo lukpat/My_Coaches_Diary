@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="isTeamSelected"
             type="Boolean" />
@@ -19,60 +20,100 @@
         android:layout_height="match_parent"
         tools:context=".ui.stats.FragmentStats">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            invisibleUnless="@{isTeamSelected}"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnLayout1"
+            invisibleUnless="@{!filterOn}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTrainingStats"
                 style="@style/buttonBoldFilled"
+                invisibleUnless="@{isTeamSelected}"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="@dimen/half_normal_margin"
-                android:enabled="@{filterOn}"
-                android:text="@string/trainings" />
+                android:text="@string/trainings"
+                app:layout_constraintEnd_toStartOf="@+id/btnMatchesStats"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMatchesStats"
                 style="@style/buttonBoldFilled"
+                invisibleUnless="@{isTeamSelected}"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/half_normal_margin"
-                android:enabled="@{!filterOn}"
-                android:text="@string/matches" />
-        </LinearLayout>
+                android:backgroundTint="@color/colorGrey"
+                android:text="@string/matches"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnTrainingStats"
+                app:layout_constraintTop_toTopOf="@+id/btnTrainingStats" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            invisibleUnless="@{filterOn}"
+            android:id="@+id/btnLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTrainingStats1"
+                style="@style/buttonBoldFilled"
+                invisibleUnless="@{isTeamSelected}"
+                android:backgroundTint="@color/colorGrey"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/half_normal_margin"
+                android:text="@string/trainings"
+                app:layout_constraintEnd_toStartOf="@+id/btnMatchesStats1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMatchesStats1"
+                style="@style/buttonBoldFilled"
+                invisibleUnless="@{isTeamSelected}"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/matches"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnTrainingStats1"
+                app:layout_constraintTop_toTopOf="@+id/btnTrainingStats1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
             invisibleUnless="@{isTeamSelected}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            android:layout_marginTop="@dimen/double_normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLayout1">
 
             <include
                 android:id="@+id/training_filter"
                 invisibleUnless="@{!filterOn}"
                 layout="@layout/helper_trainings_filter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <include
                 android:id="@+id/match_filter"
                 invisibleUnless="@{filterOn}"
                 layout="@layout/helper_matches_filter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
 

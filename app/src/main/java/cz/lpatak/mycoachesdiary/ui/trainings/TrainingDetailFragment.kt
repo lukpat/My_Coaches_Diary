@@ -14,8 +14,8 @@ import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailBinding
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingUIModel
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import cz.lpatak.mycoachesdiary.util.convertLongToDate
+import cz.lpatak.mycoachesdiary.util.hideKeyboard
 import cz.lpatak.mycoachesdiary.util.showToast
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -26,16 +26,17 @@ class TrainingDetailFragment : Fragment() {
     private val trainingUIModel: TrainingUIModel by viewModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_training_detail, container, false)
 
-        with (binding){
+        with(binding) {
             btnTrainingExercises.setOnClickListener {
-                val directions = TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationTrainingDetailExercises()
+                val directions =
+                    TrainingDetailFragmentDirections.actionNavigationTrainingDetailToNavigationTrainingDetailExercises()
                 findNavController().navigate(directions)
             }
             trainingModel = trainingUIModel
@@ -59,16 +60,18 @@ class TrainingDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                        .setMessage(R.string.delete_trainig_alert)
-                        .setPositiveButton(R.string.yes) { _, _ ->
-                            trainingsViewModel.deleteTraining(args.training.id.toString())
-                            findNavController().navigateUp()
-                        }
-                        .setNegativeButton(R.string.no, null)
-                        .show()
+                    .setMessage(R.string.delete_trainig_alert)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        trainingsViewModel.deleteTraining(args.training.id.toString())
+                        findNavController().navigateUp()
+                        hideKeyboard(requireActivity())
+                    }
+                    .setNegativeButton(R.string.no, null)
+                    .show()
             }
             R.id.save -> {
-                    updateTraining()
+                updateTraining()
+                hideKeyboard(requireActivity())
             }
         }
         return super.onOptionsItemSelected(item)
@@ -82,16 +85,16 @@ class TrainingDetailFragment : Fragment() {
             }
 
             trainingsViewModel.updateTraining(
-                    Training(
-                            args.training.id,
-                            trainingUIModel.place.value,
-                            trainingUIModel.rating.value!!.toInt(),
-                            date,
-                            trainingUIModel.startTime.value,
-                            trainingUIModel.endTime.value,
-                            trainingUIModel.players.value!!.toInt(),
-                            trainingUIModel.goalkeepers.value!!.toInt()
-                    )
+                Training(
+                    args.training.id,
+                    trainingUIModel.place.value,
+                    trainingUIModel.rating.value!!.toInt(),
+                    date,
+                    trainingUIModel.startTime.value,
+                    trainingUIModel.endTime.value,
+                    trainingUIModel.players.value!!.toInt(),
+                    trainingUIModel.goalkeepers.value!!.toInt()
+                )
             )
             showToast(getString(R.string.changes_were_saved))
         } else {

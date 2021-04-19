@@ -14,6 +14,7 @@ import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.databinding.FragmentAddMatchBinding
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
+import cz.lpatak.mycoachesdiary.util.hideKeyboard
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -25,9 +26,9 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private var timestamp = Timestamp(Date(0))
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_match, container, false)
         with(binding) {
@@ -42,12 +43,13 @@ class AddMatchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun createMatch() {
         matchesViewModel.addMatch(
-                matchUIModel.opponent.value.toString(),
-                timestamp,
-                binding.helperMatchesLayout.type.selectedItem.toString(),
-                matchUIModel.playingTime.value!!.toInt()
+            matchUIModel.opponent.value.toString(),
+            timestamp,
+            binding.helperMatchesLayout.type.selectedItem.toString(),
+            matchUIModel.playingTime.value!!.toInt()
         )
         findNavController().navigateUp()
+        hideKeyboard(requireActivity())
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

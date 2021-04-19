@@ -84,8 +84,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
             android:hint="@string/playingTime"
             app:layout_constraintEnd_toEndOf="@+id/type_layout"
             app:layout_constraintStart_toEndOf="@+id/dateLayout"
@@ -106,8 +106,8 @@
             android:layout_marginStart="@dimen/half_normal_margin"
             android:layout_marginTop="2dp"
             android:selectAllOnFocus="true"
-            android:textSize="12sp"
             android:text="@string/playingTimeHint"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/playingTime"
             app:layout_constraintTop_toBottomOf="@+id/playingTime" />
 

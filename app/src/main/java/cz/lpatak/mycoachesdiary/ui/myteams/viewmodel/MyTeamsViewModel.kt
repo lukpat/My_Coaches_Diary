@@ -15,8 +15,8 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 import kotlinx.coroutines.Dispatchers
 
 class MyTeamsViewModel(
-        private val teamsRepository: TeamRepositoryImpl,
-        private val preferenceManager: PreferenceManger
+    private val teamsRepository: TeamRepositoryImpl,
+    private val preferenceManager: PreferenceManger
 ) : ViewModel() {
     val isTeamSelected = !preferenceManager.getStringValue(DBConstants.TEAM_ID_KEY).isNullOrEmpty()
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO

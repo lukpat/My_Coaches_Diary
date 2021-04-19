@@ -17,18 +17,18 @@ import cz.lpatak.mycoachesdiary.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UpdateExerciseTimeDialog(
-        private val exercise: ExerciseInTraining,
-        private val fragment: TrainingDetailFragmentExercises,
-        private val add: Boolean
+    private val exercise: ExerciseInTraining,
+    private val fragment: TrainingDetailFragmentExercises,
+    private val add: Boolean
 ) : DialogFragment() {
     private lateinit var binding: CustomDialogBinding
     private val exerciseUIModel: ExerciseInTrainingUIModel by viewModel()
     private val trainingModel: TrainingsViewModel by viewModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.custom_dialog, container, false)
 
@@ -50,12 +50,12 @@ class UpdateExerciseTimeDialog(
 
     private fun chooseAction() {
         val exerciseInTraining = ExerciseInTraining(
-                exercise.id,
-                exercise.name,
-                exercise.category,
-                exercise.description,
-                exercise.imageUrl,
-                exerciseUIModel.time.value!!.toInt()
+            exercise.id,
+            exercise.name,
+            exercise.category,
+            exercise.description,
+            exercise.imageUrl,
+            exerciseUIModel.time.value!!.toInt()
         )
 
         if (exerciseUIModel.checkTime()) {

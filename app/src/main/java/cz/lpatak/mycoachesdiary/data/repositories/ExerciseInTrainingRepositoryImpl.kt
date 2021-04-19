@@ -23,61 +23,61 @@ import kotlin.coroutines.suspendCoroutine
 
 
 class ExerciseInTrainingRepositoryImpl(
-        private val firestoreSource: FirestoreSource,
-        private val preferenceManager: PreferenceManger
+    private val firestoreSource: FirestoreSource,
+    private val preferenceManager: PreferenceManger
 ) : ExerciseInTrainingRepository {
 
     private val exercisesPath: CollectionReference
         get() {
             return firestoreSource.firestore.collection(TeamsCOLLECTION)
-                    .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
-                    .collection(TrainingsCOLLECTION)
-                    .document(preferenceManager.getStringValue(TRAINING_ID_KEY).toString())
-                    .collection(ExercisesCOLLECTION)
+                .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
+                .collection(TrainingsCOLLECTION)
+                .document(preferenceManager.getStringValue(TRAINING_ID_KEY).toString())
+                .collection(ExercisesCOLLECTION)
         }
 
     override suspend fun getExercises(): Result<List<ExerciseInTraining>> =
-            suspendCoroutine { cont ->
-                exercisesPath
-                        .get()
-                        .addOnSuccessListener {
-                            try {
-                                cont.resume(Result.Success(it.toObjects()))
-                            } catch (e: Exception) {
-                                cont.resume(Result.Error(e))
-                            }
-                        }.addOnFailureListener {
-                            cont.resume(Result.Error(it))
-                        }
-            }
+        suspendCoroutine { cont ->
+            exercisesPath
+                .get()
+                .addOnSuccessListener {
+                    try {
+                        cont.resume(Result.Success(it.toObjects()))
+                    } catch (e: Exception) {
+                        cont.resume(Result.Error(e))
+                    }
+                }.addOnFailureListener {
+                    cont.resume(Result.Error(it))
+                }
+        }
 
     suspend fun getExercises(path: String): Result<List<ExerciseInTraining>> =
-            suspendCoroutine { cont ->
-                firestoreSource.firestore.collection(TeamsCOLLECTION)
-                            .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
-                            .collection(TrainingsCOLLECTION)
-                            .document((path))
-                            .collection(ExercisesCOLLECTION)
-                        .get()
-                        .addOnSuccessListener {
-                            try {
-                                cont.resume(Result.Success(it.toObjects()))
-                            } catch (e: Exception) {
-                                cont.resume(Result.Error(e))
-                            }
-                        }.addOnFailureListener {
-                            cont.resume(Result.Error(it))
-                        }
-            }
+        suspendCoroutine { cont ->
+            firestoreSource.firestore.collection(TeamsCOLLECTION)
+                .document(preferenceManager.getStringValue(TEAM_ID_KEY).toString())
+                .collection(TrainingsCOLLECTION)
+                .document((path))
+                .collection(ExercisesCOLLECTION)
+                .get()
+                .addOnSuccessListener {
+                    try {
+                        cont.resume(Result.Success(it.toObjects()))
+                    } catch (e: Exception) {
+                        cont.resume(Result.Error(e))
+                    }
+                }.addOnFailureListener {
+                    cont.resume(Result.Error(it))
+                }
+        }
 
 
     override fun updateExerciseInTraining(exercise: ExerciseInTraining) {
         val data = hashMapOf(
-                COLUMN_NAME to exercise.name,
-                COLUMN_CATEGORY to exercise.category,
-                COLUMN_TIME to exercise.time,
-                COLUMN_DESCRIPTION to exercise.description,
-                COLUMN_IMAGE_URL to exercise.imageUrl
+            COLUMN_NAME to exercise.name,
+            COLUMN_CATEGORY to exercise.category,
+            COLUMN_TIME to exercise.time,
+            COLUMN_DESCRIPTION to exercise.description,
+            COLUMN_IMAGE_URL to exercise.imageUrl
         )
         exercisesPath.document(exercise.id.toString()).set(data)
     }

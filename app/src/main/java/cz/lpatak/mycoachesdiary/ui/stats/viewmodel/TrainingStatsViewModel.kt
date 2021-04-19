@@ -1,6 +1,5 @@
 package cz.lpatak.mycoachesdiary.ui.stats.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -22,36 +21,41 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class TrainingStatsViewModel(
-        preferenceManager: PreferenceManger,
-        private val trainingRepository: TrainingRepositoryImpl,
-        private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl
+    preferenceManager: PreferenceManger,
+    private val trainingRepository: TrainingRepositoryImpl,
+    private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl
 ) : ViewModel() {
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
     val isTeamSelected = !preferenceManager.getStringValue(DBConstants.TEAM_ID_KEY).isNullOrEmpty()
 
-    fun loadTrainings(dateFrom: Timestamp, dateTo: Timestamp): LiveData<Result<List<Training>>> = liveData(coroutineContext) {
-        emit(Result.Loading)
+    fun loadTrainings(dateFrom: Timestamp, dateTo: Timestamp): LiveData<Result<List<Training>>> =
+        liveData(coroutineContext) {
+            emit(Result.Loading)
 
-        val result = trainingRepository.getTrainingsFilter(dateFrom, dateTo)
+            val result = trainingRepository.getTrainingsFilter(dateFrom, dateTo)
 
-        if (result is Result.Success) {
-            result.data
-            emit(result)
+            if (result is Result.Success) {
+                result.data
+                emit(result)
+            }
         }
-    }
 
-    fun loadExercises(collection: String): LiveData<Result<List<ExerciseInTraining>>> = liveData(coroutineContext) {
-        emit(Result.Loading)
+    fun loadExercises(collection: String): LiveData<Result<List<ExerciseInTraining>>> =
+        liveData(coroutineContext) {
+            emit(Result.Loading)
 
-        val result = exerciseInTrainingRepository.getExercises(collection)
+            val result = exerciseInTrainingRepository.getExercises(collection)
 
-        if (result is Result.Success) {
-            result.data
-            emit(result)
+            if (result is Result.Success) {
+                result.data
+                emit(result)
+            }
         }
-    }
 
-    fun setTrainingStats(trainingsList: MutableList<Training>, binding: FragmentTrainingStatsBinding) {
+    fun setTrainingStats(
+        trainingsList: MutableList<Training>,
+        binding: FragmentTrainingStatsBinding
+    ) {
         with(binding) {
             val str = "Celkový počet tréninků: " + trainingsList.size
             trainingsCount.text = str
@@ -68,17 +72,26 @@ class TrainingStatsViewModel(
 
             var playersStr = ""
             if (trainingsList.size > 0) {
-                playersStr = BigDecimal((players / trainingsList.size.toDouble())).setScale(1, RoundingMode.HALF_EVEN).toString()
+                playersStr = BigDecimal((players / trainingsList.size.toDouble())).setScale(
+                    1,
+                    RoundingMode.HALF_EVEN
+                ).toString()
             }
 
             var goalkeepersStr = ""
             if (trainingsList.size > 0) {
-                goalkeepersStr = BigDecimal((goalkeepers / trainingsList.size.toDouble())).setScale(1, RoundingMode.HALF_EVEN).toString()
+                goalkeepersStr = BigDecimal((goalkeepers / trainingsList.size.toDouble())).setScale(
+                    1,
+                    RoundingMode.HALF_EVEN
+                ).toString()
             }
 
             var ratingStr = ""
             if (trainingsList.size > 0) {
-                ratingStr = BigDecimal((rating / trainingsList.size.toDouble())).setScale(1, RoundingMode.HALF_EVEN).toString()
+                ratingStr = BigDecimal((rating / trainingsList.size.toDouble())).setScale(
+                    1,
+                    RoundingMode.HALF_EVEN
+                ).toString()
             }
 
             with(binding) {
@@ -93,7 +106,7 @@ class TrainingStatsViewModel(
     val category = HashMap<String, Int>()
     fun getEntries(exerciseList: MutableList<ExerciseInTraining>): ArrayList<PieEntry> {
 
-        for (exercise in exerciseList){
+        for (exercise in exerciseList) {
             calculateExerciseCategoryTime(exercise)
         }
 

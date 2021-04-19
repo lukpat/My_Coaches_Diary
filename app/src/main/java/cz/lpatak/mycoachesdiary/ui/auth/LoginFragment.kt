@@ -8,7 +8,7 @@ import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.auth.AuthResult
 import cz.lpatak.mycoachesdiary.data.model.auth.LoggedInUserView
@@ -23,9 +23,9 @@ class LoginFragment : Fragment() {
     private val authViewModel: AuthViewModel by viewModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         with(binding) {
@@ -43,25 +43,19 @@ class LoginFragment : Fragment() {
 
 
     private fun navigateToHomeScreen() {
-        view?.let {
-            val directions = LoginFragmentDirections.actionNavigationLoginToNavigationHome()
-            it.findNavController().navigate(directions)
-        }
+        val directions = LoginFragmentDirections.actionNavigationLoginToNavigationHome()
+        findNavController().navigate(directions)
     }
 
     private fun navigateToRegistration() {
-        view?.let {
-            val directions = LoginFragmentDirections.actionNavigationLoginToRegisterFragment()
-            it.findNavController().navigate(directions)
-        }
+        val directions = LoginFragmentDirections.actionNavigationLoginToRegisterFragment()
+        findNavController().navigate(directions)
     }
 
     private fun navigateToResetPassword() {
-        view?.let {
-            val directions =
-                    LoginFragmentDirections.actionNavigationLoginToNavigationResetPassword()
-            it.findNavController().navigate(directions)
-        }
+        val directions =
+            LoginFragmentDirections.actionNavigationLoginToNavigationResetPassword()
+        findNavController().navigate(directions)
     }
 
     private val authResultObserver: Observer<AuthResult> = Observer {
@@ -99,13 +93,13 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         if (authViewModel.loginDataCheck(
-                        binding.etUsername.text.toString(),
-                        binding.etPassword.text.toString()
-                )
+                binding.etUsername.text.toString(),
+                binding.etPassword.text.toString()
+            )
         ) {
             authViewModel.login(
-                    binding.etUsername.text.toString(),
-                    binding.etPassword.text.toString()
+                binding.etUsername.text.toString(),
+                binding.etPassword.text.toString()
             )
         }
 

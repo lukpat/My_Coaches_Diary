@@ -18,21 +18,21 @@ class MatchStatsViewModel(private val matchRepository: MatchRepositoryImpl) : Vi
 
 
     fun loadMatchesFilter(
-            matchCategory: String,
-            all: Boolean,
-            dateFrom: Timestamp,
-            dateTo: Timestamp
+        matchCategory: String,
+        all: Boolean,
+        dateFrom: Timestamp,
+        dateTo: Timestamp
     ): LiveData<Result<List<Match>>> =
-            liveData(coroutineContext) {
-                emit(Result.Loading)
+        liveData(coroutineContext) {
+            emit(Result.Loading)
 
-                val result = matchRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo)
+            val result = matchRepository.getMatchesFilter(matchCategory, all, dateFrom, dateTo)
 
-                if (result is Result.Success) {
-                    result.data
-                    emit(result)
-                }
+            if (result is Result.Success) {
+                result.data
+                emit(result)
             }
+        }
 
     fun setUI(matchList: MutableList<Match>, binding: FragmentMatchStatsBinding) {
         setMatchCategory(matchList, binding)
@@ -41,7 +41,10 @@ class MatchStatsViewModel(private val matchRepository: MatchRepositoryImpl) : Vi
         setCompareStats(matchList, binding)
     }
 
-    private fun setMatchCategory(matchList: MutableList<Match>, binding: FragmentMatchStatsBinding) {
+    private fun setMatchCategory(
+        matchList: MutableList<Match>,
+        binding: FragmentMatchStatsBinding
+    ) {
         var league = 0
         var tournament = 0
         var friendly = 0
@@ -87,7 +90,9 @@ class MatchStatsViewModel(private val matchRepository: MatchRepositoryImpl) : Vi
         }
 
         val matchCountText = "Celkový počet zápasů: " + matchList.size.toString()
-        val winPercentage = BigDecimal((w.toDouble() / matchList.size) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + " %"
+        val winPercentage =
+            BigDecimal((w.toDouble() / matchList.size) * 100).setScale(0, RoundingMode.HALF_EVEN)
+                .toString() + " %"
 
         with(binding) {
             matchesCount.text = matchCountText
@@ -142,22 +147,37 @@ class MatchStatsViewModel(private val matchRepository: MatchRepositoryImpl) : Vi
 
         var powerPlaysTeamSuccessStr = "0"
         if (powerPlaysTeam != 0) {
-            powerPlaysTeamSuccessStr = BigDecimal((powerPlaysTeamSuccess.toDouble() / powerPlaysTeam) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+            powerPlaysTeamSuccessStr =
+                BigDecimal((powerPlaysTeamSuccess.toDouble() / powerPlaysTeam) * 100).setScale(
+                    0,
+                    RoundingMode.HALF_EVEN
+                ).toString() + "%"
         }
 
         var powerPlaysOpponentSuccessStr = "0"
         if (powerPlaysOpponent != 0) {
-            powerPlaysOpponentSuccessStr = BigDecimal((powerPlaysOpponentSuccess.toDouble() / powerPlaysOpponent) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+            powerPlaysOpponentSuccessStr =
+                BigDecimal((powerPlaysOpponentSuccess.toDouble() / powerPlaysOpponent) * 100).setScale(
+                    0,
+                    RoundingMode.HALF_EVEN
+                ).toString() + "%"
         }
 
         var goalkeepersPercTeam = "0"
         if (shotsOpponent != 0) {
-            goalkeepersPercTeam = BigDecimal((scoreOpponent.toDouble() / shotsOpponent) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+            goalkeepersPercTeam =
+                BigDecimal((scoreOpponent.toDouble() / shotsOpponent) * 100).setScale(
+                    0,
+                    RoundingMode.HALF_EVEN
+                ).toString() + "%"
         }
 
         var goalkeepersPercOpponent = "0"
         if (shotsTeam != 0) {
-            goalkeepersPercOpponent = BigDecimal((scoreTeam.toDouble() / shotsTeam) * 100).setScale(0, RoundingMode.HALF_EVEN).toString() + "%"
+            goalkeepersPercOpponent = BigDecimal((scoreTeam.toDouble() / shotsTeam) * 100).setScale(
+                0,
+                RoundingMode.HALF_EVEN
+            ).toString() + "%"
         }
 
 

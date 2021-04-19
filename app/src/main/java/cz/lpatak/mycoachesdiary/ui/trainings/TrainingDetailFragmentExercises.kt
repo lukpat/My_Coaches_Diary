@@ -12,7 +12,6 @@ import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingDetailExercisesBindi
 import cz.lpatak.mycoachesdiary.ui.trainings.util.ExerciseInTrainingAdapter
 import cz.lpatak.mycoachesdiary.ui.trainings.util.UpdateExerciseTimeDialog
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -23,22 +22,22 @@ class TrainingDetailFragmentExercises : Fragment() {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_training_detail_exercises,
-                container,
-                false
+            inflater,
+            R.layout.fragment_training_detail_exercises,
+            container,
+            false
         )
 
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentExercises
             fabAddExerciseToTraining.setOnClickListener {
                 val directions =
-                        TrainingDetailFragmentExercisesDirections.actionNavigationTrainingDetailExercisesToNavigationAddExerciseToTraining()
+                    TrainingDetailFragmentExercisesDirections.actionNavigationTrainingDetailExercisesToNavigationAddExerciseToTraining()
                 findNavController().navigate(directions)
             }
             exercisesList.adapter = adapter
@@ -64,10 +63,10 @@ class TrainingDetailFragmentExercises : Fragment() {
         })
     }
 
-    private fun setUI(){
+    private fun setUI() {
         var time = 0
         adapter.notifyDataSetChanged()
-        for (exercise in adapter.currentList){
+        for (exercise in adapter.currentList) {
             time += exercise.time
         }
 
@@ -77,7 +76,10 @@ class TrainingDetailFragmentExercises : Fragment() {
 
     fun updateExerciseTime(exercise: ExerciseInTraining) {
         val dialog = UpdateExerciseTimeDialog(exercise, this, false)
-        dialog.show(this.requireActivity().supportFragmentManager, "update exercise time in training")
+        dialog.show(
+            this.requireActivity().supportFragmentManager,
+            "update exercise time in training"
+        )
         setUI()
     }
 }

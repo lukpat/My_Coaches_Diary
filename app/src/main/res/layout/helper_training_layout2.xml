@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:selectAllOnFocus="true"
-            android:textSize="12sp"
             android:text="@string/playersHint"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/players"
             app:layout_constraintStart_toStartOf="@+id/players"
             app:layout_constraintTop_toBottomOf="@+id/players" />
@@ -49,8 +49,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/goalkeepers_attendance"
             android:layout_marginStart="@dimen/half_normal_margin"
+            android:hint="@string/goalkeepers_attendance"
             app:layout_constraintEnd_toStartOf="@+id/rating"
             app:layout_constraintStart_toEndOf="@+id/players"
             app:layout_constraintTop_toTopOf="@id/players">
@@ -68,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:selectAllOnFocus="true"
-            android:textSize="12sp"
             android:text="@string/goalkeeprsHint"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/goalkeepers"
             app:layout_constraintStart_toStartOf="@+id/goalkeepers"
             app:layout_constraintTop_toBottomOf="@+id/goalkeepers" />
@@ -79,8 +79,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/rating"
             android:layout_marginStart="@dimen/half_normal_margin"
+            android:hint="@string/rating"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/goalkeepers"
             app:layout_constraintTop_toTopOf="@+id/goalkeepers">
@@ -98,8 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:selectAllOnFocus="true"
-            android:textSize="12sp"
             android:text="@string/rating_helper_text"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/rating"
             app:layout_constraintStart_toStartOf="@+id/rating"
             app:layout_constraintTop_toBottomOf="@+id/rating" />

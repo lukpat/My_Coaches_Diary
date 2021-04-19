@@ -44,7 +44,8 @@ class StatsUIModel : ObservableViewModel() {
                         !checkScore() ||
                         !checkShots() ||
                         !checkShotsToBlock() ||
-                        !checkShotsOutside()
+                        !checkShotsOutside() ||
+                        !checkPowerPlays()
                 )
     }
 
@@ -71,4 +72,9 @@ class StatsUIModel : ObservableViewModel() {
     private fun checkShotsOutside(): Boolean {
         return shotsOutside.value!!.toInt() in 0..200
     }
+
+    private fun checkPowerPlays(): Boolean {
+        return powerPlaysTeam.value!!.toInt() in 0..20 && powerPlaysOpponent.value!!.toInt() in 0..20
+    }
+
 }

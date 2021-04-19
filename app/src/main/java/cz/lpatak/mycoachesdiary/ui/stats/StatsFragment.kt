@@ -14,7 +14,6 @@ import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.databinding.FragmentStatsBinding
 import cz.lpatak.mycoachesdiary.ui.stats.viewmodel.TrainingStatsViewModel
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -23,17 +22,19 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: FragmentStatsBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false)
 
         with(binding) {
             filterOn = false
             isTeamSelected = trainingStatsViewModel.isTeamSelected
-            btnTrainingStats.setOnClickListener { setTrainingStatsLayout() }
+            btnTrainingStats1.setOnClickListener { setTrainingStatsLayout() }
             btnMatchesStats.setOnClickListener { setMatchStatsLayout() }
+            trainingFilter.btnSetFilter.text = getString(R.string.get_training_stats)
+            matchFilter.btnSetFilter.text = getString(R.string.get_match_stats)
         }
 
         setTrainingStatsLayout()
@@ -42,9 +43,8 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun setTrainingStatsLayout() {
-        with(binding){
+        with(binding) {
             filterOn = false
-            trainingFilter.btnSetFilter.text = getString(R.string.get_training_stats)
             trainingFilter.dateError.text = ""
             trainingFilter.btnSetFilter.setOnClickListener { applyFilter() }
             trainingFilter.dateFrom.setOnClickListener { pickDateFrom() }
@@ -54,10 +54,9 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
     }
 
-    private fun setMatchStatsLayout(){
+    private fun setMatchStatsLayout() {
         with(binding) {
             filterOn = true
-            matchFilter.btnSetFilter.text = getString(R.string.get_match_stats)
             matchFilter.dateError.text = ""
             matchFilter.btnSetFilter.setOnClickListener { applyFilter() }
             matchFilter.dateFrom.setOnClickListener { pickDateFrom() }
@@ -82,15 +81,15 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 }
 
                 StatsFragmentDirections.actionNavigationStatsToNavigationMatchStats(
-                        binding.matchFilter.type.selectedItem.toString(),
-                        bool,
-                        dateFrom,
-                        dateTo
+                    binding.matchFilter.type.selectedItem.toString(),
+                    bool,
+                    dateFrom,
+                    dateTo
                 )
             } else {
                 StatsFragmentDirections.actionNavigationStatsToNavigationTrainingStats(
-                        dateFrom,
-                        dateTo
+                    dateFrom,
+                    dateTo
                 )
             }
             findNavController().navigate(directions)

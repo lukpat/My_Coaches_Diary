@@ -12,6 +12,7 @@ import cz.lpatak.mycoachesdiary.data.model.Team
 import cz.lpatak.mycoachesdiary.databinding.FragmentAddTeamBinding
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.MyTeamsViewModel
 import cz.lpatak.mycoachesdiary.ui.myteams.viewmodel.TeamUIModel
+import cz.lpatak.mycoachesdiary.util.hideKeyboard
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -21,9 +22,9 @@ class AddTeamFragment : Fragment() {
     private lateinit var binding: FragmentAddTeamBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_team, container, false)
         with(binding) {
@@ -37,14 +38,15 @@ class AddTeamFragment : Fragment() {
 
     private fun createTeam() {
         myTeamsViewModel.addTeam(
-                Team(
-                        "",
-                        "",
-                        teamUIModel.name.value.toString(),
-                        teamUIModel.season.value.toString()
-                )
+            Team(
+                "",
+                "",
+                teamUIModel.name.value.toString(),
+                teamUIModel.season.value.toString()
+            )
         )
         findNavController().navigateUp()
+        hideKeyboard(requireActivity())
     }
 
 

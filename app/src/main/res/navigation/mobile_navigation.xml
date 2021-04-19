@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/navigation_stats"
         android:name="cz.lpatak.mycoachesdiary.ui.stats.StatsFragment"
-        android:label="@string/stats" >
+        android:label="@string/stats">
         <action
             android:id="@+id/action_navigation_stats_to_navigation_match_stats"
             app:destination="@id/navigation_match_stats" />
@@ -151,8 +151,8 @@
 
     <fragment
         android:id="@+id/navigation_training_detail_exercises"
-        android:label="@string/exercisesInTraining"
-        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises">
+        android:name="cz.lpatak.mycoachesdiary.ui.trainings.TrainingDetailFragmentExercises"
+        android:label="@string/exercisesInTraining">
         <action
             android:id="@+id/action_navigation_training_detail_exercises_to_navigation_exercise_detail"
             app:destination="@id/navigation_exercise_detail" />
@@ -191,25 +191,27 @@
         android:label="@string/match_stats">
         <argument
             android:name="category"
-            app:argType="string"/>
+            app:argType="string" />
         <argument
             android:name="all"
-            app:argType="boolean"/>
+            app:argType="boolean" />
         <argument
             android:name="dateFrom"
             app:argType="com.google.firebase.Timestamp" />
-        <argument android:name="dateTo"
+        <argument
+            android:name="dateTo"
             app:argType="com.google.firebase.Timestamp" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_training_stats"
         android:name="cz.lpatak.mycoachesdiary.ui.stats.TrainingStatsFragment"
-        android:label="@string/training_stats" >
+        android:label="@string/training_stats">
         <argument
             android:name="dateFrom"
             app:argType="com.google.firebase.Timestamp" />
-        <argument android:name="dateTo"
+        <argument
+            android:name="dateTo"
             app:argType="com.google.firebase.Timestamp" />
     </fragment>
 

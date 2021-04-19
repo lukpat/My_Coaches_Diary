@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,12 +28,12 @@ class TrainingStatsFragment : Fragment() {
     private val args: TrainingStatsFragmentArgs by navArgs()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_training_stats, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_training_stats, container, false)
 
         with(binding) {
             chart.description.isEnabled = false
@@ -50,19 +49,19 @@ class TrainingStatsFragment : Fragment() {
     }
 
     private fun loadTrainings(
-            dateFrom: Timestamp,
-            dateTo: Timestamp
+        dateFrom: Timestamp,
+        dateTo: Timestamp
     ) {
         val trainingsList: MutableList<Training> = mutableListOf()
 
         trainingStatsViewModel.loadTrainings(dateFrom, dateTo)
-                .observe(viewLifecycleOwner, { result ->
-                    if (result is Result.Success) {
-                        trainingsList.addAll(result.data)
-                        setUITraining(trainingsList)
-                        loadExercises(trainingsList)
-                    }
-                })
+            .observe(viewLifecycleOwner, { result ->
+                if (result is Result.Success) {
+                    trainingsList.addAll(result.data)
+                    setUITraining(trainingsList)
+                    loadExercises(trainingsList)
+                }
+            })
     }
 
     private fun loadExercises(trainingList: MutableList<Training>) {
@@ -70,12 +69,12 @@ class TrainingStatsFragment : Fragment() {
 
         for (training in trainingList) {
             trainingStatsViewModel.loadExercises(training.id.toString()).observe(
-                    viewLifecycleOwner, { result ->
-                if (result is Result.Success) {
-                    exerciseList.addAll(result.data)
-                    setUI(exerciseList)
-                }
-            })
+                viewLifecycleOwner, { result ->
+                    if (result is Result.Success) {
+                        exerciseList.addAll(result.data)
+                        setUI(exerciseList)
+                    }
+                })
         }
     }
 
