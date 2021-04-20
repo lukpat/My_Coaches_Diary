@@ -21,7 +21,7 @@ class TeamRepositoryImpl(
 
     override suspend fun getTeams(): Result<List<Team>> =
         suspendCoroutine { cont ->
-            val currentUserUID = FirebaseAuth.getInstance().currentUser!!.uid
+            val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
             teamsPath.whereEqualTo(COLUMN_OWNER, currentUserUID)
                 .get()
                 .addOnSuccessListener {
