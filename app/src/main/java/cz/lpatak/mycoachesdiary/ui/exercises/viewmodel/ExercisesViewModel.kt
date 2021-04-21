@@ -24,8 +24,8 @@ class ExercisesViewModel(private val exerciseRepository: ExerciseRepositoryImpl)
     }
 
     fun loadExercisesFilter(
-        exerciseOwner: Boolean,
-        category: String
+            exerciseOwner: Boolean,
+            category: String
     ): LiveData<Result<List<Exercise>>> = liveData(coroutineContext) {
         emit(Result.Loading)
 

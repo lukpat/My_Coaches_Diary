@@ -21,9 +21,9 @@ class MatchStatsFragment : Fragment() {
     private val matchStatsViewModel: MatchStatsViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_match_stats, container, false)
 
@@ -33,20 +33,20 @@ class MatchStatsFragment : Fragment() {
     }
 
     private fun loadMatchStats(
-        matchCategory: String,
-        all: Boolean,
-        dateFrom: Timestamp,
-        dateTo: Timestamp
+            matchCategory: String,
+            all: Boolean,
+            dateFrom: Timestamp,
+            dateTo: Timestamp
     ) {
         val matchList: MutableList<Match> = mutableListOf()
 
         matchStatsViewModel.loadMatchesFilter(matchCategory, all, dateFrom, dateTo)
-            .observe(viewLifecycleOwner, { result ->
-                if (result is Result.Success) {
-                    matchList.addAll(result.data)
-                    setUI(matchList)
-                }
-            })
+                .observe(viewLifecycleOwner, { result ->
+                    if (result is Result.Success) {
+                        matchList.addAll(result.data)
+                        setUI(matchList)
+                    }
+                })
     }
 
     private fun setUI(matchList: MutableList<Match>) {

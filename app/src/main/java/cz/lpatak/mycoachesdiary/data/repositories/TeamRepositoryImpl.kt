@@ -13,42 +13,42 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class TeamRepositoryImpl(
-    firestoreSource: FirestoreSource
+        firestoreSource: FirestoreSource
 ) : TeamRepository {
 
     private val teamsPath = firestoreSource.firestore.collection(TeamsCOLLECTION)
 
 
     override suspend fun getTeams(): Result<List<Team>> =
-        suspendCoroutine { cont ->
-            val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
-            teamsPath.whereEqualTo(COLUMN_OWNER, currentUserUID)
-                .get()
-                .addOnSuccessListener {
-                    try {
-                        cont.resume(Result.Success(it.toObjects()))
-                    } catch (e: Exception) {
-                        cont.resume(Result.Error(e))
-                    }
-                }.addOnFailureListener {
-                    cont.resume(Result.Error(it))
-                }
-        }
+            suspendCoroutine { cont ->
+                val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
+                teamsPath.whereEqualTo(COLUMN_OWNER, currentUserUID)
+                        .get()
+                        .addOnSuccessListener {
+                            try {
+                                cont.resume(Result.Success(it.toObjects()))
+                            } catch (e: Exception) {
+                                cont.resume(Result.Error(e))
+                            }
+                        }.addOnFailureListener {
+                            cont.resume(Result.Error(it))
+                        }
+            }
 
     override fun addTeam(team: Team) {
         val data = hashMapOf(
-            COLUMN_NAME to team.name,
-            COLUMN_OWNER to FirebaseAuth.getInstance().currentUser!!.uid,
-            COLUMN_SEASON to team.season
+                COLUMN_NAME to team.name,
+                COLUMN_OWNER to FirebaseAuth.getInstance().currentUser!!.uid,
+                COLUMN_SEASON to team.season
         )
         teamsPath.add(data)
     }
 
     override fun updateTeam(team: Team) {
         val data = hashMapOf(
-            COLUMN_NAME to team.name,
-            COLUMN_OWNER to team.owner,
-            COLUMN_SEASON to team.season
+                COLUMN_NAME to team.name,
+                COLUMN_OWNER to team.owner,
+                COLUMN_SEASON to team.season
         )
         teamsPath.document(team.id.toString()).set(data)
     }

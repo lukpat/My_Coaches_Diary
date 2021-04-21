@@ -22,22 +22,22 @@ class TrainingDetailFragmentExercises : Fragment() {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_training_detail_exercises,
-            container,
-            false
+                inflater,
+                R.layout.fragment_training_detail_exercises,
+                container,
+                false
         )
 
         with(binding) {
             lifecycleOwner = this@TrainingDetailFragmentExercises
             fabAddExerciseToTraining.setOnClickListener {
                 val directions =
-                    TrainingDetailFragmentExercisesDirections.actionNavigationTrainingDetailExercisesToNavigationAddExerciseToTraining()
+                        TrainingDetailFragmentExercisesDirections.actionNavigationTrainingDetailExercisesToNavigationAddExerciseToTraining()
                 findNavController().navigate(directions)
             }
             exercisesList.adapter = adapter
@@ -77,8 +77,8 @@ class TrainingDetailFragmentExercises : Fragment() {
     fun updateExerciseTime(exercise: ExerciseInTraining) {
         val dialog = UpdateExerciseTimeDialog(exercise, this, false)
         dialog.show(
-            this.requireActivity().supportFragmentManager,
-            "update exercise time in training"
+                this.requireActivity().supportFragmentManager,
+                "update exercise time in training"
         )
         setUI()
     }

@@ -14,17 +14,17 @@ import cz.lpatak.mycoachesdiary.ui.trainings.AddExerciseToTrainingFragment
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 
 class ExerciseAdapter(
-    private val onClick: ((ExerciseItemBinding) -> Unit)? = null
+        private val onClick: ((ExerciseItemBinding) -> Unit)? = null
 ) : DataBoundListAdapter<Exercise, ExerciseItemBinding>(
-    diffCallback = object : DiffUtil.ItemCallback<Exercise>() {
-        override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
-            return oldItem.id == newItem.id
-        }
+        diffCallback = object : DiffUtil.ItemCallback<Exercise>() {
+            override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
+                return oldItem == newItem
+            }
         }
-    }
 ) {
     private lateinit var viewModel: TrainingsViewModel
 
@@ -34,9 +34,9 @@ class ExerciseAdapter(
 
     override fun createBinding(parent: ViewGroup): ExerciseItemBinding {
         return DataBindingUtil.inflate<ExerciseItemBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.exercise_item,
-            parent, false
+                LayoutInflater.from(parent.context),
+                R.layout.exercise_item,
+                parent, false
         ).apply {
             this.root.setOnClickListener {
                 this.exercise?.let { addExerciseToTraining(it, this.root) }

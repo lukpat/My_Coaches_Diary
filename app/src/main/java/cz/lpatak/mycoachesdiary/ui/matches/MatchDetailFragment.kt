@@ -3,15 +3,18 @@ package cz.lpatak.mycoachesdiary.ui.matches
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Match
 import cz.lpatak.mycoachesdiary.databinding.FragmentMatchDetailBinding
+import cz.lpatak.mycoachesdiary.ui.base.DeleteEditMenuBaseFragment
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchUIModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.StatsUIModel
@@ -21,7 +24,7 @@ import cz.lpatak.mycoachesdiary.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class MatchDetailFragment : Fragment() {
+class MatchDetailFragment : DeleteEditMenuBaseFragment() {
     private lateinit var binding: FragmentMatchDetailBinding
     private val args: MatchDetailFragmentArgs by navArgs()
     private val matchViewModel: MatchesViewModel by viewModel()
@@ -30,12 +33,12 @@ class MatchDetailFragment : Fragment() {
     private lateinit var matchFromArgs: Match
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_match_detail, container, false)
 
         matchFromArgs = args.match
 
@@ -44,27 +47,18 @@ class MatchDetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.save_delete_menu, menu)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                    .setMessage(R.string.delete_match_alert)
-                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                        matchViewModel.deleteMatch(args.match.id.toString())
-                        findNavController().navigateUp()
-                        hideKeyboard(requireActivity())
-                    })
-                    .setNegativeButton(R.string.no, null)
-                    .show()
+                        .setMessage(R.string.delete_match_alert)
+                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                            matchViewModel.deleteMatch(args.match.id.toString())
+                            findNavController().navigateUp()
+                            hideKeyboard(requireActivity())
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show()
             }
             R.id.save -> {
                 saveUpdates()
@@ -90,7 +84,7 @@ class MatchDetailFragment : Fragment() {
         statsUIModel.powerPlaysOpponent.value = matchFromArgs.powerPlaysOpponent.toString()
         statsUIModel.powerPlaysTeamSuccess.value = matchFromArgs.powerPlaysTeamSuccess.toString()
         statsUIModel.powerPlaysOpponentSuccess.value =
-            matchFromArgs.powerPlaysOpponentSuccess.toString()
+                matchFromArgs.powerPlaysOpponentSuccess.toString()
         statsUIModel.shotsTeam.value = matchFromArgs.shotsTeam.toString()
         statsUIModel.shotsOpponent.value = matchFromArgs.shotsOpponent.toString()
         statsUIModel.shotsToBlock.value = matchFromArgs.shotsToBlock.toString()
@@ -116,25 +110,25 @@ class MatchDetailFragment : Fragment() {
             }
 
             matchViewModel.updateMatch(
-                Match(
-                    matchFromArgs.id,
-                    matchFromArgs.team,
-                    matchUIModel.opponent.value.toString(),
-                    date,
-                    binding.helperMatchesLayout.type.selectedItem.toString(),
-                    matchUIModel.playingTime.value!!.toInt(),
-                    matchUIModel.note.value.toString(),
-                    statsUIModel.scoreTeam.value!!.toInt(),
-                    statsUIModel.scoreOpponent.value!!.toInt(),
-                    statsUIModel.powerPlaysTeam.value!!.toInt(),
-                    statsUIModel.powerPlaysOpponent.value!!.toInt(),
-                    statsUIModel.powerPlaysTeamSuccess.value!!.toInt(),
-                    statsUIModel.powerPlaysOpponentSuccess.value!!.toInt(),
-                    statsUIModel.shotsTeam.value!!.toInt(),
-                    statsUIModel.shotsOpponent.value!!.toInt(),
-                    statsUIModel.shotsToBlock.value!!.toInt(),
-                    statsUIModel.shotsOutside.value!!.toInt()
-                )
+                    Match(
+                            matchFromArgs.id,
+                            matchFromArgs.team,
+                            matchUIModel.opponent.value.toString(),
+                            date,
+                            binding.helperMatchesLayout.type.selectedItem.toString(),
+                            matchUIModel.playingTime.value!!.toInt(),
+                            matchUIModel.note.value.toString(),
+                            statsUIModel.scoreTeam.value!!.toInt(),
+                            statsUIModel.scoreOpponent.value!!.toInt(),
+                            statsUIModel.powerPlaysTeam.value!!.toInt(),
+                            statsUIModel.powerPlaysOpponent.value!!.toInt(),
+                            statsUIModel.powerPlaysTeamSuccess.value!!.toInt(),
+                            statsUIModel.powerPlaysOpponentSuccess.value!!.toInt(),
+                            statsUIModel.shotsTeam.value!!.toInt(),
+                            statsUIModel.shotsOpponent.value!!.toInt(),
+                            statsUIModel.shotsToBlock.value!!.toInt(),
+                            statsUIModel.shotsOutside.value!!.toInt()
+                    )
             )
 
             showToast(getString(R.string.changes_were_saved))

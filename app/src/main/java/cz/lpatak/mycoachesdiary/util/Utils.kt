@@ -17,13 +17,13 @@ fun Fragment.showToast(message: String) {
 
 fun hideKeyboard(activity: Activity) {
     val inputMethodManager =
-        activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     // Check if no view has focus
     val currentFocusedView = activity.currentFocus
     currentFocusedView?.let {
         inputMethodManager.hideSoftInputFromWindow(
-            currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS
+                currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS
         )
     }
 }

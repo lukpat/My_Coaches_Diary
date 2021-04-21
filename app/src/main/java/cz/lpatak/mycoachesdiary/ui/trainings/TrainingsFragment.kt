@@ -5,27 +5,27 @@ import android.os.Bundle
 import android.view.*
 import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Result
 import cz.lpatak.mycoachesdiary.databinding.FragmentTrainingsBinding
+import cz.lpatak.mycoachesdiary.ui.base.FilterMenuBaseFragment
 import cz.lpatak.mycoachesdiary.ui.trainings.util.TrainingsAdapter
 import cz.lpatak.mycoachesdiary.ui.trainings.viewmodel.TrainingsViewModel
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class TrainingsFragment : FilterMenuBaseFragment() {
     private val trainingsViewModel: TrainingsViewModel by viewModel()
     private lateinit var binding: FragmentTrainingsBinding
     private val adapter: TrainingsAdapter = TrainingsAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trainings, container, false)
         with(binding) {
@@ -33,7 +33,7 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             trainingsList.adapter = adapter
             fabAddTraining.setOnClickListener {
                 val directions =
-                    TrainingsFragmentDirections.actionNavigationTrainingsToNavigationAddTraining()
+                        TrainingsFragmentDirections.actionNavigationTrainingsToNavigationAddTraining()
                 findNavController().navigate(directions)
             }
             isTeamSelected = trainingsViewModel.isTeamSelected
@@ -52,16 +52,6 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     override fun onStart() {
         super.onStart()
         loadTrainings()
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.filter_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -86,12 +76,12 @@ class TrainingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun loadTrainingsWithFilter(dateFrom: Timestamp, dateTo: Timestamp) {
         trainingsViewModel.loadTrainingsWithFilter(dateFrom, dateTo)
-            .observe(viewLifecycleOwner, { result ->
-                binding.result = result
-                if (result is Result.Success) {
-                    adapter.submitList(result.data)
-                }
-            })
+                .observe(viewLifecycleOwner, { result ->
+                    binding.result = result
+                    if (result is Result.Success) {
+                        adapter.submitList(result.data)
+                    }
+                })
     }
 
     private fun applyFilter() {

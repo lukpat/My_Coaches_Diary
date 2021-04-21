@@ -23,9 +23,9 @@ class LoginFragment : Fragment() {
     private val authViewModel: AuthViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         with(binding) {
@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
 
     private fun navigateToResetPassword() {
         val directions =
-            LoginFragmentDirections.actionNavigationLoginToNavigationResetPassword()
+                LoginFragmentDirections.actionNavigationLoginToNavigationResetPassword()
         findNavController().navigate(directions)
     }
 
@@ -93,13 +93,13 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         if (authViewModel.loginDataCheck(
-                binding.etUsername.text.toString(),
-                binding.etPassword.text.toString()
-            )
+                        binding.etUsername.text.toString(),
+                        binding.etPassword.text.toString()
+                )
         ) {
             authViewModel.login(
-                binding.etUsername.text.toString(),
-                binding.etPassword.text.toString()
+                    binding.etUsername.text.toString(),
+                    binding.etPassword.text.toString()
             )
         }
 

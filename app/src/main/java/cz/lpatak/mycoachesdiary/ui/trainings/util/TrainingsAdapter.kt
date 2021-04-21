@@ -17,17 +17,17 @@ import cz.lpatak.mycoachesdiary.util.PreferenceManger
 
 
 class TrainingsAdapter(
-    private val onClick: ((Training) -> Unit)? = null
+        private val onClick: ((Training) -> Unit)? = null
 ) : DataBoundListAdapter<Training, TrainingItemBinding>(
-    diffCallback = object : DiffUtil.ItemCallback<Training>() {
-        override fun areItemsTheSame(oldItem: Training, newItem: Training): Boolean {
-            return oldItem.id == newItem.id
-        }
+        diffCallback = object : DiffUtil.ItemCallback<Training>() {
+            override fun areItemsTheSame(oldItem: Training, newItem: Training): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Training, newItem: Training): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Training, newItem: Training): Boolean {
+                return oldItem == newItem
+            }
         }
-    }
 ) {
     private lateinit var viewModel: TrainingsViewModel
     fun setViewModel(viewModel: TrainingsViewModel) {
@@ -41,9 +41,9 @@ class TrainingsAdapter(
 
     override fun createBinding(parent: ViewGroup): TrainingItemBinding {
         return DataBindingUtil.inflate<TrainingItemBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.training_item,
-            parent, false
+                LayoutInflater.from(parent.context),
+                R.layout.training_item,
+                parent, false
         ).apply {
             this.root.setOnClickListener {
                 this.training?.let { goToTrainingDetail(this.root, it) }
@@ -55,7 +55,7 @@ class TrainingsAdapter(
     override fun bind(binding: TrainingItemBinding, item: Training) {
         binding.training = item
         binding.trainingDateAndTime =
-            viewModel.convertDateToString(item.date!!) + " (" + item.startTime + "-" + item.endTime + ")"
+                viewModel.convertDateToString(item.date!!) + " (" + item.startTime + "-" + item.endTime + ")"
     }
 
     private fun goToTrainingDetail(view: View, training: Training) {
@@ -64,7 +64,7 @@ class TrainingsAdapter(
         }
 
         val directions =
-            TrainingsFragmentDirections.actionNavigationTrainingsToNavigationTrainigDetail(training)
+                TrainingsFragmentDirections.actionNavigationTrainingsToNavigationTrainigDetail(training)
         view.findNavController().navigate(directions)
     }
 

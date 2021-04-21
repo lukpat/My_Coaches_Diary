@@ -24,12 +24,12 @@ class ExerciseDetailFragment : Fragment() {
     private val exerciseUIModel: ExerciseUIModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_detail, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_detail, container, false)
         binding.exerciseModel = exerciseUIModel
 
         setExercise()
@@ -55,13 +55,13 @@ class ExerciseDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.delete -> {
                 AlertDialog.Builder(context)
-                    .setMessage(R.string.delete_exercise_alert)
-                    .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
-                        exercisesViewModel.deleteExercise(args.exercise.id.toString())
-                        findNavController().navigateUp()
-                    })
-                    .setNegativeButton(R.string.no, null)
-                    .show()
+                        .setMessage(R.string.delete_exercise_alert)
+                        .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                            exercisesViewModel.deleteExercise(args.exercise.id.toString())
+                            findNavController().navigateUp()
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show()
             }
         }
 

@@ -22,9 +22,9 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: FragmentStatsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false)
 
@@ -81,15 +81,15 @@ class StatsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 }
 
                 StatsFragmentDirections.actionNavigationStatsToNavigationMatchStats(
-                    binding.matchFilter.type.selectedItem.toString(),
-                    bool,
-                    dateFrom,
-                    dateTo
+                        binding.matchFilter.type.selectedItem.toString(),
+                        bool,
+                        dateFrom,
+                        dateTo
                 )
             } else {
                 StatsFragmentDirections.actionNavigationStatsToNavigationTrainingStats(
-                    dateFrom,
-                    dateTo
+                        dateFrom,
+                        dateTo
                 )
             }
             findNavController().navigate(directions)

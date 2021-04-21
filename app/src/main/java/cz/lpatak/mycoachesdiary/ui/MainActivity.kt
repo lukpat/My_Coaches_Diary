@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_trainings,
                 R.id.navigation_matches,
                 R.id.navigation_stats,
-                R.id.exerciseCategory,
+                R.id.navigation_exercise_library,
                 R.id.navigation_login,
                 R.id.navigation_register
         ))

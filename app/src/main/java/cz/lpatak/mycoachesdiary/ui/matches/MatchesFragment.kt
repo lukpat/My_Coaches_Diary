@@ -5,27 +5,27 @@ import android.os.Bundle
 import android.view.*
 import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import cz.lpatak.mycoachesdiary.R
 import cz.lpatak.mycoachesdiary.data.model.Result
 import cz.lpatak.mycoachesdiary.databinding.FragmentMatchesBinding
+import cz.lpatak.mycoachesdiary.ui.base.FilterMenuBaseFragment
 import cz.lpatak.mycoachesdiary.ui.matches.util.MatchesAdapter
 import cz.lpatak.mycoachesdiary.ui.matches.viewmodel.MatchesViewModel
 import cz.lpatak.mycoachesdiary.util.stringDateToTimestamp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class MatchesFragment : FilterMenuBaseFragment() {
     private val matchesViewModel: MatchesViewModel by viewModel()
     private lateinit var binding: FragmentMatchesBinding
     private val adapter: MatchesAdapter = MatchesAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_matches, container, false)
         with(binding) {
@@ -33,7 +33,7 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             matchesList.adapter = adapter
             fabAddMatch.setOnClickListener {
                 val directions =
-                    MatchesFragmentDirections.actionNavigationMatchesToNavigationAddMatch()
+                        MatchesFragmentDirections.actionNavigationMatchesToNavigationAddMatch()
                 findNavController().navigate(directions)
             }
             isTeamSelected = matchesViewModel.isTeamSelected
@@ -46,15 +46,6 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         adapter.setViewModel(matchesViewModel)
 
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.filter_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -82,18 +73,18 @@ class MatchesFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun loadMatchesWithFilter(
-        matchCategory: String,
-        all: Boolean,
-        dateFrom: Timestamp,
-        dateTo: Timestamp
+            matchCategory: String,
+            all: Boolean,
+            dateFrom: Timestamp,
+            dateTo: Timestamp
     ) {
         matchesViewModel.loadMatchesFilter(matchCategory, all, dateFrom, dateTo)
-            .observe(viewLifecycleOwner, { result ->
-                binding.result = result
-                if (result is Result.Success) {
-                    adapter.submitList(result.data)
-                }
-            })
+                .observe(viewLifecycleOwner, { result ->
+                    binding.result = result
+                    if (result is Result.Success) {
+                        adapter.submitList(result.data)
+                    }
+                })
     }
 
     private fun applyFilter() {

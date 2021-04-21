@@ -21,9 +21,9 @@ import kotlinx.coroutines.Dispatchers
 
 
 class TrainingsViewModel(
-    private val trainingsRepository: TrainingRepositoryImpl,
-    private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl,
-    private val preferenceManager: PreferenceManger
+        private val trainingsRepository: TrainingRepositoryImpl,
+        private val exerciseInTrainingRepository: ExerciseInTrainingRepositoryImpl,
+        private val preferenceManager: PreferenceManger
 ) : ViewModel() {
     val isTeamSelected = !preferenceManager.getStringValue(DBConstants.TEAM_ID_KEY).isNullOrEmpty()
 
@@ -40,8 +40,8 @@ class TrainingsViewModel(
     }
 
     fun loadTrainingsWithFilter(
-        dateFrom: Timestamp,
-        dateTo: Timestamp
+            dateFrom: Timestamp,
+            dateTo: Timestamp
     ): LiveData<Result<List<Training>>> = liveData(coroutineContext) {
         emit(Result.Loading)
 
@@ -69,15 +69,15 @@ class TrainingsViewModel(
     }
 
     fun loadExercisesInTraining(): LiveData<Result<List<ExerciseInTraining>>> =
-        liveData(coroutineContext) {
-            emit(Result.Loading)
+            liveData(coroutineContext) {
+                emit(Result.Loading)
 
-            val result = exerciseInTrainingRepository.getExercises()
+                val result = exerciseInTrainingRepository.getExercises()
 
-            if (result is Result.Success) {
-                emit(result)
+                if (result is Result.Success) {
+                    emit(result)
+                }
             }
-        }
 
     fun updateExerciseInTraining(exercise: ExerciseInTraining) {
         exerciseInTrainingRepository.updateExerciseInTraining(exercise)
@@ -92,8 +92,8 @@ class TrainingsViewModel(
     }
 
     fun addExerciseToTraining(
-        exercise: ExerciseInTraining,
-        fragment: AddExerciseToTrainingFragment
+            exercise: ExerciseInTraining,
+            fragment: AddExerciseToTrainingFragment
     ) {
         exerciseInTrainingRepository.getDocument(exercise.id.toString()).addOnSuccessListener {
             if (!it.exists()) {
